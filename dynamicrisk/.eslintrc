@@ -1,0 +1,20 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": ["plugin:next/recommended", "next"],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "semi": ["error", "never"],
+    "no-multi-spaces": ["error"],
+    "quotes": ["error", "single"],
+    "comma-dangle": ["error", "never"],
+    "linebreak-style": ["error", "windows"],
+    "no-unused-vars": "warn",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+  }
+}
