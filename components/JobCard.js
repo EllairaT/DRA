@@ -7,7 +7,7 @@ export default function JobCard() {
     <>
       <Container>
         <Row>
-          <h1>Job Title</h1>
+          <h1>Job Title lol</h1>
         </Row>
         <Input type="email" placeholder="richmond@gmail.com" />
       </Container>
