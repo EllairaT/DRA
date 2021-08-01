@@ -1,16 +1,10 @@
 import FormControl from 'react-bootstrap/FormControl'
 
-
 export default function Input(props) {
-    return (
-        <>
-            <FormControl
-                type={props.type}
-                placeholder={props.placeholder}
-                aria-label={props.label}
-                aria-describedby={props.label}>
-
-            </FormControl>
-
-        </>)
+  const { type, placeholder, arialabel, ariadescribe } = props
+  return (
+    <>
+      <FormControl type={type} placeholder={placeholder} aria-label={arialabel} aria-describedby={ariadescribe} />
+    </>
+  )
 }

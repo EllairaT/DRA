@@ -1,4 +1,4 @@
-import JobCard from "../components/JobCard"
+import JobCard from '../components/JobCard'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home() {
