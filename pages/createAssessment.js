@@ -1,6 +1,6 @@
-import Form from '../components/newJobForm'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import Form from '../components/newAssessmentForm'
 import Navi from '../components/Navi'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Container from 'react-bootstrap/Container'
 
 export default function New_job() {
