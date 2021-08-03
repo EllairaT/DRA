@@ -1,6 +1,6 @@
 import JobCard from '../components/JobCard'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import Navi from '../components/Navi'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home() {
   return (

@@ -2,7 +2,7 @@ import { Container, Row, Form, Col, Button } from 'react-bootstrap'
 import React, { useState } from 'react';
 import Input from './Input'
 
-export default function newDRAForm(props) {
+export default function NewDRAForm(props) {
 
   const [job, setJob] = useState({
     JobSite: "",
@@ -35,27 +35,33 @@ export default function newDRAForm(props) {
           <h2>Create new Assessment</h2>
         </Row>
         <Form>
-          <label>Job Site:</label>
+          <label>Job Site:
           <Input type="text" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
+          </label>
 
-          <label>Job Address:</label>
+          <label>Job Address:
           <Input type="text" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} />
+          </label>
 
-          <label>Job Site Description:</label>
+          <label>Job Site Description:
           <Input type="text" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} />
+          </label>
 
           <Row>
             <Col>
-              <label>Phone:</label>
+              <label>Phone:
               <Input type="tel" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
+              </label>
             </Col>
             <Col>
-              <label>Date:</label>
+              <label>Date:
               <Input type="date" name="Date" onChange={inputsHandler} />
+              </label>
             </Col>
             <Col>
-              <label>Time:</label>
+              <label>Time:
               <Input type="time" name="Time" onChange={inputsHandler} />
+              </label>
             </Col>
           </Row>
           <Button as="input" onClick={onSubmit} value="submit" />
