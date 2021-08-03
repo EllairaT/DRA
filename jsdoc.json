@@ -1,0 +1,28 @@
+{
+  "source": {
+    "include": ["pages", "components"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "systemName": "{string}",
+    "footer": "{string}",
+    "copyright": "{string}",
+    "includeDate": "{boolean}",
+    "navType": "vertical",
+    "theme": "flatly",
+    "linenums": "{boolean}",
+    "collapseSymbols": "{boolean}",
+    "inverseNav": "{boolean}",
+    "outputSourceFiles": "{boolean}",
+    "outputSourcePath": "{boolean}",
+    "dateFormat": "{string}",
+    "syntaxTheme": "{string}",
+    "sort": "{boolean|string}",
+    "search": "true"
+  },
+  "opts": {
+    "recurse": true
+  }
+}
