@@ -3,7 +3,7 @@ import Form from '../components/newAssessmentForm'
 import Navi from '../components/Navi'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default function New_job() {
+export default function newAssessment() {
   return (
     <>
 
