@@ -1,3 +1,4 @@
+import { Container, Row, Col } from 'react-bootstrap'
 import JobCard from '../components/JobCard'
 import Navi from '../components/Navi'
 

@@ -1,6 +1,7 @@
 import Nav from 'react-bootstrap/Nav'
 import NavCSS from './Navi.module.css'
 import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
+
 export default function Navi() {
   return (
     <>
