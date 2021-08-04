@@ -1,8 +1,7 @@
 .customnav {
   height: 100%;
-  width: 25%;
+  width: 5%;
   position: fixed;
-  z-index: 1;
   top: 0;
   left: 0;
   background-color: #232323;
@@ -14,8 +13,6 @@
   align-items: center;
 }
 
-.red {
-  font-size: 25px;
-
-  color: white;
+.icons {
+  color: #f0f0f0;
 }
