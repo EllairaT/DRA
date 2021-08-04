@@ -3,8 +3,8 @@ import '../styles/globals.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import Navi from '../components/Navi'
 
-//_app.js lets us keep a persistent layout
-// component is the currently active page.
+// _app.js lets us keep a persistent layout
+// component is the current page being served.
 export default function CustomApp({ Component, pageProps }) {
   return (
     <Container>

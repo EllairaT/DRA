@@ -1,9 +1,9 @@
 import { Mongoose } from 'mongoose'
 
-var mongoose = Mongoose
-var Schema = mongoose.Schema
+const mongoose = Mongoose
+const {Schema} = mongoose
 
-var JobSchema = new Schema({
+const JobSchema = new Schema({
   date: Date,
   site: String
 })
