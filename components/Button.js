@@ -1,5 +1,5 @@
 function Button(props) {
-    console.log("hello")
+    console.log('hello')
 }
 
 export default Button
