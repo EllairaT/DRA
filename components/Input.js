@@ -1,9 +1,11 @@
+/** @module App */
 import FormControl from 'react-bootstrap/FormControl'
 
 /**
- * Input field that takes any amount of props. 
+ * Generic input field for entering information
  * @component 
- * @param {*} props - Array of props (strings, ints, etc)
+ * @param {object} props - Array of props (strings, ints, etc)
+ * @property {String} type - type of input (i.e. email, password, number, etc)
  * @returns {FormControl}
  */
 function Input(props) {
