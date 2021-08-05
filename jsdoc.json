@@ -1,28 +1,30 @@
 {
   "source": {
-    "include": ["pages", "components"],
+    "include": [
+      "pages",
+      "components"
+    ],
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs)"
   },
-  "plugins": ["plugins/markdown"],
   "templates": {
-    "systemName": "{string}",
-    "footer": "{string}",
-    "copyright": "{string}",
-    "includeDate": "{boolean}",
-    "navType": "vertical",
-    "theme": "flatly",
-    "linenums": "{boolean}",
-    "collapseSymbols": "{boolean}",
-    "inverseNav": "{boolean}",
-    "outputSourceFiles": "{boolean}",
-    "outputSourcePath": "{boolean}",
-    "dateFormat": "{string}",
-    "syntaxTheme": "{string}",
-    "sort": "{boolean|string}",
-    "search": "true"
+    "cleverLinks": true,
+    "monospaceLinks": true
   },
+  "tags": {
+    "allowUnknownTags": [
+      "component",
+      "category"
+    ]
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/better-docs/component",
+    "node_modules/better-docs/category"
+  ],
   "opts": {
-    "recurse": true
+    "recurse": true,
+    "destination": "./docs/",
+    "template": "node_modules/better-docs"
   }
 }

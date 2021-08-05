@@ -3,9 +3,12 @@ import '../styles/globals.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import Navi from '../components/Navi'
 
-// _app.js lets us keep a persistent layout
-// component is the current page being served.
-export default function CustomApp({ Component, pageProps }) {
+/**
+ * Navigation, and any headers or footers should be put in here for consistency
+ * across pages.
+ * @Category Others
+ */
+function CustomApp({ Component, pageProps }) {
   return (
     <Container>
       <Row>
@@ -21,3 +24,5 @@ export default function CustomApp({ Component, pageProps }) {
     </Container>
   )
 }
+
+export default CustomApp

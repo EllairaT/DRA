@@ -1,8 +1,16 @@
+import { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
 import NavCSS from './Navi.module.css'
 
-export default function Navi() {
+/**
+ * Navigation menu.
+ * Uses custom css module. 
+ * Bootstrap icons are of size 30.
+ * @component
+ * @returns {Component} 
+ */
+function Navi() {
   return (
     <>
       <Nav className={NavCSS.customnav}>
@@ -20,3 +28,5 @@ export default function Navi() {
     </>
   )
 }
+
+export default Navi

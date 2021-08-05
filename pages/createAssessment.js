@@ -2,8 +2,11 @@ import Container from 'react-bootstrap/Container'
 import Form from '../components/newAssessmentForm'
 import Navi from '../components/Navi'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-export default function newAssessment() {
+/**
+ * Page for creating new assessments
+ * @Category Pages
+ */
+function NewAssessment() {
   return (
     <>
 
@@ -16,3 +19,4 @@ export default function newAssessment() {
     </>
   )
 }
+export default NewAssessment

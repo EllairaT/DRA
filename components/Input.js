@@ -1,6 +1,12 @@
 import FormControl from 'react-bootstrap/FormControl'
 
-export default function Input(props) {
+/**
+ * Input field that takes any amount of props. 
+ * @component 
+ * @param {*} props - Array of props (strings, ints, etc)
+ * @returns {FormControl}
+ */
+function Input(props) {
   const { type, placeholder, arialabel, ariadescribe, onChange, name } = props
   return (
     <>
@@ -8,3 +14,5 @@ export default function Input(props) {
     </>
   )
 }
+
+export default Input

@@ -2,7 +2,7 @@ import { Container, Row, Form, Col, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from './Input'
 
-export default function NewDRAForm(props) {
+function NewDRAForm(props) {
   const [job, setJob] = useState({
     JobSite: '',
     JobAddress: '',
@@ -60,3 +60,4 @@ export default function NewDRAForm(props) {
     </>
   )
 }
+export default NewDRAForm
