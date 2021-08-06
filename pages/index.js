@@ -10,7 +10,6 @@ function Home() {
   return (
     <>
       <h1>Dynamic Risk Assessment </h1>
-      <Navi />
       <JobCard />
     </>
   )

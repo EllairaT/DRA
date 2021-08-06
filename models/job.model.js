@@ -10,8 +10,8 @@ const { Schema, Model } = mongoose
  * model for job
  * @typedef {object} jobSchema
  * @property {Date} date - the date of job
- * @property {Timestamp} date - the start time of the job
- * @property {Timestamp} date - the end time of the job
+ * @property {Timestamp} timeStart - the start time of the job
+ * @property {Timestamp} timeEnd - the end time of the job
  * @property {String} site - name of site being visited
  * @property {String} siteAddress - address of the site
  * @property {String} phone - phone number of the site
@@ -19,7 +19,7 @@ const { Schema, Model } = mongoose
  * @property {String} notes - additional notes
  * @property {Array<String>} siteTags - keywords related to site address/site type
  * 
-  */
+*/
 const jobSchema = new Schema({
   date: Date,
   timeStart: Timestamp,
@@ -31,6 +31,7 @@ const jobSchema = new Schema({
   inspector: String,
   notes: String,
   siteTags: [String],
+  assessments: [],
   createdAt: {
     type: Date,
     default: new Date()
