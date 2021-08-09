@@ -1,10 +1,10 @@
 /** @module Models */
 import { Timestamp } from 'mongodb'
 import { Mongoose } from 'mongoose'
+import Assessment from './assessment.model'
 
 const mongoose = Mongoose
 const { Schema, Model } = mongoose
-
 
 /**   
  * model for job
@@ -31,7 +31,7 @@ const jobSchema = new Schema({
   inspector: String,
   notes: String,
   siteTags: [String],
-  assessments: [],
+  assessments: [Assessment],
   createdAt: {
     type: Date,
     default: new Date()
@@ -44,5 +44,6 @@ const jobSchema = new Schema({
  * @Category Models
  */
 const Job = new Model('Job', jobSchema)
+
 
 export default Job
