@@ -2,7 +2,8 @@
   "source": {
     "include": [
       "pages",
-      "components"
+      "components",
+      "models"
     ],
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs)"
