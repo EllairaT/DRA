@@ -1,17 +1,13 @@
 /** @module Models */
-import { Timestamp } from 'mongodb'
-import { Mongoose } from 'mongoose'
+import mongoose from 'mongoose'
 
-const mongoose = Mongoose
-const { Schema, Model } = mongoose
+const { Schema } = mongoose
 
 const assessmentSchema = new Schema({
-    siteName: String,
-    time: Timestamp,
-    videoUrl: URL
+    siteName: String
 })
 
 
-const assessmentModel = new Model('Assessment', assessmentSchema)
+const assessmentModel = mongoose.model('Assessment', assessmentSchema)
 
 export default assessmentModel

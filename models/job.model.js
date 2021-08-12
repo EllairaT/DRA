@@ -1,11 +1,7 @@
 /** @module Models */
-import { Timestamp } from 'mongodb'
-import Assessment from './assessment.model'
+import mongoose from 'mongoose'
 
-const mongoose = require('mongoose')
-
-const { Schema } = mongoose.Schema
-const { Model } = mongoose.Model
+const { Schema } = mongoose
 
 
 /**   
@@ -24,8 +20,6 @@ const { Model } = mongoose.Model
 */
 const jobSchema = new Schema({
   date: Date,
-  timeStart: Timestamp,
-  timeEnd: Timestamp,
   site: String,
   siteAddress: String,
   siteType: String,
@@ -33,7 +27,7 @@ const jobSchema = new Schema({
   inspector: String,
   notes: String,
   siteTags: [String],
-  assessments: [Assessment],
+  assessments: [String],
   createdAt: {
     type: Date,
     default: new Date()
@@ -45,7 +39,7 @@ const jobSchema = new Schema({
  * See {@link jobSchema}
  * @Category Models
  */
-const Job = new Model('Job', jobSchema)
+const Job = mongoose.model('Job', jobSchema)
 
 
 export default Job
