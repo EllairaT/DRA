@@ -1,5 +1,6 @@
 /** @module App */
 import FormControl from 'react-bootstrap/FormControl'
+import Form from 'react-bootstrap/Form'
 
 /**
  * Generic input field for entering information
@@ -9,10 +10,11 @@ import FormControl from 'react-bootstrap/FormControl'
  * @returns {FormControl}
  */
 function Input(props) {
-  const { type, placeholder, arialabel, ariadescribe, onChange, name } = props
+  const { type, label, placeholder, arialabel, ariadescribe, onChange, name } = props
   return (
     <>
-      <FormControl type={type} placeholder={placeholder} aria-label={arialabel} aria-describedby={ariadescribe} onChange={onChange} name={name} />
+      <Form.Label>{label}</Form.Label>
+      <Form.Control className="" type={type} placeholder={placeholder} aria-label={arialabel} aria-describedby={ariadescribe} onChange={onChange} name={name} />
     </>
   )
 }

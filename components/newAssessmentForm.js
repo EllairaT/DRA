@@ -34,27 +34,24 @@ function NewDRAForm(props) {
           <h2>Create new Assessment</h2>
         </Row>
         <Form>
-          Job Site:
-          <Input type="text" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
-          Job Address:
-          <Input type="text" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} />
-          Job Site Description:
-          <Input type="text" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} />
-          <Row>
-            <Col>
-              Phone:
-              <Input type="tel" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
-            </Col>
-            <Col>
-              Date:
-              <Input type="date" name="Date" onChange={inputsHandler} />
-            </Col>
-            <Col>
-              Time:
-              <Input type="time" name="Time" onChange={inputsHandler} />
-            </Col>
-          </Row>
-          <Button as="input" onClick={onSubmit} value="submit" />
+          <Form.Group className="mb-3" controlId="formSiteDetails">
+            <Input type="text" label="Job Site:" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
+            <Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} />
+            <Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} />
+
+            <Row>
+              <Col>
+                <Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
+              </Col>
+              <Col>
+                <Input label="Date:" type="date" name="Date" onChange={inputsHandler} />
+              </Col>
+              <Col>
+                <Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
+              </Col>
+            </Row>
+            <Button as="input" onClick={onSubmit} value="submit" />
+          </Form.Group>
         </Form>
       </Container>
     </>

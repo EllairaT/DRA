@@ -1,7 +1,4 @@
 import mongoose from 'mongoose'
-import dotenv from 'dotenv'
-
-dotenv.config({ path: '../.env' })
 
 const connectDB = async () => {
   try {
@@ -13,5 +10,4 @@ const connectDB = async () => {
   }
 }
 
-mongoose.set('useFindAndModify', false)
 export default connectDB
