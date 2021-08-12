@@ -1,10 +1,12 @@
 /** @module Models */
 import { Timestamp } from 'mongodb'
-import { Mongoose } from 'mongoose'
 import Assessment from './assessment.model'
 
-const mongoose = Mongoose
-const { Schema, Model } = mongoose
+const mongoose = require('mongoose')
+
+const { Schema } = mongoose.Schema
+const { Model } = mongoose.Model
+
 
 /**   
  * model for job
