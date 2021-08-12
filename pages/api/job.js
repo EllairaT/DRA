@@ -1,31 +1,33 @@
 import dbConnect from '../../utils/dbConnect'
 import Job from '../../models/job.model'
 
-dbConnect();
+dbConnect()
 
-export default async (req, res) => {
-    const { method } = req;
+const jobReqs = async (req, res) => {
+    const { method } = req
 
     switch (method) {
         case 'GET':
             try {
-                const notes = await Job.find({});
-                res.status(200).json({ success: true, data: jobs });
+                const notes = await Job.find({})
+                res.status(200).json({ success: true, data: notes })
             } catch (error) {
-                res.status(400).json({ success: false });
+                res.status(400).json({ success: false })
             }
-            break;
+            break
 
         case 'POST':
             try {
-                const job = await Job.create(req.body);
-                res.status(200).json({ success: true, data: job });
+                const job = await Job.create(req.body)
+                res.status(200).json({ success: true, data: job })
             } catch (error) {
-                res.status(400).json({ success: false });
+                res.status(400).json({ success: false })
             }
-            break;
+            break
         default:
-            res.status(400).json({ success: false });
-            break;
+            res.status(400).json({ success: false })
+            break
     }
 }
+
+export default jobReqs
