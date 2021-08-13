@@ -1,7 +1,8 @@
 /** @module Models */
-import mongoose from 'mongoose'
 
+const mongoose = require('mongoose');
 const { Schema } = mongoose
+mongoose.Promise = global.Promise;
 
 
 /**   
@@ -39,7 +40,5 @@ const jobSchema = new Schema({
  * See {@link jobSchema}
  * @Category Models
  */
-const Job = mongoose.model('Job', jobSchema)
 
-
-export default Job
+module.exports = mongoose.models.Job || mongoose.model('Job', jobSchema);
