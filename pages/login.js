@@ -1,4 +1,4 @@
-import { Row, Col, Card, Form } from 'react-bootstrap'
+import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Input from '../components/Input'
@@ -11,8 +11,9 @@ function Login() {
     userPassword: ''
   })
 
-  const onSubmit = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault()
+    console.log(details.userName, details.userPassword)
   }
 
   const inputHandler = (e) => {
@@ -30,7 +31,7 @@ function Login() {
             <Image src={logoimg} alt="Main Image" />
           </Card>
           <Card className={login.right}>
-            <div class="my-auto mx-md-5 px-md-5 right">
+            <div className="my-auto mx-md-5 px-md-5 right">
               <Form>
                 <div className="h5">Login to your account</div>
                 <Form.Group controlId="loginDetails">
@@ -49,6 +50,8 @@ function Login() {
                     onChange={inputHandler}
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
+                  <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
+                  {''}
                 </Form.Group>
               </Form>
             </div>
