@@ -1,3 +1,7 @@
-.customImg {
-  object-fit: contain;
+.left {
+  width: 50%;
+}
+
+.right {
+  width: 50%;
 }
