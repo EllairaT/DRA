@@ -1,3 +1,4 @@
+import connectToDatabase from '../lib/dbConnect'
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Image from 'next/image'
@@ -48,6 +49,7 @@ function Login() {
                     name="userPassword"
                     placeholder="Enter password"
                     onChange={inputHandler}
+                    required
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />

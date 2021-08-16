@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap'
-import connectDB from '../utils/dbConnect'
+import connectToDatabase from '../lib/dbConnect'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 import Navi from '../components/Navi'
@@ -26,7 +26,7 @@ function CustomApp({ Component, pageProps }) {
   //     </Row>
   //   </Container>
   // )
-  connectDB()
+
   return (
     <>
       <Login />
