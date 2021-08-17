@@ -1,13 +1,13 @@
 import dbConnect from '../../../utils/dbConnect'
 import Job from '../../../models/job.model'
 
-dbConnect();
+dbConnect()
 
 const jobReqs = async (req, res) => {
     const {
         query: { id },
         method
-    } = req;
+    } = req
 
     // All run to give the false output
 
@@ -16,19 +16,21 @@ const jobReqs = async (req, res) => {
             // Search by ID
             // can be change later depending on what we want to search
             try {
-                const job = await Job.findById(id);
+                const job = await Job.findById(id)
 
                 // Check if job exist
-                if (!job) {
-                    return res.status(400).json({ success: false });
-                }
+                if (!job) 
+                {
+                    res.status(400).json({ success: false })
+                } 
 
-                res.status(200).json({ success: true, data: job });
+                res.status(200).json({ success: true, data: job })
+                
 
             } catch (error) {
-                res.status(400).json({ success: false });
+                res.status(400).json({ success: false })
             }
-            break;
+            break
 
         case 'PUT':
             // Update Job by ID
@@ -36,21 +38,22 @@ const jobReqs = async (req, res) => {
                 const job = await Job.findByIdAndUpdate(id, req.body, {
                     new: true,
                     runValidators: true
-                });
+                })
 
                 if (!job) {
-                    return res.status(400).json({ success: false });
-                }
-
-                res.status(200).json({ success: true, data: job });
+                    res.status(400).json({ success: false })
+                } 
+                
+                res.status(200).json({ success: true, data: job })
+                
 
             } catch (error) {
-                res.status(400).json({ success: false });
+                res.status(400).json({ success: false })
             }
-            break;
+            break
         default:
-            res.status(400).json({ success: false });
-            break;
+            res.status(400).json({ success: false })
+            break
     }
 }
 
