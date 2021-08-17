@@ -1,4 +1,4 @@
-import dbConnect from '../../../utils/dbConnect'
+import dbConnect from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
 
 dbConnect()

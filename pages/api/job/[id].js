@@ -1,4 +1,4 @@
-import dbConnect from '../../../utils/dbConnect'
+import dbConnect from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
 
 dbConnect()
@@ -43,7 +43,7 @@ const jobReqs = async (req, res) => {
                 if (!job) {
                     res.status(400).json({ success: false })
                 } 
-                
+
                 res.status(200).json({ success: true, data: job })
                 
 
