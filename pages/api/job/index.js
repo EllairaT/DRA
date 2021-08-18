@@ -1,7 +1,7 @@
-import dbConnect from '../../../lib/dbConnect'
+import connectToDatabase from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
 
-dbConnect()
+connectToDatabase()
 
 const jobReqs = async (req, res) => {
     const { method } = req

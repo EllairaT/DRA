@@ -1,13 +1,15 @@
-import dbConnect from '../../../lib/dbConnect'
+import connectToDatabase from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
 
-dbConnect()
+connectToDatabase()
 
 const jobReqs = async (req, res) => {
     const {
         query: { id },
         method
     } = req
+
+    // testing url http://localhost:3000/api/job/(id)
 
     // All run to give the false output
 
