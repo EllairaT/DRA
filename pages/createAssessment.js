@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container'
 import Form from '../components/newAssessmentForm'
 import Navi from '../components/Navi'
-import Example from '../components/Promt'
+import Example from '../components/Prompt'
 import 'bootstrap/dist/css/bootstrap.min.css'
 /**
  * Page for creating new assessments
