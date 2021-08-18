@@ -22,7 +22,6 @@ const jobReqs = async (req, res) => {
     //     "createdAt": "2019-01-01"
     // }
 
-
     switch (method) {
         case 'GET':
             try {
