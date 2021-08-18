@@ -12,26 +12,26 @@ import '../styles/login.css'
  * @Category Others
  */
 function CustomApp({ Component, pageProps }) {
-  // return (
-  //   <Container>
-  //     <Row>
-  //       {/* sidebar */}
-  //       <Col xs={2}>
-  //         <Navi />
-  //       </Col>
-  //       {/* rest of content */}
-  //       <Col>
-  //         <Component />
-  //       </Col>
-  //     </Row>
-  //   </Container>
-  // )
+   return (
+     <Container>
+       <Row>
+        {/* sidebar */}
+         <Col xs={2}>
+           <Navi />
+         </Col>
+         {/* rest of content */}
+         <Col>
+           <Component />
+         </Col>
+       </Row>
+     </Container>
+   )
 
-  return (
+  /*return (
     <>
       <Login />
     </>
-  )
+  )*/
 }
 
 export default CustomApp
