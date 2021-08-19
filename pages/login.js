@@ -1,7 +1,7 @@
-import connectToDatabase from '../lib/dbConnect'
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Image from 'next/image'
+import connectToDatabase from '../lib/dbConnect'
 import Input from '../components/Input'
 import logoimg from '../1.png'
 import login from './login.module.css'
@@ -53,7 +53,7 @@ function Login() {
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
-                  {''}
+                  
                 </Form.Group>
               </Form>
             </div>
