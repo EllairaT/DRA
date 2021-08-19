@@ -4,17 +4,13 @@ const mongoose = Mongoose
 const { Schema, Model } = mongoose
 
 const userSchema = new Schema({
-  username: {
+  name: {
     type: String,
-    required: [true, "can't be blank"],
-    match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
-    index: true //index set to true to optimise queries that use username and password fields
+    required: true
   },
   email: {
     type: String,
-    required: [true, "can't be blank"],
-    match: [/\S+@\S+\.\S+/, 'is invalid'],
-    index: true
+    required: true
   },
   password: {
     type: String,
@@ -23,9 +19,7 @@ const userSchema = new Schema({
   since: {
     type: Date,
     default: Date.now
-  },
-  hash: String,
-  salt: String
+  }
 })
 
 const User = new Model('User', userSchema)
