@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form'
  * @property {String} type - type of input (i.e. email, password, number, etc)
  * @returns {FormControl}
  */
-function Input(props) {
+export default function Input(props) {
   const { type, label, placeholder, arialabel, ariadescribe, onChange, name } = props
   return (
     <>

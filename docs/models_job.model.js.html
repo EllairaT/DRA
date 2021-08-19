@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App.html">App</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
                 
             </nav>
         </div>
@@ -88,17 +88,17 @@
             <pre class="prettyprint source linenums"><code>/** @module Models */
 import { Timestamp } from 'mongodb'
 import { Mongoose } from 'mongoose'
+import Assessment from './assessment.model'
 
 const mongoose = Mongoose
 const { Schema, Model } = mongoose
-
 
 /**   
  * model for job
  * @typedef {object} jobSchema
  * @property {Date} date - the date of job
- * @property {Timestamp} date - the start time of the job
- * @property {Timestamp} date - the end time of the job
+ * @property {Timestamp} timeStart - the start time of the job
+ * @property {Timestamp} timeEnd - the end time of the job
  * @property {String} site - name of site being visited
  * @property {String} siteAddress - address of the site
  * @property {String} phone - phone number of the site
@@ -106,7 +106,7 @@ const { Schema, Model } = mongoose
  * @property {String} notes - additional notes
  * @property {Array&lt;String>} siteTags - keywords related to site address/site type
  * 
-  */
+*/
 const jobSchema = new Schema({
   date: Date,
   timeStart: Timestamp,
@@ -118,6 +118,7 @@ const jobSchema = new Schema({
   inspector: String,
   notes: String,
   siteTags: [String],
+  assessments: [Assessment],
   createdAt: {
     type: Date,
     default: new Date()
@@ -130,6 +131,7 @@ const jobSchema = new Schema({
  * @Category Models
  */
 const Job = new Model('Job', jobSchema)
+
 
 export default Job</code></pre>
         </article>

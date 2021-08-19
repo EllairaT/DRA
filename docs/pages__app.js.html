@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App.html">App</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
                 
             </nav>
         </div>
@@ -85,10 +85,13 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import 'bootstrap/dist/css/bootstrap.min.css'
+            <pre class="prettyprint source linenums"><code>import { Container, Row, Col } from 'react-bootstrap'
+import connectToDatabase from '../lib/dbConnect'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
-import { Container, Row, Col } from 'react-bootstrap'
 import Navi from '../components/Navi'
+import Login from './login'
+import '../styles/login.css'
 
 /**
  * Navigation, and any headers or footers should be put in here for consistency
@@ -96,19 +99,25 @@ import Navi from '../components/Navi'
  * @Category Others
  */
 function CustomApp({ Component, pageProps }) {
+  // return (
+  //   &lt;Container>
+  //     &lt;Row>
+  //       {/* sidebar */}
+  //       &lt;Col xs={2}>
+  //         &lt;Navi />
+  //       &lt;/Col>
+  //       {/* rest of content */}
+  //       &lt;Col>
+  //         &lt;Component />
+  //       &lt;/Col>
+  //     &lt;/Row>
+  //   &lt;/Container>
+  // )
+
   return (
-    &lt;Container>
-      &lt;Row>
-        {/* sidebar */}
-        &lt;Col xs={2}>
-          &lt;Navi />
-        &lt;/Col>
-        {/* rest of content */}
-        &lt;Col>
-          &lt;Component />
-        &lt;/Col>
-      &lt;/Row>
-    &lt;/Container>
+    &lt;>
+      &lt;Login />
+    &lt;/>
   )
 }
 
