@@ -1,7 +1,7 @@
-// import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
-// import Navi from '../components/Navi'
+import Navi from '../components/Navi'
 import Login from './login'
 import '../styles/login.css'
 
@@ -11,25 +11,20 @@ import '../styles/login.css'
  * @Category Others
  */
 function CustomApp({ Component, pageProps }) {
-  // return (
-  //   <Container>
-  //     <Row>
-  //       {/* sidebar */}
-  //       <Col xs={2}>
-  //         <Navi />
-  //       </Col>
-  //       {/* rest of content */}
-  //       <Col>
-  //         <Component />
-  //       </Col>
-  //     </Row>
-  //   </Container>
-  // )
-  return (
-    <>
-      <Login />
-    </>
-  )
+   return (
+     <Container>
+       <Row>
+         {/* sidebar */}
+         <Col xs={2}>
+           <Navi />
+         </Col>
+         {/* rest of content */}
+         <Col>
+           <Component />
+       </Col>
+       </Row>
+     </Container>
+   )
 }
 
 export default CustomApp
