@@ -1,6 +1,6 @@
 .customnav {
   height: 100%;
-  width: 5%;
+  max-width: 100px;
   position: fixed;
   top: 0;
   left: 0;

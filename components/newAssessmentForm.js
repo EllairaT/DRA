@@ -1,6 +1,7 @@
 import { Container, Row, Form, Col, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from './Input'
+import AssessmentCSS from './Assessment.module.css'
 
 function NewDRAForm(props) {
   const [job, setJob] = useState({
@@ -30,17 +31,20 @@ function NewDRAForm(props) {
   return (
     <>
       <Container>
-        <Row>
+        <Row  className = {AssessmentCSS.header}>
           <h2>Create new Assessment</h2>
         </Row>
-        <Form>
+        <Form className = {AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
-            <Input type="text" label="Job Site:" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
-            <Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} />
-            <Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} />
+          <Row className = {AssessmentCSS.row}>
+            <Input className = {AssessmentCSS.row} type="text" label="Job Site:" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
+          </Row>
+            {/* <Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} /> */}
+            {/* <Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} /> */}
 
-            <Row>
-              <Col>
+            <Row className = {AssessmentCSS.row}>
+              <Input  className = {AssessmentCSS.textArea} type ="notes" label = "Notes" placeholder = "What have you noticed..." name = "Notes" onChange={inputsHandler}/>
+              {/* <Col> 
                 <Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
               </Col>
               <Col>
@@ -48,7 +52,7 @@ function NewDRAForm(props) {
               </Col>
               <Col>
                 <Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
-              </Col>
+              </Col>*/}
             </Row>
             <Button as="input" onClick={onSubmit} value="submit" />
           </Form.Group>
