@@ -1,12 +1,14 @@
 import { connectToDatabase } from '../../../lib/dbConnect'
 import User from '../../../models/users.model'
 import { loginValidation } from './validation'
+
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+
 connectToDatabase()
 
 export default async function handler(req, res) {
   //validate
-
   const { error } = loginValidation(req.body)
   if (error) {
     return res.status(400).send(error.details[0].message)
@@ -25,5 +27,7 @@ export default async function handler(req, res) {
     return res.status(400).send('Email or password is incorrect')
   }
 
-  res.send(user)
+  //create and assign token to user
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
+  res.setHeader('auth-token', token).send(token)
 }
