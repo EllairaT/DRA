@@ -1,6 +1,8 @@
 import { Container, Row, Form, Col, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from './Input'
+import logoimg from '../saveImage.jpg'
+import Image from 'next/image'
 import AssessmentCSS from './Assessment.module.css'
 
 function NewDRAForm(props) {
@@ -36,14 +38,16 @@ function NewDRAForm(props) {
         </Row>
         <Form className = {AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
+            <Row>
+          <Col>
           <Row className = {AssessmentCSS.row}>
-            <Input className = {AssessmentCSS.row} type="text" label="Job Site:" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
+            <Input type="text" label="Job Site:" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
           </Row>
             {/* <Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} /> */}
             {/* <Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} /> */}
 
-            <Row className = {AssessmentCSS.row}>
-              <Input  className = {AssessmentCSS.textArea} type ="notes" label = "Notes" placeholder = "What have you noticed..." name = "Notes" onChange={inputsHandler}/>
+            <Row className = {AssessmentCSS.textArea}>
+              <Input  type ="notes" label = "Notes" placeholder = "What have you noticed..." name = "Notes" onChange={inputsHandler}/>
               {/* <Col> 
                 <Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
               </Col>
@@ -53,6 +57,11 @@ function NewDRAForm(props) {
               <Col>
                 <Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
               </Col>*/}
+            </Row>
+            </Col>
+            <Col>
+              <Image src = {logoimg} size ={10}/>
+            </Col>
             </Row>
             <Button as="input" onClick={onSubmit} value="submit" />
           </Form.Group>
