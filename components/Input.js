@@ -19,7 +19,8 @@ function Input(props) {
         type={type}
         placeholder={placeholder}
         aria-label={arialabel}
-        aria-describedby={ariadescribe}
+        aria-describe
+        dby={ariadescribe}
         onChange={onChange}
         name={name}
       />
