@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Image from 'next/image'
+import Prompt from '../components/Prompt'
 import AssessmentCSS from './Assessment.module.css'
 
 function NewDRAForm(props) {
@@ -63,7 +64,8 @@ function NewDRAForm(props) {
               <Image src = {logoimg} size ={10}/>
             </Col>
             </Row>
-            <Button as="input" onClick={onSubmit} value="submit" />
+            <Button className = {AssessmentCSS.button} as="input" onClick={onSubmit} value="submit" />
+            <Prompt />
           </Form.Group>
         </Form>
       </Container>
