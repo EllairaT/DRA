@@ -2,7 +2,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import JobCard from '../components/JobCard'
 import Navi from '../components/Navi'
 import Login from './login'
-import { connectToDatabase } from '../lib/dbConnect'
+
 /**
  * Entry point of the app.
  * @Category Pages

@@ -1,12 +1,11 @@
 /** @module Models */
-import { Timestamp } from 'mongodb'
-import { Mongoose } from 'mongoose'
-import Assessment from './assessment.model'
 
-const mongoose = Mongoose
-const { Schema, Model } = mongoose
+const mongoose = require('mongoose')
 
-/**   
+const { Schema } = mongoose
+mongoose.Promise = global.Promise
+
+/**
  * model for job
  * @typedef {object} jobSchema
  * @property {Date} date - the date of job
@@ -18,12 +17,10 @@ const { Schema, Model } = mongoose
  * @property {String} inspector - name of inspector on the job
  * @property {String} notes - additional notes
  * @property {Array<String>} siteTags - keywords related to site address/site type
- * 
-*/
+ *
+ */
 const jobSchema = new Schema({
   date: Date,
-  timeStart: Timestamp,
-  timeEnd: Timestamp,
   site: String,
   siteAddress: String,
   siteType: String,
@@ -31,7 +28,7 @@ const jobSchema = new Schema({
   inspector: String,
   notes: String,
   siteTags: [String],
-  assessments: [Assessment],
+  assessments: [String],
   createdAt: {
     type: Date,
     default: new Date()
@@ -43,7 +40,5 @@ const jobSchema = new Schema({
  * See {@link jobSchema}
  * @Category Models
  */
-const Job = new Model('Job', jobSchema)
 
-
-export default Job
+module.exports = mongoose.models.Job || mongoose.model('Job', jobSchema)
