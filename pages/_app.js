@@ -1,7 +1,7 @@
-// import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
-// import Navi from '../components/Navi'
+import Navi from '../components/Navi'
 import Login from './login'
 import '../styles/login.css'
 
