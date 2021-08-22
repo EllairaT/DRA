@@ -4,13 +4,12 @@ import JobCard from '../components/JobCard'
 import Navi from '../components/Navi'
 import Login from './login'
 
-// isomorphic-unfetch allows https request to be made
-
 /**
  * Entry point of the app.
  * @Category Pages
  */
-function Home({ jobs }) {
+
+export default function Home({ jobs }) {
   return (
     <>
       <h1>Dynamic Risk Assessment </h1>
@@ -30,16 +29,15 @@ function Home({ jobs }) {
 
 export async function getServerSideProps(context) {
   const res = await fetch(`${server}/api/jobs`)
-  //get data from api
+  //get jobs from api
   const jobs = await res.json()
-  //data put into jobs
-
+  //jobs put into jobs
+  console.log(jobs)
   if (!jobs) {
     return {
       notFound: true,
     }
   }
   return { props: { jobs } }
-}
 
-export default Home
+}
