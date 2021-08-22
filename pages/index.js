@@ -13,16 +13,11 @@ export default function Home({ jobs }) {
   return (
     <>
       <h1>Dynamic Risk Assessment </h1>
-      <div>
-        {jobs.map((job) => {
-          return (
-            <div key={job._id}>
-              <JobCard job={job} />
-            </div>
-          )
-        })}
-      </div>
-
+      {jobs.map((job) => {
+        return (
+          <JobCard job={job} />
+        )
+      })}
     </>
   )
 }
@@ -30,14 +25,14 @@ export default function Home({ jobs }) {
 export async function getServerSideProps(context) {
   const res = await fetch(`${server}/api/jobs`)
   //get jobs from api
-  const jobs = await res.json()
+  const { data } = await res.json()
   //jobs put into jobs
-  console.log(jobs)
-  if (!jobs) {
+  console.log(data)
+  if (!data) {
     return {
       notFound: true,
     }
   }
-  return { props: { jobs } }
+  return { jobs: data }
 
 }
