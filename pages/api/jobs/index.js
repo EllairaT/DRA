@@ -28,7 +28,7 @@ export default async function jobReqs (req, res) {
                 // get all jobs
                 const job = await Job.find()
 
-                res.status(200).json({data: job })
+                res.status(200).json(job)
             } catch (error) {
                 res.status(400).json({ success: false })
             }
