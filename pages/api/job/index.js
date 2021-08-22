@@ -3,7 +3,7 @@ import Job from '../../../models/job.model'
 
 connectToDatabase()
 
-const jobReqs = async (req, res) => {
+export default async function jobReqs (req, res) {
     const { method } = req
 
     // testing url http://localhost:3000/api/job
@@ -49,5 +49,3 @@ const jobReqs = async (req, res) => {
             break
     }
 }
-
-export default jobReqs

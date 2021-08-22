@@ -3,7 +3,7 @@ import Job from '../../../models/job.model'
 
 connectToDatabase()
 
-const jobReqs = async (req, res) => {
+export default async function jobReqs (req, res) {
     const {
         query: { id },
         method
