@@ -9,7 +9,7 @@ export default async function jobReqs (req, res) {
         method
     } = req
 
-    // testing url http://localhost:3000/api/job/(id)
+    // testing url http://localhost:3000/api/jobs/(id)
 
     // All run to give the false output
 
@@ -58,5 +58,3 @@ export default async function jobReqs (req, res) {
             break
     }
 }
-
-export default jobReqs

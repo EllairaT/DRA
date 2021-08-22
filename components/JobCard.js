@@ -2,15 +2,15 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Input from './Input'
 
-export default function JobCard() {
+const JobCard = ({job}) => {
   return (
     <>
       <Container>
-        <Row>
-          <h1>Job Title lol</h1>
-        </Row>
-        <Input type="email" placeholder="richmond@gmail.com" />
+          <h1>{job.site}</h1>
+          <p>{job.siteAddress}</p>
+          <p>{job.date}</p>
       </Container>
     </>
   )
 }
+export default JobCard
