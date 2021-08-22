@@ -16,7 +16,7 @@ function Prompt() {
     ['Level Risks', 'Are there any risks at ground level?'], ['Uniform', "Is everyone wearing the correct equipment for their roles?"]]
 
     const hint = Math.floor(Math.random() * 6);
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
   
     const close = () => setShow(false);
     const popupShow = () => setShow(true)
