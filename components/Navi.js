@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 import Image from 'next/image'
 import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
 import NavCSS from './Navi.module.css'
-import logoimg from '../hardHat.jpg'
+import logoimg from '../hardHat.png'
 
 /**
  * Navigation menu.

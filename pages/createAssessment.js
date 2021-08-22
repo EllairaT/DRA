@@ -16,7 +16,6 @@ function NewAssessment() {
       <Navi />
       <Container>
         <Form />
-        
       </Container>
 
     </>
