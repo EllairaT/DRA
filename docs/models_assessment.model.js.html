@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> components/Navi.js</title>
+  <title> models/assessment.model.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>components/Navi.js</h1>
+                    <h1>models/assessment.model.js</h1>
                 </header>
                 
 
@@ -85,39 +85,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Component } from 'react'
-import Nav from 'react-bootstrap/Nav'
-import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
-import NavCSS from './Navi.module.css'
+            <pre class="prettyprint source linenums"><code>/** @module Models */
+import { Timestamp } from 'mongodb'
+import { Mongoose } from 'mongoose'
 
-/**
- * Navigation menu.
- * Uses custom css module. 
- * Bootstrap icons are of size 30.
- * @component
- * @returns {Component} 
- */
-function Navi() {
-  return (
-    &lt;>
-      &lt;Nav className={NavCSS.customnav}>
-        &lt;Nav.Link href="/" className={NavCSS.icons}>
-          &lt;HouseDoor size={30} />
-        &lt;/Nav.Link>
-        &lt;Nav.Link href="/createAssessment" className={NavCSS.icons}>
-          &lt;JournalPlus size={30} />
-        &lt;/Nav.Link>
-        &lt;Nav.Link href="/scheduleAssessment" className={NavCSS.icons}>
-          &lt;CalendarPlus size={30} />
-        &lt;/Nav.Link>
-        {/* &lt;Nav.Link eventKey="link-2">Link&lt;/Nav.Link> */}
-      &lt;/Nav>
-    &lt;/>
-  )
-}
+const mongoose = Mongoose
+const { Schema, Model } = mongoose
 
-export default Navi
-</code></pre>
+const assessmentSchema = new Schema({
+    siteName: String,
+    time: Timestamp,
+    videoUrl: URL
+})
+
+
+const assessmentModel = new Model('Assessment', assessmentSchema)
+
+export default assessmentModel</code></pre>
         </article>
     </section>
 

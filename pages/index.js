@@ -1,39 +1,48 @@
-import { Container, Row, Col } from 'react-bootstrap'
-import { server } from '../config'
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import { signIn, signOut, useSession } from 'next-auth/client'
 import JobCard from '../components/JobCard'
 import Navi from '../components/Navi'
 import Login from './login'
-
 /**
  * Entry point of the app.
  * @Category Pages
  */
+function Home() {
+  // access session
+  const [session, loading] = useSession()
 
-const Home = ({ jobs }) => {
+  const content = (
+    <Container>
+      <Row>
+        {/* sidebar */}
+        <Col xs={2}>
+          <Navi />
+          <Button onClick={signOut}>Sign Out</Button>
+        </Col>
+        {/* rest of content */}
+        <Col />
+      </Row>
+    </Container>
+  )
 
-  console.log(jobs)
   return (
     <>
-      <h1>Dynamic Risk Assessment </h1>
-      {jobs.map((job) => (
+      {/* show login page if there is no session */}
+      {!session && (
         <>
-          <JobCard job={job} />
+          Not logged in
+          <Login />
         </>
-        ))}
+      )}
+      {/* else, show 'signed in as'  */}
+      {session && (
+        <>
+          Signed in as {session.user.name}
+          {content}
+        </>
+      )}
     </>
   )
-}
-
-export const getStaticProps = async () => {
-  const res = await fetch(`${server}/api/jobs`)
-  // get jobs from api
-  const data = await res.json()
-  // jobs put into jobs
-  
-
-  return {
-    props: { jobs: data }
-  }
 }
 
 export default Home
