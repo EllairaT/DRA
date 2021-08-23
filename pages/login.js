@@ -1,20 +1,25 @@
-import connectToDatabase from '../lib/dbConnect'
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Input from '../components/Input'
 import logoimg from '../1.png'
 import login from './login.module.css'
+import { signIn } from 'next-auth/client'
 
 function Login() {
   const [details, setDetails] = useState({
-    userName: '',
+    userEmail: '',
     userPassword: ''
   })
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    console.log(details.userName, details.userPassword)
+    e.preventDefault(details.userEmail, details.userPassword)
+    console.log()
+    signIn('credentials', {
+      redirect: false,
+      email: details.userEmail,
+      password: details.userPassword
+    })
   }
 
   const inputHandler = (e) => {
@@ -37,9 +42,9 @@ function Login() {
                 <div className="h5">Login to your account</div>
                 <Form.Group controlId="loginDetails">
                   <Input
-                    label="Username"
+                    label="Email address"
                     type="email"
-                    name="userName"
+                    name="userEmail"
                     placeholder="example@outlook.com"
                     onChange={inputHandler}
                   />
@@ -65,3 +70,21 @@ function Login() {
 }
 
 export default Login
+
+//check if user is already signed in. if so, redirect user to homepage
+Login.getInitialProps = async (context) => {
+  const { req, res } = context
+  const session = await getSession({ req })
+
+  if (session && res && session.accessToken) {
+    res.writeHead(302, {
+      Location: '/'
+    })
+    res.end()
+    return
+  }
+  return {
+    session: undefined,
+    providers: await providers(context)
+  }
+}

@@ -23,6 +23,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^5.13.5",
     "next": "latest",
+    "next-auth": "^3.28.0",
     "next-transpile-modules": "^8.0.0",
     "nextjs": "0.0.3",
     "prettier": "^2.3.2",
