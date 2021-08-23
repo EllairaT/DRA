@@ -1,11 +1,11 @@
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { providers, signIn, getSession } from 'next-auth/client'
 import connectToDatabase from '../lib/dbConnect'
 import Input from '../components/Input'
 import logoimg from '../1.png'
 import login from './login.module.css'
-import { signIn } from 'next-auth/client'
 
 function Login() {
   const [details, setDetails] = useState({
@@ -59,7 +59,6 @@ function Login() {
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
-                  
                 </Form.Group>
               </Form>
             </div>
@@ -72,7 +71,7 @@ function Login() {
 
 export default Login
 
-//check if user is already signed in. if so, redirect user to homepage
+// check if user is already signed in. if so, redirect user to homepage
 Login.getInitialProps = async (context) => {
   const { req, res } = context
   const session = await getSession({ req })
@@ -82,7 +81,6 @@ Login.getInitialProps = async (context) => {
       Location: '/'
     })
     res.end()
-    return
   }
   return {
     session: undefined,

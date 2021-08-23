@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi')
 
-//register validation
+// register validation
 export function registerValidation(data) {
   const schema = Joi.object({
     name: Joi.string().required(),
@@ -10,7 +10,7 @@ export function registerValidation(data) {
   return schema.validate(data)
 }
 
-//login validation
+// login validation
 export function loginValidation(data) {
   const schema = Joi.object({
     email: Joi.string().min(6).required().email(),

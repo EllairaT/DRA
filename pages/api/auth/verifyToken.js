@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 function auth(req, res, next) {
-  //check if header contains 'auth-token'
+  // check if header contains 'auth-token'
   const token = req.setHeader('auth-token')
 
   if (!token) {
@@ -14,4 +14,5 @@ function auth(req, res, next) {
   } catch (err) {
     res.status(400).send('Invalid Token')
   }
+  return true
 }

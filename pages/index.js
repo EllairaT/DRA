@@ -1,26 +1,26 @@
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import { signIn, signOut, useSession } from 'next-auth/client'
 import JobCard from '../components/JobCard'
 import Navi from '../components/Navi'
 import Login from './login'
-import { signIn, signOut, useSession } from 'next-auth/client'
 /**
  * Entry point of the app.
  * @Category Pages
  */
 function Home() {
-  //access session
+  // access session
   const [session, loading] = useSession()
 
-  var content = (
+  const content = (
     <Container>
       <Row>
         {/* sidebar */}
         <Col xs={2}>
           <Navi />
-          <button onClick={signOut}>Sign Out</button>
+          <Button onClick={signOut}>Sign Out</Button>
         </Col>
         {/* rest of content */}
-        <Col></Col>
+        <Col />
       </Row>
     </Container>
   )

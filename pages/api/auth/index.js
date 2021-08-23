@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/dist/client/router'
 import { getSession } from 'next-auth/client'
-import Router from 'next/dist/server/router'
 
 export default function () {
   const [loading, setLoading] = useState(true)
@@ -19,4 +18,5 @@ export default function () {
   if (loading) {
     return <p>Loading...</p>
   }
+  return true
 }

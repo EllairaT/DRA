@@ -1,4 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap'
+import { Provider } from 'next-auth/client'
 import connectToDatabase from '../lib/dbConnect'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
@@ -6,7 +7,6 @@ import Navi from '../components/Navi'
 import Login from './login'
 import Register from './register'
 import '../styles/login.css'
-import { Provider } from 'next-auth/client'
 /**
  * Navigation, and any headers or footers should be put in here for consistency
  * across pages.

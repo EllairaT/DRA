@@ -1,11 +1,11 @@
 import { getSession } from 'next-auth/client'
 
 export default async (req, res) => {
-  //get session
+  // get session
   const session = await getSession({ req })
 
   if (session) {
-    //send a json object
+    // send a json object
     res.send({
       content: 'welcome to the secret page'
     })
@@ -15,5 +15,5 @@ export default async (req, res) => {
     })
   }
 
-  return
+  
 }

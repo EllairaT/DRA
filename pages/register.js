@@ -1,4 +1,4 @@
-//register user will only be available to an existing manager user(for now)
+// register user will only be available to an existing manager user(for now)
 import { signIn } from 'next-auth/client'
 
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
@@ -27,7 +27,7 @@ function Register() {
         password: details.userPassword
       })
     })
-    //await for response
+    // await for response
     const data = await res.json()
     console.log(data)
   }
@@ -72,7 +72,7 @@ function Register() {
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
-                  {''}
+                  
                 </Form.Group>
               </Form>
             </div>

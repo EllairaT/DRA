@@ -1,13 +1,14 @@
-import { connectToDatabase } from '../../../lib/dbConnect'
+import connectToDatabase from '../../../lib/dbConnect'
 import User from '../../../models/users.model'
 import { registerValidation } from './validation'
+
 const bcrypt = require('bcryptjs')
 
 export default async function handler(req, res) {
-  //only accept POST method
+  // only accept POST method
   if (req.method === 'POST') {
     connectToDatabase()
-    //validate data before making user
+    // validate data before making user
     const { error } = registerValidation(req.body)
     if (error) {
       return res.status(400).send(error.details[0].message)
@@ -18,11 +19,11 @@ export default async function handler(req, res) {
       return res.status(400).send('Email already exists')
     }
 
-    //hash password
+    // hash password
     const salt = await bcrypt.genSalt(10)
     const hashPass = await bcrypt.hash(req.body.password, salt)
 
-    //create new user
+    // create new user
     const user = new User({
       name: req.body.name,
       email: req.body.email,
@@ -31,11 +32,11 @@ export default async function handler(req, res) {
 
     try {
       const savedUser = await user.save()
-      res.send(savedUser)
+      return res.send(savedUser)
     } catch (err) {
-      res.status(400).send(err)
+      return res.status(400).send(err)
     }
   } else {
-    res.status(500).send('Invalid Route')
+    return res.status(500).send('Invalid Route')
   }
 }
