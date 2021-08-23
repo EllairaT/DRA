@@ -23,7 +23,6 @@
     "comma-dangle": ["error", "never"],
     "linebreak-style": ["error", "windows"],
     "no-unused-vars": "off",
-    "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }

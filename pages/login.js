@@ -1,7 +1,6 @@
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { providers, signIn, getSession } from 'next-auth/client'
 import connectToDatabase from '../lib/dbConnect'
 import Input from '../components/Input'
 import logoimg from '../1.png'
@@ -9,18 +8,13 @@ import login from './login.module.css'
 
 function Login() {
   const [details, setDetails] = useState({
-    userEmail: '',
+    userName: '',
     userPassword: ''
   })
 
   const submitHandler = (e) => {
-    e.preventDefault(details.userEmail, details.userPassword)
-    console.log()
-    signIn('credentials', {
-      redirect: false,
-      email: details.userEmail,
-      password: details.userPassword
-    })
+    e.preventDefault()
+    console.log(details.userName, details.userPassword)
   }
 
   const inputHandler = (e) => {
@@ -43,9 +37,9 @@ function Login() {
                 <div className="h5">Login to your account</div>
                 <Form.Group controlId="loginDetails">
                   <Input
-                    label="Email address"
+                    label="Username"
                     type="email"
-                    name="userEmail"
+                    name="userName"
                     placeholder="example@outlook.com"
                     onChange={inputHandler}
                   />
@@ -59,6 +53,7 @@ function Login() {
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
+                  
                 </Form.Group>
               </Form>
             </div>
@@ -70,20 +65,3 @@ function Login() {
 }
 
 export default Login
-
-// check if user is already signed in. if so, redirect user to homepage
-Login.getInitialProps = async (context) => {
-  const { req, res } = context
-  const session = await getSession({ req })
-
-  if (session && res && session.accessToken) {
-    res.writeHead(302, {
-      Location: '/'
-    })
-    res.end()
-  }
-  return {
-    session: undefined,
-    providers: await providers(context)
-  }
-}

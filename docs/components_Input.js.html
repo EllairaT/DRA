@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App.html">App</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
                 
             </nav>
         </div>
@@ -87,34 +87,24 @@
         <article>
             <pre class="prettyprint source linenums"><code>/** @module App */
 import FormControl from 'react-bootstrap/FormControl'
-import Form from 'react-bootstrap/Form'
 
 /**
  * Generic input field for entering information
- *
- * @component
+ * @component 
  * @param {object} props - Array of props (strings, ints, etc)
  * @property {String} type - type of input (i.e. email, password, number, etc)
- * @return {FormControl}
+ * @returns {FormControl}
  */
-export default function Input(props) {
-  const { type, label, placeholder, arialabel, ariadescribe, onChange, name } = props
+function Input(props) {
+  const { type, placeholder, arialabel, ariadescribe, onChange, name } = props
   return (
     &lt;>
-      &lt;Form.Label>{label}&lt;/Form.Label>
-      &lt;Form.Control
-        className=""
-        type={type}
-        placeholder={placeholder}
-        aria-label={arialabel}
-        aria-describedby={ariadescribe}
-        onChange={onChange}
-        name={name}
-      />
+      &lt;FormControl type={type} placeholder={placeholder} aria-label={arialabel} aria-describedby={ariadescribe} onChange={onChange} name={name} />
     &lt;/>
   )
 }
-</code></pre>
+
+export default Input</code></pre>
         </article>
     </section>
 
