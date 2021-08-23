@@ -1,9 +1,9 @@
 import connectToDatabase from '../../../lib/dbConnect'
-import Job from '../../../models/job.model'
+import Job from '../../../models/jobs.model'
 
 connectToDatabase()
 
-export default async function jobReqs (req, res) {
+export default async(req, res) => {
     const { method } = req
 
     // testing url http://localhost:3000/api/jobs
@@ -26,9 +26,9 @@ export default async function jobReqs (req, res) {
         case 'GET':
             try {
                 // get all jobs
-                const job = await Job.find()
+                const jobs = await Job.find({})
 
-                res.status(200).json(job)
+                res.status(200).json(jobs)
             } catch (error) {
                 res.status(400).json({ success: false })
             }
@@ -36,10 +36,10 @@ export default async function jobReqs (req, res) {
 
         case 'POST':
             try {
-                // create new job
-                const job = await Job.create(req.body)
+                // create new jobs
+                const jobs = await Job.create(req.body)
 
-                res.status(200).json({data: job })
+                res.status(200).json({data: jobs })
             } catch (error) {
                 res.status(400).json({ success: false })
             }

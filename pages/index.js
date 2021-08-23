@@ -10,6 +10,8 @@ import Login from './login'
  */
 
 const Home = ({ jobs }) => {
+
+  console.log(jobs)
   return (
     <>
       <h1>Dynamic Risk Assessment </h1>
@@ -27,7 +29,7 @@ export const getStaticProps = async () => {
   //get jobs from api
   const data = await res.json()
   //jobs put into jobs
-  console.log(data)
+  
 
   return {
     props: { jobs: data }
