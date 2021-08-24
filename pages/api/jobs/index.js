@@ -1,5 +1,5 @@
 import connectToDatabase from '../../../lib/dbConnect'
-import Job from '../../../models/job.model'
+import Job from '../../../models/jobs.model'
 
 connectToDatabase()
 

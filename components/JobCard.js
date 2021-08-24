@@ -3,7 +3,8 @@ import { Clock, Phone, Geo } from 'react-bootstrap-icons'
 import Row from 'react-bootstrap/Row'
 import Input from './Input'
 
-const JobCard = ({job}) => (
+const JobCard = ({job}) => {
+  return (
     <>
       <Container>
       {/* &ensp; adds 2 spaces */}
@@ -22,4 +23,5 @@ const JobCard = ({job}) => (
       </Container>
     </>
   )
+}
 export default JobCard

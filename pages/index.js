@@ -15,20 +15,20 @@ const Home = ({ jobs }) => {
   return (
     <>
       <h1>Dynamic Risk Assessment </h1>
-      {jobs.map((job) => (
-        <>
+      {jobs.map((job) => {
+        return (
           <JobCard job={job} />
-        </>
-        ))}
+        )
+      })}
     </>
   )
 }
 
 export const getStaticProps = async () => {
   const res = await fetch(`${server}/api/jobs`)
-  // get jobs from api
+  //get jobs from api
   const data = await res.json()
-  // jobs put into jobs
+  //jobs put into jobs
   
 
   return {
@@ -36,4 +36,4 @@ export const getStaticProps = async () => {
   }
 }
 
-export default Home
+export default Home;
