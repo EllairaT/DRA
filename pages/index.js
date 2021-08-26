@@ -9,31 +9,30 @@ import Login from './login'
  * @Category Pages
  */
 
-const Home = ({ jobs }) => {
-
-  console.log(jobs)
+export default function Home({ jobs }) {
   return (
     <>
       <h1>Dynamic Risk Assessment </h1>
-      {jobs.map((job) => (
-        <>
+      {jobs.map((job) => {
+        return (
           <JobCard job={job} />
-        </>
-      ))}
+        )
+      })}
     </>
   )
 }
 
-export const getStaticProps = async () => {
+export async function getServerSideProps(context) {
   const res = await fetch(`${server}/api/jobs`)
-  // get jobs from api
-  const data = await res.json()
-  // jobs put into jobs
-
-
-  return {
-    props: { jobs: data }
+  //get jobs from api
+  const { data } = await res.json()
+  //jobs put into jobs
+  console.log(data)
+  if (!data) {
+    return {
+      notFound: true,
+    }
   }
-}
+  return { jobs: data }
 
-export default Home
+}
