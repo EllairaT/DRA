@@ -20,7 +20,7 @@ function CustomApp({ Component, pageProps }) {
         </Col>
         {/* rest of content */}
         <Col>
-          <Component />
+          <Component {...pageProps} />
         </Col>
       </Row>
     </Container>

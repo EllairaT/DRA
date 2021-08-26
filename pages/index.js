@@ -22,17 +22,14 @@ export default function Home({ jobs }) {
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
   const res = await fetch(`${server}/api/jobs`)
   //get jobs from api
   const { data } = await res.json()
   //jobs put into jobs
   console.log(data)
-  if (!data) {
-    return {
-      notFound: true,
-    }
-  }
-  return { jobs: data }
 
+  return { 
+    props: {jobs: data }
+  }
 }
