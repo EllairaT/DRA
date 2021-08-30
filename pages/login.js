@@ -1,10 +1,10 @@
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Input from '../components/Input'
 import logoimg from '../1.png'
 import login from './login.module.css'
-import { signIn } from 'next-auth/client'
+import { signIn, getSession, providers } from 'next-auth/client'
 
 function Login() {
   const [details, setDetails] = useState({
@@ -76,7 +76,7 @@ Login.getInitialProps = async (context) => {
   const { req, res } = context
   const session = await getSession({ req })
 
-  if (session && res && session.accessToken) {
+  if (session && res) {
     res.writeHead(302, {
       Location: '/'
     })

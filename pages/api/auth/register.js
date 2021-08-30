@@ -3,7 +3,7 @@ import User from '../../../models/users.model'
 import { registerValidation } from './validation'
 const bcrypt = require('bcryptjs')
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   //only accept POST method
   if (req.method === 'POST') {
     connectToDatabase()
@@ -39,3 +39,5 @@ export default async function handler(req, res) {
     res.status(500).send('Invalid Route')
   }
 }
+
+export default handler
