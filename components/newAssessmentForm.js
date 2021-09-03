@@ -17,29 +17,31 @@ function NewDRAForm(props) {
     notes: ''
   })
 
+  
+  // Stores to database
+  const createJob = async () => {
+    try {
+      const res = await fetch(`${server}/api/jobs`, {
+        // calling method type
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(job)
+      })
+      alert('Success')
+    } catch (error) {
+      alert('Failed')
+      console.log(error)
+    }
+  }
+
+  // on submit
   const onSubmit = (e) => {
     e.preventDefault()
     createJob()
   }
-
-  // Stores to database
-  const createJob = async () => {
-    try {
-        const res = await fetch(`${server}/api/jobs`, {
-            method: 'POST',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(job)
-        })
-        alert('Success')
-    } catch (error) {
-        alert('Failed')
-        console.log(error);
-    }
-}
-
   const inputsHandler = (e) => {
     // update the attributes in object
     const { name } = e.target

@@ -1,6 +1,7 @@
-import { Container, Row, Col } from 'react-bootstrap'
-import { server } from '../config'
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import { signIn, signOut, useSession } from 'next-auth/client'
 import JobCard from '../components/JobCard'
+import { server } from '../config'
 import Navi from '../components/Navi'
 import Login from './login'
 
@@ -9,27 +10,67 @@ import Login from './login'
  * @Category Pages
  */
 
-export default function Home({ jobs }) {
+function Home({ jobs }) {
+  // access session
+  const [session, loading] = useSession()
+
+  // print out jobCard
+  const printJobs = (
+    <>
+      {jobs.map((job) => (
+        <>
+          <JobCard job={job} />
+        </>
+      ))}
+
+    </>
+  )
+
+  const content = (
+    <Container>
+      <Row>
+        {/* sidebar */}
+        <Col xs={2}>
+          <Navi />
+          <Button onClick={signOut}>Sign Out</Button>
+        </Col>
+        <h1>Dynamic Risk Jobs </h1>
+        {printJobs}
+
+        <Col />
+      </Row>
+    </Container>
+  )
   return (
     <>
-      <h1>Dynamic Risk Assessment </h1>
-      {jobs.map((job) => {
-        return (
-          <JobCard job={job} />
-        )
-      })}
+      {/* show login page if there is no session */}
+      {!session && (
+        <>
+          Not logged in
+          <Login />
+        </>
+      )}
+      {/* else, show 'signed in as'  */}
+      {session && (
+        <>
+          Signed in as {session.user.name}
+          {content}
+        </>
+      )}
     </>
   )
 }
 
 export async function getStaticProps() {
   const res = await fetch(`${server}/api/jobs`)
-  //get jobs from api
+  // get jobs from api
   const { data } = await res.json()
-  //jobs put into jobs
-  console.log(data)
+  // jobs put into jobs
+  // console.log(data)
 
-  return { 
-    props: {jobs: data }
+  return {
+    props: { jobs: data }
   }
 }
+
+export default Home

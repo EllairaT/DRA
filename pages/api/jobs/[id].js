@@ -3,7 +3,7 @@ import Job from '../../../models/job.model'
 
 connectToDatabase()
 
-export default async function jobReqs (req, res) {
+async function jobReqs (req, res) {
     const {
         query: { id },
         method
@@ -58,3 +58,4 @@ export default async function jobReqs (req, res) {
             break
     }
 }
+export default jobReqs
