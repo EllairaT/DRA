@@ -62,7 +62,8 @@ function Home({ jobs }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${server}/api/jobs`)
+  // const res = await fetch(`${server}/api/jobs`)
+  const res = await fetch('http://localhost:3000//api/jobs')
   // get jobs from api
   const { data } = await res.json()
   // jobs put into jobs
