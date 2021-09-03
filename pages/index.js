@@ -1,7 +1,7 @@
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import JobCard from '../components/JobCard'
-import { server } from '../config'
+// import { server } from '../config'
 import Navi from '../components/Navi'
 import Login from './login'
 
@@ -63,7 +63,7 @@ function Home({ jobs }) {
 
 export async function getStaticProps() {
   // const res = await fetch(`${server}/api/jobs`)
-  const res = await fetch('http://localhost:3000//api/jobs')
+  const res = await fetch('http://localhost:3000/api/jobs')
   // get jobs from api
   const { data } = await res.json()
   // jobs put into jobs
