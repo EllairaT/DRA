@@ -5,7 +5,7 @@ import { providers, signIn, getSession } from 'next-auth/client'
 import connectToDatabase from '../lib/dbConnect'
 import Input from '../components/Input'
 import logoimg from '../1.png'
-import login from './login.module.css'
+import login from '../styles/login.module.css'
 
 function Login() {
   const [details, setDetails] = useState({
