@@ -3,13 +3,13 @@ import Job from '../../../models/job.model'
 
 connectToDatabase()
 
-const jobReqs = async (req, res) => {
+async function jobReqs (req, res) {
     const {
         query: { id },
         method
     } = req
 
-    // testing url http://localhost:3000/api/job/(id)
+    // testing url http://localhost:3000/api/jobs/(id)
 
     // All run to give the false output
 
@@ -58,5 +58,4 @@ const jobReqs = async (req, res) => {
             break
     }
 }
-
 export default jobReqs

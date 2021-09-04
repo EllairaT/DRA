@@ -1,23 +1,46 @@
 import { Container, Row, Form, Col, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from './Input'
+import { server } from '../config'
 
 function NewDRAForm(props) {
   const [job, setJob] = useState({
-    JobSite: '',
-    JobAddress: '',
-    JobSiteDescription: '',
-    Phone: '',
-    Date: '',
-    Time: ''
+    assessment: [],
+    siteTags: [],
+    createdAt: `${Date()}`,
+    date: '',
+    site: '',
+    siteAddress: '',
+    siteType: '',
+    phone: '',
+    inspector: '',
+    notes: ''
   })
 
+  
+  // Stores to database
+  const createJob = async () => {
+    try {
+      const res = await fetch(`${server}/api/jobs`, {
+        // calling method type
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(job)
+      })
+      alert('Success')
+    } catch (error) {
+      alert('Failed')
+      console.log(error)
+    }
+  }
+
+  // on submit
   const onSubmit = (e) => {
     e.preventDefault()
-    // Needed to be added to database to store
-    alert(
-      `Submitting ${job.JobSite}, ${job.JobAddress}, ${job.JobSiteDescription}, ${job.Phone}, ${job.Date}, ${job.Time}`
-    )
+    createJob()
   }
   const inputsHandler = (e) => {
     // update the attributes in object
@@ -35,21 +58,22 @@ function NewDRAForm(props) {
         </Row>
         <Form>
           <Form.Group className="mb-3" controlId="formSiteDetails">
-            <Input type="text" label="Job Site:" placeholder="Name of Location" name="JobSite" onChange={inputsHandler} />
-            <Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} />
-            <Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} />
+            <Input type="text" label="Job Site:" placeholder="Name of Location" name="site" onChange={inputsHandler} />
+            <Input type="text" label="Job Address:" placeholder="Address of Location" name="siteAddress" onChange={inputsHandler} />
+            <Input type="text" label="Description:" placeholder="Description of Location" name="siteType" onChange={inputsHandler} />
 
             <Row>
               <Col>
-                <Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
+                <Input type="tel" label="phone Number:" placeholder="phone Number of Location" name="phone" onChange={inputsHandler} />
               </Col>
               <Col>
-                <Input label="Date:" type="date" name="Date" onChange={inputsHandler} />
+                <Input label="Date:" type="date" name="date" onChange={inputsHandler} />
               </Col>
-              <Col>
+              {/* <Col>
                 <Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
-              </Col>
+              </Col> */}
             </Row>
+            <Input type="text" label="Notes:" placeholder="Notes about Location" name="notes" onChange={inputsHandler} />
             <Button as="input" onClick={onSubmit} value="submit" />
           </Form.Group>
         </Form>

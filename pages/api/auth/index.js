@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/dist/client/router'
 import { getSession } from 'next-auth/client'
 
-export default function () {
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
-  useEffect(() => {
-    getSession().then((session) => {
-      if (session) {
-        router.replace('/')
-      } else {
-        setLoading(false)
-      }
-    })
-  }, [])
+export default async (req, res) => {
+    // get session
+    const session = await getSession({ req })
 
-  if (loading) {
-    return <p>Loading...</p>
-  }
-  return true
+    if (session) {
+        // send a json object
+        res.send({
+            content: 'welcome to the secret page'
+        })
+    } else {
+        res.send({
+            error: 'You need to be signed in'
+        })
+    }
+
+
 }

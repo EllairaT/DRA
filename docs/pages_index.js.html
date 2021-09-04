@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App.html">App</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
                 
             </nav>
         </div>
@@ -88,23 +88,21 @@
             <pre class="prettyprint source linenums"><code>import { Container, Row, Col } from 'react-bootstrap'
 import JobCard from '../components/JobCard'
 import Navi from '../components/Navi'
-import Login from './login'
-import { connectToDatabase } from '../lib/dbConnect'
+
 /**
- * Entry point of the app.
+ * Entry point of the app. 
  * @Category Pages
  */
 function Home() {
   return (
     &lt;>
-      {/* &lt;h1>Dynamic Risk Assessment &lt;/h1>
-      &lt;JobCard /> */}
+      &lt;h1>Dynamic Risk Assessment &lt;/h1>
+      &lt;Navi />
+      &lt;JobCard />
     &lt;/>
   )
 }
-
-export default Home
-</code></pre>
+export default Home</code></pre>
         </article>
     </section>
 

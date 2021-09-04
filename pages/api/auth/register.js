@@ -5,38 +5,38 @@ import { registerValidation } from './validation'
 const bcrypt = require('bcryptjs')
 
 export default async function handler(req, res) {
-  // only accept POST method
-  if (req.method === 'POST') {
-    connectToDatabase()
-    // validate data before making user
-    const { error } = registerValidation(req.body)
-    if (error) {
-      return res.status(400).send(error.details[0].message)
+    // only accept POST method
+    if (req.method === 'POST') {
+        connectToDatabase()
+        // validate data before making user
+        const { error } = registerValidation(req.body)
+        if (error) {
+            return res.status(400).send(error.details[0].message)
+        }
+
+        const doesEmailExist = await User.findOne({ email: req.body.email })
+        if (doesEmailExist) {
+            return res.status(400).send('Email already exists')
+        }
+
+        // hash password
+        const salt = await bcrypt.genSalt(10)
+        const hashPass = await bcrypt.hash(req.body.password, salt)
+
+        // create new user
+        const user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashPass
+        })
+
+        try {
+            const savedUser = await user.save()
+            return res.send(savedUser)
+        } catch (err) {
+            return res.status(400).send(err)
+        }
+    } else {
+        return res.status(500).send('Invalid Route')
     }
-
-    const doesEmailExist = await User.findOne({ email: req.body.email })
-    if (doesEmailExist) {
-      return res.status(400).send('Email already exists')
-    }
-
-    // hash password
-    const salt = await bcrypt.genSalt(10)
-    const hashPass = await bcrypt.hash(req.body.password, salt)
-
-    // create new user
-    const user = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashPass
-    })
-
-    try {
-      const savedUser = await user.save()
-      return res.send(savedUser)
-    } catch (err) {
-      return res.status(400).send(err)
-    }
-  } else {
-    return res.status(500).send('Invalid Route')
-  }
 }

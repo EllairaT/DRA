@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 // import Modal from 'react-bootstrap/Modal'
+// import Modal from 'react-bootstrap/Modal'
 import Popup from './Modal'
 import Input from './Input'
 
@@ -12,10 +13,8 @@ Uses react-bootstrap Modal
 */
 function Prompt() {
   const [show, setShow] = useState(true)
-
   const close = () => setShow(false)
   const popupShow = () => setShow(true)
-
   return (
     <>
       <Button variant="primary" onClick={popupShow}>
@@ -25,5 +24,4 @@ function Prompt() {
     </>
   )
 }
-
 export default Prompt
