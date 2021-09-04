@@ -1,7 +1,10 @@
 import { Container, Row, Form, Col, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from './Input'
-import { server } from '../config'
+import logoimg from '../saveImage.jpg'
+import Image from 'next/image'
+import Prompt from '../components/Prompt'
+import AssessmentCSS from './Assessment.module.css'
 
 function NewDRAForm(props) {
   const [job, setJob] = useState({
@@ -17,7 +20,6 @@ function NewDRAForm(props) {
     notes: ''
   })
 
-  
   // Stores to database
   const createJob = async () => {
     try {
@@ -25,7 +27,7 @@ function NewDRAForm(props) {
         // calling method type
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(job)
@@ -53,16 +55,36 @@ function NewDRAForm(props) {
   return (
     <>
       <Container>
-        <Row>
+        <Row className={AssessmentCSS.header}>
           <h2>Create new Assessment</h2>
         </Row>
-        <Form>
+        <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
-            <Input type="text" label="Job Site:" placeholder="Name of Location" name="site" onChange={inputsHandler} />
-            <Input type="text" label="Job Address:" placeholder="Address of Location" name="siteAddress" onChange={inputsHandler} />
-            <Input type="text" label="Description:" placeholder="Description of Location" name="siteType" onChange={inputsHandler} />
-
             <Row>
+              <Col>
+                <Row className={AssessmentCSS.row}>
+                  <Input
+                    type="text"
+                    label="Job Site:"
+                    placeholder="Name of Location"
+                    name="JobSite"
+                    onChange={inputsHandler}
+                  />
+                </Row>
+                {/* <Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} /> */}
+                {/* <Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} /> */}
+
+                <Row className={AssessmentCSS.textArea}>
+                  <Input
+                    type="notes"
+                    label="Notes"
+                    placeholder="What have you noticed..."
+                    name="Notes"
+                    onChange={inputsHandler}
+                  />
+                  {/* <Col> 
+                <Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
+              </Col>
               <Col>
                 <Input type="tel" label="phone Number:" placeholder="phone Number of Location" name="phone" onChange={inputsHandler} />
               </Col>
@@ -71,10 +93,15 @@ function NewDRAForm(props) {
               </Col>
               {/* <Col>
                 <Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
-              </Col> */}
+              </Col>*/}
+                </Row>
+              </Col>
+              <Col>
+                <Image src={logoimg} size={10} />
+              </Col>
             </Row>
-            <Input type="text" label="Notes:" placeholder="Notes about Location" name="notes" onChange={inputsHandler} />
-            <Button as="input" onClick={onSubmit} value="submit" />
+            <Button className={AssessmentCSS.button} as="input" onClick={onSubmit} value="submit" />
+            <Prompt />
           </Form.Group>
         </Form>
       </Container>
