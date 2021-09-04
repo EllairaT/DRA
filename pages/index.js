@@ -4,7 +4,13 @@ import JobCard from '../components/JobCard'
 // import { server } from '../config'
 import Navi from '../components/Navi'
 import Login from './login'
-
+import Carousel from 'react-bootstrap/Carousel'
+import Button from 'react-bootstrap/Button'
+import { Container, Form, FormControl, InputGroup, CardGroup, Card, Row, Col } from 'react-bootstrap'
+import createAssessment from '../pages/createAssessment'
+import { Search } from 'react-bootstrap-icons'
+import Input from '../components/Input'
+import { getSession } from 'next-auth'
 /**
  * Entry point of the app.
  * @Category Pages
@@ -22,7 +28,6 @@ function Home({ jobs }) {
           <JobCard job={job} />
         </>
       ))}
-
     </>
   )
 

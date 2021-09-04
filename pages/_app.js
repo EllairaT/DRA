@@ -16,7 +16,7 @@ function CustomApp({ Component, pageProps }) {
   return (
     // provide ability to pass session around the app
     <Provider session={pageProps.session}>
-    <Component {...pageProps} />
+      <Component {...pageProps} />
     </Provider>
   )
   // return (
