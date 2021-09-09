@@ -1,11 +1,9 @@
-// register user will only be available to an existing manager user(for now)
-import { signIn } from 'next-auth/client'
+//register user will only be available to an existing manager user(for now)
+import { signIn, getSession, providers } from 'next-auth/client'
 
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
-import Image from 'next/image'
 import Input from '../components/Input'
-import logoimg from '../1.png'
 
 function Register() {
   const [details, setDetails] = useState({
@@ -14,6 +12,7 @@ function Register() {
     userPassword: ''
   })
 
+  //submit input to register API
   const submitHandler = async (e) => {
     e.preventDefault()
     console.log(details.userName, details.userEmail, details.userPassword)
@@ -27,11 +26,12 @@ function Register() {
         password: details.userPassword
       })
     })
-    // await for response
+    //await for response
     const data = await res.json()
     console.log(data)
   }
 
+  //assign input values to details
   const inputHandler = (e) => {
     const { name } = e.target
     const { value } = e.target
@@ -72,7 +72,7 @@ function Register() {
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
-                  
+                  {''}
                 </Form.Group>
               </Form>
             </div>
@@ -84,3 +84,20 @@ function Register() {
 }
 
 export default Register
+
+Register.getInitialProps = async (context) => {
+  const { req, res } = context
+  const session = await getSession({ req })
+
+  if (session && res) {
+    res.writeHead(302, {
+      Location: '/'
+    })
+    res.end()
+    return
+  }
+  return {
+    session: undefined,
+    providers: await providers(context)
+  }
+}
