@@ -73,9 +73,10 @@ export async function getStaticProps() {
   const { data } = await res.json()
   // jobs put into jobs
   // console.log(data)
+  const session = await getSession(context)
 
   return {
-    props: { jobs: data }
+    props: { jobs: data, session  }
   }
 }
 

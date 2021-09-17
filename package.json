@@ -16,6 +16,8 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.0.2",
+    "filestack-js": "^3.24.1",
+    "filestack-react": "^4.0.1",
     "fs": "0.0.1-security",
     "ink-docstrap": "^1.3.2",
     "jest": "^26.0",
