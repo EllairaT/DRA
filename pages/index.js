@@ -1,16 +1,15 @@
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { Container, Form, FormControl, InputGroup, CardGroup, Card, Row, Col, Button, Carousel } from 'react-bootstrap'
+import { signOut, useSession, getSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 import JobCard from '../components/JobCard'
 // import { server } from '../config'
 import Navi from '../components/Navi'
 import Login from './login'
-import Carousel from 'react-bootstrap/Carousel'
-import Button from 'react-bootstrap/Button'
-import { Container, Form, FormControl, InputGroup, CardGroup, Card, Row, Col } from 'react-bootstrap'
+import Input from '../components/Input'
 import createAssessment from '../pages/createAssessment'
 import { Search } from 'react-bootstrap-icons'
-import Input from '../components/Input'
-import { getSession } from 'next-auth'
+import session from './api/session'
+
 /**
  * Entry point of the app.
  * @Category Pages
@@ -18,14 +17,19 @@ import { getSession } from 'next-auth'
 
 function Home({ jobs }) {
   // access session
-  const [session, loading] = useSession()
+  const { data: session, status } = useSession()
+  console.log(session, status)
+
+  useEffect(() => {
+    console.log(session)
+  }, [session])
 
   // print out jobCard
   const printJobs = (
     <>
-      {jobs.map((job) => (
+      {jobs.map((job, i) => (
         <>
-          <JobCard job={job} />
+          <JobCard job={job} key={i} />
         </>
       ))}
     </>
@@ -41,7 +45,6 @@ function Home({ jobs }) {
         </Col>
         <h1>Dynamic Risk Jobs </h1>
         {printJobs}
-
         <Col />
       </Row>
     </Container>
@@ -66,17 +69,17 @@ function Home({ jobs }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
   // const res = await fetch(`${server}/api/jobs`)
-  const res = await fetch('http://localhost:3000/api/jobs')
-  // get jobs from api
-  const { data } = await res.json()
-  // jobs put into jobs
-  // console.log(data)
-  const session = await getSession(context)
-
+  //fetch data
+  const jobRes = await fetch('http://localhost:3000/api/jobs')
+  //get json response for job
+  const { data } = await jobRes.json()
   return {
-    props: { jobs: data, session  }
+    props: {
+      jobs: data,
+      session: await getSession(context)
+    }
   }
 }
 

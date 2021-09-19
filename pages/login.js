@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Input from '../components/Input'
 import logoimg from '../1.png'
-import login from './login.module.css'
-import { signIn, getSession, providers } from 'next-auth/client'
+import login from '../styles/login.module.css'
+import { signIn, getSession, getProviders } from 'next-auth/react'
 
 function Login() {
   const [details, setDetails] = useState({
@@ -14,7 +14,6 @@ function Login() {
 
   const submitHandler = (e) => {
     e.preventDefault(details.userEmail, details.userPassword)
-    console.log()
     signIn('credentials', {
       redirect: false,
       email: details.userEmail,
@@ -82,9 +81,10 @@ Login.getInitialProps = async (context) => {
     })
     res.end()
     return
-  }
-  return {
-    session: undefined,
-    providers: await providers(context)
+  } else {
+    return {
+      session: undefined,
+      providers: await getProviders(context)
+    }
   }
 }

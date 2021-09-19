@@ -1,10 +1,6 @@
-import { Container, Row, Col } from 'react-bootstrap'
-import { Provider } from 'next-auth/client'
+import { SessionProvider } from 'next-auth/react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
-import Navi from '../components/Navi'
-import Login from './login'
-import Register from './register'
 import '../styles/login.css'
 
 /**
@@ -12,18 +8,13 @@ import '../styles/login.css'
  * across pages.
  * @Category Others
  */
-function CustomApp({ Component, pageProps }) {
+function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     // provide ability to pass session around the app
-    <Provider session={pageProps.session}>
+    <SessionProvider session={session}>
       <Component {...pageProps} />
-    </Provider>
+    </SessionProvider>
   )
-  // return (
-  //   <>
-  //     <Login />
-  //   </>
-  // )
 }
 
 export default CustomApp

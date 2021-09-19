@@ -1,35 +1,39 @@
 import NextAuth from 'next-auth'
-import Providers from 'next-auth/providers'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import User from '../../../models/users.model'
 import { connectToDatabase } from '../../../lib/dbConnect'
 const bcrypt = require('bcryptjs')
 
 const options = {
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {
+        email: { type: 'email' },
+        password: { type: 'password' }
+      },
       async authorize(credentials) {
+        // You need to provide your own logic here that takes the credentials
+        // submitted and returns either a object representing a user or value
+        // that is false/null if the credentials are invalid.
+        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+        // You can also use the `req` object to obtain additional parameters
+        // (i.e., the request IP address)
+
         //connect to MongoDB
-        connectToDatabase()
+        // connectToDatabase()
+        const res = await User.findOne({ email: credentials.email })
+        const isPassValid = await bcrypt.compare(credentials.password, res.password)
 
-        const result = await User.findOne({ email: credentials.email })
-        //check if email or password is wrong
-        if (!result) {
-          throw new Error('Email or password is incorrect')
+        if (res) {
+          console.log('logged in sorta')
+          return { email: res.email, name: res.name }
+        } else {
+          return null
         }
-
-        const isPassValid = await bcrypt.compare(credentials.password, result.password)
-
-        if (!isPassValid) {
-          throw new Error('Email or password is incorrect')
-        }
-
-        return { email: result.email, name: result.name }
       }
     })
-  ],
-  jwt: {
-    secret: process.env.JWT_SIGNING_PRIVATE_KEY
-  }
+  ]
 }
 
 export default (req, res) => NextAuth(req, res, options)
