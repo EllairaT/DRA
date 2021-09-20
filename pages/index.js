@@ -1,4 +1,16 @@
-import { Container, Form, FormControl, InputGroup, CardGroup, Card, Row, Col, Button, Carousel } from 'react-bootstrap'
+import {
+  Container,
+  Form,
+  FormControl,
+  InputGroup,
+  CardGroup,
+  Card,
+  Row,
+  Col,
+  Button,
+  Carousel,
+  Modal
+} from 'react-bootstrap'
 import { signOut, useSession, getSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import JobCard from '../components/JobCard'
@@ -54,8 +66,21 @@ function Home({ jobs }) {
       {/* show login page if there is no session */}
       {!session && (
         <>
-          Not logged in
-          <Login />
+          <Modal.Dialog>
+            <Modal.Header closeButton>
+              <Modal.Title>Unauthenticated User</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+              <p>Please sign in to view this page.</p>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button variant="primary" href="/login">
+                Sign In
+              </Button>
+            </Modal.Footer>
+          </Modal.Dialog>
         </>
       )}
       {/* else, show 'signed in as'  */}

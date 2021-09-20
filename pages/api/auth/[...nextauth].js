@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import User from '../../../models/users.model'
-import { connectToDatabase } from '../../../lib/dbConnect'
+import connectToDatabase from '../../../lib/dbConnect'
 const bcrypt = require('bcryptjs')
 
 const options = {
@@ -21,7 +21,7 @@ const options = {
         // (i.e., the request IP address)
 
         //connect to MongoDB
-        // connectToDatabase()
+        connectToDatabase()
         const res = await User.findOne({ email: credentials.email })
         const isPassValid = await bcrypt.compare(credentials.password, res.password)
 
