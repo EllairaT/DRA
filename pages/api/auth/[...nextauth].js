@@ -15,18 +15,25 @@ const options = {
       async authorize(credentials) {
         //connect to MongoDB
         connectToDatabase()
-        const res = await User.findOne({ email: credentials.email })
-        const isPassValid = await bcrypt.compare(credentials.password, res.password)
+        const res = await fetch('/login.js', {
+          method: 'POST',
+          body: JSON.stringify(credentials),
+          headers: { 'Content-Type': 'application/json' }
+        })
 
-        if (res) {
-          console.log('logged in sorta')
-          return { email: res.email, name: res.name }
+        const user = await res.json()
+
+        if (user) {
+          return user
         } else {
           return null
         }
       }
     })
-  ]
+  ],
+  jwt: {
+    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY
+  }
 }
 
 export default (req, res) => NextAuth(req, res, options)

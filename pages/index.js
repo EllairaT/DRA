@@ -21,6 +21,8 @@ import Input from '../components/Input'
 import createAssessment from '../pages/createAssessment'
 import { Search } from 'react-bootstrap-icons'
 import session from './api/session'
+import indexCSS from '../styles/index.module.css'
+import cx from 'classnames'
 
 /**
  * Entry point of the app.
@@ -29,21 +31,45 @@ import session from './api/session'
 
 function Home({ jobs }) {
   // access session
-  const { data: session, status } = useSession()
-  console.log(session, status)
+  // const { data: session, status } = useSession()
+  // console.log(session, status)
 
-  useEffect(() => {
-    console.log(session)
-  }, [session])
+  // useEffect(() => {
+  //   console.log(session)
+  // }, [session])
+  jobs = {}
 
   // print out jobCard
-  const printJobs = (
+  const printJobs = () => (
     <>
       {jobs.map((job, i) => (
         <>
           <JobCard job={job} key={i} />
         </>
       ))}
+    </>
+  )
+
+  const printButtons = () => (
+    <>
+      <h1>No jobs found</h1>
+      <Container>
+        <Row>
+          <Col className={indexCSS.col}>
+            <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
+              {' '}
+              Schedule New Job Column
+            </Button>
+          </Col>
+
+          <Col className={indexCSS.col}>
+            <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
+              {' '}
+              Create New Assessment
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 
@@ -56,7 +82,8 @@ function Home({ jobs }) {
           <Button onClick={signOut}>Sign Out</Button>
         </Col>
         <h1>Dynamic Risk Jobs </h1>
-        {printJobs}
+        {/* check if jobs are empty */}
+        {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
         <Col />
       </Row>
     </Container>
@@ -86,7 +113,7 @@ function Home({ jobs }) {
       {/* else, show 'signed in as'  */}
       {session && (
         <>
-          Signed in as {session.user.name}
+          {/* Signed in as {session.user.name} */}
           {content}
         </>
       )}
@@ -102,8 +129,8 @@ export async function getServerSideProps(context) {
   const { data } = await jobRes.json()
   return {
     props: {
-      jobs: data,
-      session: await getSession(context)
+      jobs: data
+      // session: await getSession(context)
     }
   }
 }

@@ -71,9 +71,9 @@ function Login() {
 export default Login
 
 //check if user is already signed in. if so, redirect user to homepage
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { req, res } = context
-  const session = await getSession()
+  const session = await getSession(context)
 
   if (session && res) {
     res.writeHead(302, {
