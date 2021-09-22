@@ -1,39 +1,51 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import User from '../../../models/users.model'
-import connectToDatabase from '../../../lib/dbConnect'
-const bcrypt = require('bcryptjs')
 
 const options = {
   providers: [
     CredentialsProvider({
-      name: 'credentials',
+      id: 'creds',
+      name: 'Credentials',
       credentials: {
-        email: { type: 'email' },
-        password: { type: 'password' }
+        email: { label: 'Email', type: 'text', placeholder: 'example@example.com' },
+        password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials) {
-        //connect to MongoDB
-        connectToDatabase()
-        const res = await fetch('/login.js', {
+      async authorize(credentials, req) {
+        const res = await fetch('http://localhost:3000/api/login', {
           method: 'POST',
-          body: JSON.stringify(credentials),
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(credentials)
         })
 
         const user = await res.json()
-
-        if (user) {
+        console.log(user)
+        if (res.ok && user) {
           return user
-        } else {
-          return null
         }
+        return null
       }
     })
   ],
   jwt: {
     signingKey: process.env.JWT_SIGNING_PRIVATE_KEY
-  }
+  },
+  session: {
+    jwt: true
+  },
+  pages: {
+    signIn: '/login',
+    error: '/auth/error' // Error code passed in query string as ?error=
+  },
+  callbacks: {
+    async session(session, token) {
+      session.token = token
+      return session
+    },
+    async jwt(token, user, account, profile, isNewUser) {
+      return token
+    }
+  },
+  theme: 'light'
 }
 
 export default (req, res) => NextAuth(req, res, options)

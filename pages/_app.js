@@ -4,9 +4,7 @@ import '../styles/globals.css'
 import '../styles/login.css'
 
 /**
- * Navigation, and any headers or footers should be put in here for consistency
- * across pages.
- * @Category Others
+ * @Category App
  */
 function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

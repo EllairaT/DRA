@@ -1,5 +1,5 @@
-import connectToDatabase from '../../../lib/dbConnect'
-import User from '../../../models/users.model'
+import connectToDatabase from '../../lib/dbConnect'
+import User from '../../models/users.model'
 import { registerValidation } from './validation'
 const bcrypt = require('bcryptjs')
 

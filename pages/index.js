@@ -11,7 +11,7 @@ import {
   Carousel,
   Modal
 } from 'react-bootstrap'
-import { signOut, useSession, getSession } from 'next-auth/react'
+import { signOut, useSession, getSession, signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import JobCard from '../components/JobCard'
 // import { server } from '../config'
@@ -31,12 +31,12 @@ import cx from 'classnames'
 
 function Home({ jobs }) {
   // access session
-  // const { data: session, status } = useSession()
-  // console.log(session, status)
+  const { data: session, status } = useSession()
 
-  // useEffect(() => {
-  //   console.log(session)
-  // }, [session])
+  if (status === 'loading') {
+    return <h1>loading...</h1>
+  }
+
   jobs = {}
 
   // print out jobCard
@@ -79,7 +79,7 @@ function Home({ jobs }) {
         {/* sidebar */}
         <Col xs={2}>
           <Navi />
-          <Button onClick={signOut}>Sign Out</Button>
+          <Button onClick={() => signOut()}>Sign Out</Button>
         </Col>
         <h1>Dynamic Risk Jobs </h1>
         {/* check if jobs are empty */}
@@ -88,6 +88,7 @@ function Home({ jobs }) {
       </Row>
     </Container>
   )
+
   return (
     <>
       {/* show login page if there is no session */}
@@ -103,7 +104,7 @@ function Home({ jobs }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="primary" href="/login">
+              <Button variant="primary" onClick={() => signIn()}>
                 Sign In
               </Button>
             </Modal.Footer>
@@ -129,8 +130,8 @@ export async function getServerSideProps(context) {
   const { data } = await jobRes.json()
   return {
     props: {
-      jobs: data
-      // session: await getSession(context)
+      jobs: data,
+      session: await getSession(context)
     }
   }
 }
