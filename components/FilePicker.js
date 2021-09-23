@@ -1,7 +1,7 @@
 import * as filestack from 'filestack-js'
 import { useState } from 'react'
 
-import { Button } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 
 export default function FilePicker({ displaymode }) {
   const [button, setButton] = useState('closed')
@@ -18,7 +18,7 @@ export default function FilePicker({ displaymode }) {
   }
 
   const picker = client.picker(options)
-  const p = () => picker.open()
+  const p = picker.open()
 
   // const c = client('A0yHkhiKiR0uyQlW7XLzrz', options)
   // const getURL = (e) => {}
@@ -28,5 +28,11 @@ export default function FilePicker({ displaymode }) {
   //     <PickerInline apikey="A0yHkhiKiR0uyQlW7XLzrz" pickerOptions={options} />
   //   </>
   // )
-  return <></>
+  return (
+    <>
+      <Container>
+        {() => p}
+      </Container>
+    </>
+    )
 }
