@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-const options = {
+export default NextAuth({
   providers: [
     CredentialsProvider({
       id: 'creds',
@@ -10,42 +10,48 @@ const options = {
         email: { label: 'Email', type: 'text', placeholder: 'example@example.com' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const res = await fetch('http://localhost:3000/api/login', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(credentials)
+          body: JSON.stringify(credentials),
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
         })
-
         const user = await res.json()
-        console.log(user)
+        // If no error and we have user data, return it
         if (res.ok && user) {
           return user
         }
+        // Return null if user data could not be retrieved
         return null
       }
     })
   ],
-  jwt: {
-    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY
-  },
+  secret: process.env.SECRET,
   session: {
     jwt: true
+  },
+  jwt: {
+    secret: 'cb844962fe6eccec56aaa05b4d77ada2',
+    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY
   },
   pages: {
     signIn: '/login',
     error: '/auth/error' // Error code passed in query string as ?error=
   },
   callbacks: {
-    async session(session, token) {
-      session.token = token
-      return session
+    async signIn(user) {
+      if (user) {
+        return {
+          redirect: '/'
+        }
+      }
+      return true
     },
-    async jwt(token, user, account, profile, isNewUser) {
-      return token
+    async session({ session, user, token }) {
+      console.log(session)
+      return session
     }
   },
-  theme: 'light'
-}
-
-export default (req, res) => NextAuth(req, res, options)
+  theme: 'light',
+  debug: true
+})

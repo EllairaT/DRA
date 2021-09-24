@@ -6,6 +6,7 @@ async function handler(req, res) {
   connectToDatabase()
 
   const result = await User.findOne({ email: req.body.email })
+
   if (!result) {
     return res.status(400).send('Email or password is incorrect')
   }
@@ -15,9 +16,9 @@ async function handler(req, res) {
     return res.status(400).send('Email or password is incorrect')
   }
 
-  const user = { email: result.email, name: result.name }
+  const user = { name: result.name, email: result.email }
 
-  res.send(user)
+  return res.status(200).json(user)
 }
 
 export default handler

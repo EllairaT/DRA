@@ -32,7 +32,7 @@ import cx from 'classnames'
 function Home({ jobs }) {
   // access session
   const { data: session, status } = useSession()
-
+  console.log(session?.user.name)
   if (status === 'loading') {
     return <h1>loading...</h1>
   }
