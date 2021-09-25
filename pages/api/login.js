@@ -8,12 +8,12 @@ async function handler(req, res) {
   const result = await User.findOne({ email: req.body.email })
 
   if (!result) {
-    return res.status(400).send('Email or password is incorrect')
+    return res.status(400).send({ error: 'Email or password is incorrect' })
   }
   const isPassValid = await bcrypt.compare(req.body.password, result.password)
 
   if (!isPassValid) {
-    return res.status(400).send('Email or password is incorrect')
+    return res.status(400).send({ error: 'Email or password is incorrect' })
   }
 
   const user = { name: result.name, email: result.email }

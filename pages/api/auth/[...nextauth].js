@@ -1,3 +1,4 @@
+require('dotenv').config()
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -36,20 +37,17 @@ export default NextAuth({
   },
   pages: {
     signIn: '/login',
-    error: '/auth/error' // Error code passed in query string as ?error=
+    error: '/login'
   },
   callbacks: {
     async signIn(user) {
-      if (user) {
-        return {
-          redirect: '/'
-        }
-      }
       return true
     },
     async session({ session, user, token }) {
-      console.log(session)
       return session
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token
     }
   },
   theme: 'light',

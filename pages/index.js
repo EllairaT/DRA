@@ -20,7 +20,6 @@ import Login from './login'
 import Input from '../components/Input'
 import createAssessment from '../pages/createAssessment'
 import { Search } from 'react-bootstrap-icons'
-import session from './api/session'
 import indexCSS from '../styles/index.module.css'
 import cx from 'classnames'
 
@@ -33,6 +32,7 @@ function Home({ jobs }) {
   // access session
   const { data: session, status } = useSession()
   console.log(session?.user.name)
+
   if (status === 'loading') {
     return <h1>loading...</h1>
   }
