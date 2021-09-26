@@ -31,7 +31,6 @@ import cx from 'classnames'
 function Home({ jobs }) {
   // access session
   const { data: session, status } = useSession()
-  console.log(session?.user.name)
 
   if (status === 'loading') {
     return <h1>loading...</h1>
@@ -79,6 +78,7 @@ function Home({ jobs }) {
         {/* sidebar */}
         <Col xs={2}>
           <Navi />
+
           <Button onClick={() => signOut()}>Sign Out</Button>
         </Col>
         <h1>Dynamic Risk Jobs </h1>
@@ -86,6 +86,7 @@ function Home({ jobs }) {
         {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
         <Col />
       </Row>
+      <h6 className="text-primary">Signed in as {session.user.name || 'guest'}</h6>
     </Container>
   )
 

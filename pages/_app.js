@@ -2,8 +2,7 @@ import { SessionProvider } from 'next-auth/react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 import '../styles/login.css'
-// import { QueryClientProvider, QueryClient } from 'react-query'
-// import { ReactQueryDevTools } from 'react-query/devtools'
+
 /**
  * @Category App
  */
@@ -16,10 +15,6 @@ function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
     <SessionProvider session={session}>
       <Component {...pageProps} />
     </SessionProvider>
-    // <QueryClientProvider client={queryClient}>
-    //   <ReactQueryDevTools initialIsOpen={false} />
-    //   <Component {...pageProps} />
-    // </QueryClientProvider>
   )
 }
 

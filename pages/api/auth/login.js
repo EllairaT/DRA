@@ -1,5 +1,5 @@
-import connectToDatabase from '../../lib/dbConnect'
-import User from '../../models/users.model'
+import connectToDatabase from '../../../lib/dbConnect'
+import User from '../../../models/users.model'
 const bcrypt = require('bcryptjs')
 
 async function handler(req, res) {
