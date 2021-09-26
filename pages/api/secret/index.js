@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 
 export default async (req, res) => {
   // get session
@@ -14,6 +14,4 @@ export default async (req, res) => {
       error: 'You need to be signed in'
     })
   }
-
-  
 }

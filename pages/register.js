@@ -1,6 +1,5 @@
 //register user will only be available to an existing manager user(for now)
-import { signIn, getSession, providers } from 'next-auth/client'
-
+import { signIn, getSession, getProviders } from 'next-auth/react'
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from '../components/Input'
@@ -98,6 +97,6 @@ Register.getInitialProps = async (context) => {
   }
   return {
     session: undefined,
-    providers: await providers(context)
+    providers: await getProviders(context)
   }
 }

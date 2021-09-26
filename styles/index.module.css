@@ -1,0 +1,17 @@
+.col {
+  height: 50vh;
+}
+
+.btnBlock {
+  min-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.schedule {
+  background-color: #f0a161;
+}
+
+.create {
+  background-color: #e9e195;
+}

@@ -3,23 +3,42 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Input from '../components/Input'
 import logoimg from '../1.png'
-import login from './login.module.css'
-import { signIn, getSession, providers } from 'next-auth/client'
+import login from '../styles/login.module.css'
+import { signIn, signOut, getSession, useSession, getProviders, getCsrfToken } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
-function Login() {
+function Login({ csrfToken }) {
+  //csrf token is for email signin. For now we have emails
+  //saved in MongoDB. Might need to change that in the future
+  //to validate email addressess
+  const router = useRouter()
   const [details, setDetails] = useState({
     userEmail: '',
     userPassword: ''
   })
 
+  const [error, setError] = useState('')
   const submitHandler = (e) => {
-    e.preventDefault(details.userEmail, details.userPassword)
-    console.log()
-    signIn('credentials', {
-      redirect: false,
-      email: details.userEmail,
-      password: details.userPassword
-    })
+    e.preventDefault()
+    //validate input first
+    if (checkInput()) {
+      signIn('creds', {
+        redirect: false,
+        callbackUrl: 'http://localhost:3000',
+        id: 'creds',
+        email: details.userEmail,
+        password: details.userPassword
+      })
+        .then(function (res) {
+          if (res.ok && res.url) {
+            //redirect to index if ok
+            router.push('/')
+          } else if (res.error) {
+            setError('Your email or password might be incorrect. Please try again.')
+          }
+        })
+        .catch((error) => console.log('error: ', error))
+    }
   }
 
   const inputHandler = (e) => {
@@ -29,25 +48,46 @@ function Login() {
     setDetails(details)
   }
 
+  const checkInput = () => {
+    if (details.userEmail == '' && details.userPassword == '') {
+      setError('Please enter your credentials to continue')
+      return false
+    } else if (details.userEmail == '') {
+      setError('Please enter your email address')
+      return false
+    } else if (details.userPassword == '') {
+      setError('Please enter your password')
+      return false
+    }
+
+    return true
+  }
+
   return (
     <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+      {/* Right side Image */}
       <Card className="container p-0 mx-auto">
         <div className="d-flex">
           <Card className={login.left}>
             <Image src={logoimg} alt="Main Image" />
           </Card>
+
+          {/* Login form */}
           <Card className={login.right}>
             <div className="my-auto mx-md-5 px-md-5 right">
-              <Form>
+              <Form onSubmit={submitHandler}>
+                {/* <input name="csrfToken" type="hidden" defaultValue={csrfToken} /> */}
                 <div className="h5">Login to your account</div>
                 <Form.Group controlId="loginDetails">
                   <Input
-                    label="Email address"
-                    type="email"
+                    label="Email"
+                    type="text"
                     name="userEmail"
                     placeholder="example@outlook.com"
                     onChange={inputHandler}
+                    required
                   />
+
                   <Input
                     label="Password"
                     type="password"
@@ -56,10 +96,13 @@ function Login() {
                     onChange={inputHandler}
                     required
                   />
+
                   <Form.Text>Never tell anyone your password. </Form.Text>
-                  <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
+
+                  <Button as="input" type="submit" value="Submit" />
                   {''}
                 </Form.Group>
+                <p className="text-danger mt-5">{error}</p>
               </Form>
             </div>
           </Card>
@@ -71,20 +114,19 @@ function Login() {
 
 export default Login
 
-//check if user is already signed in. if so, redirect user to homepage
-Login.getInitialProps = async (context) => {
+export async function getServerSideProps(context) {
   const { req, res } = context
   const session = await getSession({ req })
-
-  if (session && res) {
-    res.writeHead(302, {
-      Location: '/'
-    })
-    res.end()
-    return
+  if (res && session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
   }
+
   return {
-    session: undefined,
-    providers: await providers(context)
+    props: { session }
   }
 }

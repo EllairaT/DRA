@@ -1,35 +1,55 @@
+require('dotenv').config()
 import NextAuth from 'next-auth'
-import Providers from 'next-auth/providers'
-import User from '../../../models/users.model'
-import { connectToDatabase } from '../../../lib/dbConnect'
-const bcrypt = require('bcryptjs')
+import CredentialsProvider from 'next-auth/providers/credentials'
 
-const options = {
+export default NextAuth({
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
+      id: 'creds',
+      name: 'Credentials',
+      credentials: {
+        email: { label: 'Email', type: 'text', placeholder: 'example@example.com' },
+        password: { label: 'Password', type: 'password' }
+      },
       async authorize(credentials) {
-        //connect to MongoDB
-        connectToDatabase()
-
-        const result = await User.findOne({ email: credentials.email })
-        //check if email or password is wrong
-        if (!result) {
-          throw new Error('Email or password is incorrect')
+        const res = await fetch('http://localhost:3000/api/auth/login', {
+          method: 'POST',
+          body: JSON.stringify(credentials),
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
+        })
+        const user = await res.json()
+        // If no error and we have user data, return it
+        if (res.ok && user) {
+          return user
         }
-
-        const isPassValid = await bcrypt.compare(credentials.password, result.password)
-
-        if (!isPassValid) {
-          throw new Error('Email or password is incorrect')
-        }
-
-        return { email: result.email, name: result.name }
+        // Return null if user data could not be retrieved
+        return null
       }
     })
   ],
+  secret: process.env.SECRET,
+  session: {
+    jwt: true
+  },
   jwt: {
-    secret: process.env.JWT_SIGNING_PRIVATE_KEY
-  }
-}
-
-export default (req, res) => NextAuth(req, res, options)
+    secret: 'cb844962fe6eccec56aaa05b4d77ada2',
+    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY
+  },
+  pages: {
+    signIn: '/login',
+    error: '/login'
+  },
+  callbacks: {
+    async signIn(user) {
+      return true
+    },
+    async session({ session, user, token }) {
+      return session
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token
+    }
+  },
+  theme: 'light',
+  debug: true
+})
