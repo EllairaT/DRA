@@ -1,9 +1,9 @@
 import { Container, Row, Form, Col, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
+import Image from 'next/image'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
-import Image from 'next/image'
-import Prompt from '../components/Prompt'
+import Prompt from './Prompt'
 import AssessmentCSS from './Assessment.module.css'
 
 function NewDRAForm(props) {
@@ -93,7 +93,7 @@ function NewDRAForm(props) {
               </Col>
               {/* <Col>
                 <Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
-              </Col>*/}
+              </Col> */}
                 </Row>
               </Col>
               <Col>

@@ -1,16 +1,16 @@
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { signIn, signOut, getSession, useSession, getProviders, getCsrfToken } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import Input from '../components/Input'
 import logoimg from '../1.png'
 import login from '../styles/login.module.css'
-import { signIn, signOut, getSession, useSession, getProviders, getCsrfToken } from 'next-auth/react'
-import { useRouter } from 'next/router'
 
 function Login({ csrfToken }) {
-  //csrf token is for email signin. For now we have emails
-  //saved in MongoDB. Might need to change that in the future
-  //to validate email addressess
+  // csrf token is for email signin. For now we have emails
+  // saved in MongoDB. Might need to change that in the future
+  // to validate email addressess
   const router = useRouter()
   const [details, setDetails] = useState({
     userEmail: '',
@@ -20,7 +20,7 @@ function Login({ csrfToken }) {
   const [error, setError] = useState('')
   const submitHandler = (e) => {
     e.preventDefault()
-    //validate input first
+    // validate input first
     if (checkInput()) {
       signIn('creds', {
         redirect: false,
@@ -29,9 +29,9 @@ function Login({ csrfToken }) {
         email: details.userEmail,
         password: details.userPassword
       })
-        .then(function (res) {
+        .then((res) => {
           if (res.ok && res.url) {
-            //redirect to index if ok
+            // redirect to index if ok
             router.push('/')
           } else if (res.error) {
             setError('Your email or password might be incorrect. Please try again.')
@@ -52,10 +52,10 @@ function Login({ csrfToken }) {
     if (details.userEmail == '' && details.userPassword == '') {
       setError('Please enter your credentials to continue')
       return false
-    } else if (details.userEmail == '') {
+    } if (details.userEmail == '') {
       setError('Please enter your email address')
       return false
-    } else if (details.userPassword == '') {
+    } if (details.userPassword == '') {
       setError('Please enter your password')
       return false
     }
@@ -100,7 +100,7 @@ function Login({ csrfToken }) {
                   <Form.Text>Never tell anyone your password. </Form.Text>
 
                   <Button as="input" type="submit" value="Submit" />
-                  {''}
+                  
                 </Form.Group>
                 <p className="text-danger mt-5">{error}</p>
               </Form>

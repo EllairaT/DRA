@@ -1,14 +1,15 @@
-import connectToDatabase from '../../lib/dbConnect'
-import User from '../../models/users.model'
+import connectToDatabase from '../../../lib/dbConnect'
+import User from '../../../models/users.model'
 import { registerValidation } from './validation'
+
 const bcrypt = require('bcryptjs')
 
 async function handler(req, res) {
-  //only accept POST method
+  // only accept POST method
   if (req.method === 'POST') {
     connectToDatabase()
 
-    //validate data before making user
+    // validate data before making user
     const { error } = registerValidation(req.body)
 
     if (error) {
@@ -16,17 +17,17 @@ async function handler(req, res) {
       return res.status(400).send(error.details[0].message)
     }
 
-    //check if email exists
+    // check if email exists
     const doesEmailExist = await User.findOne({ email: req.body.email })
 
     if (doesEmailExist) {
       return res.status(400).send('Email already exists')
     }
 
-    //hash password
+    // hash password
     const salt = await bcrypt.genSalt(10)
     const hashPass = await bcrypt.hash(req.body.password, salt)
-    //create new user
+    // create new user
     const user = new User({
       name: req.body.name,
       email: req.body.email,
@@ -34,7 +35,7 @@ async function handler(req, res) {
     })
 
     console.log(user)
-    //save new user
+    // save new user
     try {
       const newUser = await user.save()
       res.send(newUser)
@@ -42,7 +43,7 @@ async function handler(req, res) {
       console.log(err)
       res.status(400).send(err)
     }
-    //send error if not POST
+    // send error if not POST
   } else {
     res.status(500).send('Invalid Route')
   }

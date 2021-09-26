@@ -7,7 +7,7 @@ import '../styles/login.css'
  * @Category App
  */
 
-//const queryClient = new QueryClient()
+// const queryClient = new QueryClient()
 
 function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

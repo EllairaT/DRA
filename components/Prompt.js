@@ -12,7 +12,7 @@ Desc: This component creates a promt that is opened by clicking.
 Uses react-bootstrap Modal 
 */
 function Prompt() {
-  let data = [
+  const data = [
     ['Weather', 'Have you thought about the weather in this area today?'],
     ['Below Risks', 'Have you checked beneath you for any risks?'],
     ['Above Risks', 'Have you looked up? Is there any potential for harm?'],

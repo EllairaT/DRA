@@ -13,15 +13,15 @@ import {
 } from 'react-bootstrap'
 import { signOut, useSession, getSession, signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
+import { Search } from 'react-bootstrap-icons'
+import cx from 'classnames'
 import JobCard from '../components/JobCard'
 // import { server } from '../config'
 import Navi from '../components/Navi'
 import Login from './login'
 import Input from '../components/Input'
-import createAssessment from '../pages/createAssessment'
-import { Search } from 'react-bootstrap-icons'
+import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
-import cx from 'classnames'
 
 /**
  * Entry point of the app.
@@ -125,9 +125,9 @@ function Home({ jobs }) {
 
 export async function getServerSideProps(context) {
   // const res = await fetch(`${server}/api/jobs`)
-  //fetch data
+  // fetch data
   const jobRes = await fetch('http://localhost:3000/api/jobs')
-  //get json response for job
+  // get json response for job
   const { data } = await jobRes.json()
   return {
     props: {

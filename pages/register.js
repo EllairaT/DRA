@@ -1,4 +1,4 @@
-//register user will only be available to an existing manager user(for now)
+// register user will only be available to an existing manager user(for now)
 import { signIn, getSession, getProviders } from 'next-auth/react'
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
@@ -11,7 +11,7 @@ function Register() {
     userPassword: ''
   })
 
-  //submit input to register API
+  // submit input to register API
   const submitHandler = async (e) => {
     e.preventDefault()
     console.log(details.userName, details.userEmail, details.userPassword)
@@ -25,12 +25,12 @@ function Register() {
         password: details.userPassword
       })
     })
-    //await for response
+    // await for response
     const data = await res.json()
     console.log(data)
   }
 
-  //assign input values to details
+  // assign input values to details
   const inputHandler = (e) => {
     const { name } = e.target
     const { value } = e.target
@@ -71,7 +71,7 @@ function Register() {
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
-                  {''}
+                  
                 </Form.Group>
               </Form>
             </div>
