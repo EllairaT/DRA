@@ -86,7 +86,7 @@ function Home({ jobs }) {
         {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
         <Col />
       </Row>
-      <h6 className="text-primary">Signed in as {session.user.name || 'guest'}</h6>
+      <h6 className="text-primary">Signed in as {session?.user.name || 'guest'}</h6>
     </Container>
   )
 
