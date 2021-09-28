@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> date</title>
+  <title> components/FilePicker.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,109 +68,63 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Models</h2><h3>Namespaces</h3><ul><li><a href="date.html">date</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Namespace</p>
-                    <h1>date</h1>
+                    <p>Source</p>
+                    <h1>components/FilePicker.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>date</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as filestack from 'filestack-js'
+import { Component, useState } from 'react'
+import { Button, Container } from 'react-bootstrap'
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>date
-Schema for Job object</p></div>
-        
+/**
+ * Filepicker component.
+ *
+ * @component
+ * @param {string} [displaymode=inline] - sets display mode for the filepicker.
+ * @property {string} apikey - api key for filestack
+ * @property {Object} client - client object
+ * @property {Object} options - options for the filepicker
+ * @returns {Component} Filestack FilePicker
+ * @author Victor &lt;@fengv1976>
+ * @author Ellaira &lt;@EllairaT>
+ */
+function FilePicker({ displaymode }) {
+  const apikey = 'A0yHkhiKiR0uyQlW7XLzrz'
+  const client = filestack.init(apikey)
+  const options = {
+    container: '#inline',
+    displayMode: 'inline',
+    fromSources: ['local_file_system'],
+    // all info about upload in res
+    onUploadDone: (res) => console.log(res)
+  }
 
-        
+  const picker = client.picker(options)
+  const p = picker.open()
 
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="models_job.model.js.html" class="button">View Source</a>
-            <span>
-                <a href="models_job.model.js.html">models/job.model.js</a>, <a href="models_job.model.js.html#line7">line 7</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  return (
+    &lt;>
+      &lt;Container>{() => p}&lt;/Container>
+    &lt;/>
+  )
+}
+export default FilePicker
+</code></pre>
+        </article>
+    </section>
 
 
 

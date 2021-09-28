@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> _app.js</title>
+  <title> components/Popup.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>_app.js</h1>
+                    <h1>components/Popup.js</h1>
                 </header>
                 
 
@@ -85,34 +85,49 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import 'bootstrap/dist/css/bootstrap.min.css'
-import '../styles/globals.css'
-import { Container, Row, Col } from 'react-bootstrap'
-import Navi from '../components/Navi'
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
 /**
- * Navigation, and any headers or footers should be put in here for consistency
- * across pages.
- * @Category Others
+ * Calling Popup will return a modal object to be shown to the user.
+ * @component
+ * @example
+ * return(
+ *    &lt;Popup show={show} handleShow={popupShow} handleClose={close} title="title" body="lorem ipsum" />
+ * )
+ *
+ * @param {Object} props json object containing string and helper function information
+ * @param {boolean|string} props.show determine if popup is showing. Default value will be false.
+ * @param {function} props.handleShow function to fire when `event:onLoad` is triggered from the Modal
+ * @param {function} props.handleClose function to fire when `event:onClick` is triggered from the Button
+ * @param {string} props.title title string
+ * @param {string} props.body body string
+ *
+ * @returns {Component} Modal
+ *
  */
-function CustomApp({ Component, pageProps }) {
+function Popup(props) {
+  const { show, handleShow, handleClose, title, body } = props
   return (
-    &lt;Container>
-      &lt;Row>
-        {/* sidebar */}
-        &lt;Col xs={2}>
-          &lt;Navi />
-        &lt;/Col>
-        {/* rest of content */}
-        &lt;Col>
-          &lt;Component />
-        &lt;/Col>
-      &lt;/Row>
-    &lt;/Container>
+    &lt;>
+      &lt;Modal show={show} onLoad={handleShow}>
+        &lt;Modal.Header>
+          &lt;Modal.Title>{title}&lt;/Modal.Title>
+        &lt;/Modal.Header>
+        &lt;Modal.Body>{body}&lt;/Modal.Body>
+
+        &lt;Modal.Footer>
+          &lt;Button variant="primary" onClick={handleClose}>
+            Close
+          &lt;/Button>
+        &lt;/Modal.Footer>
+      &lt;/Modal>
+    &lt;/>
   )
 }
 
-export default CustomApp
+export default Popup
 </code></pre>
         </article>
     </section>

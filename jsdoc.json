@@ -1,10 +1,6 @@
 {
   "source": {
-    "include": [
-      "pages",
-      "components",
-      "models"
-    ],
+    "include": ["pages", "components", "models", "lib"],
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs)"
   },
@@ -13,19 +9,14 @@
     "monospaceLinks": true
   },
   "tags": {
-    "allowUnknownTags": [
-      "component",
-      "category"
-    ]
+    "allowUnknownTags": ["category", "component", "optional"]
   },
-  "plugins": [
-    "plugins/markdown",
-    "node_modules/better-docs/component",
-    "node_modules/better-docs/category"
-  ],
+  "plugins": ["plugins/markdown", "node_modules/better-docs/component", "node_modules/better-docs/category"],
   "opts": {
     "recurse": true,
+    "readme": "./README.md",
     "destination": "./docs/",
+    "verbose": true,
     "template": "node_modules/better-docs"
   }
 }

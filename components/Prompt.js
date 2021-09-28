@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 // import Modal from 'react-bootstrap/Modal'
 // import Modal from 'react-bootstrap/Modal'
-import Popup from './Modal'
+import Popup from './Popup'
 import Input from './Input'
 
-/*
-Author: Jarod
-Updated : 18/08/21
-Desc: This component creates a promt that is opened by clicking. 
-Uses react-bootstrap Modal 
-*/
+/**
+ * This component creates a prompt that is opened by clicking the button
+ * @component
+ * @author Jarod
+ * @returns {Component} Prompt,Button
+ */
 function Prompt() {
   const data = [
     ['Weather', 'Have you thought about the weather in this area today?'],

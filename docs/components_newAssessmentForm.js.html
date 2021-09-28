@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> models/job.model.js</title>
+  <title> components/newAssessmentForm.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>models/job.model.js</h1>
+                    <h1>components/newAssessmentForm.js</h1>
                 </header>
                 
 
@@ -85,53 +85,122 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module Job
- * @category Models
- * */
-const mongoose = require('mongoose')
-
-const { Schema } = mongoose
-mongoose.Promise = global.Promise
-
+            <pre class="prettyprint source linenums"><code>import { Container, Row, Form, Col, Button } from 'react-bootstrap'
+import React, { Component, useState } from 'react'
+import Image from 'next/image'
+import Input from './Input'
+import logoimg from '../saveImage.jpg'
+import Prompt from './Prompt'
+import AssessmentCSS from '../styles/Assessment.module.css'
 /**
- * model for job
- * @typedef {Object} jobSchema
- * @property {Date} date - the date of job
- * @property {Timestamp} timeStart - the start time of the job
- * @property {Timestamp} timeEnd - the end time of the job
- * @property {String} site - name of site being visited
- * @property {String} siteAddress - address of the site
- * @property {String} phone - phone number of the site
- * @property {String} inspector - name of inspector on the job
- * @property {String} notes - additional notes
- * @property {Array&lt;String>} siteTags - keywords related to site address/site type
- *
+ * @component
+ * @param {*} props
+ * @returns {Component} Form
  */
-const jobSchema = new Schema({
-  date: Date,
-  site: String,
-  siteAddress: String,
-  siteType: String,
-  phone: String,
-  inspector: String,
-  notes: String,
-  siteTags: [String],
-  assessments: [String],
-  createdAt: {
-    type: Date,
-    default: new Date()
+function NewDRAForm(props) {
+  const [job, setJob] = useState({
+    assessment: [],
+    siteTags: [],
+    createdAt: `${Date()}`,
+    date: '',
+    site: '',
+    siteAddress: '',
+    siteType: '',
+    phone: '',
+    inspector: '',
+    notes: ''
+  })
+
+  // Stores to database
+  const createJob = async () => {
+    try {
+      const res = await fetch(`${server}/api/jobs`, {
+        // calling method type
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(job)
+      })
+      alert('Success')
+    } catch (error) {
+      alert('Failed')
+      console.log(error)
+    }
   }
-})
 
-/**
- * Model object for the Job schema.
- * See {@link jobSchema}
- * @todo create example
- */
+  // on submit
+  const onSubmit = (e) => {
+    e.preventDefault()
+    createJob()
+  }
+  const inputsHandler = (e) => {
+    // update the attributes in object
+    const { name } = e.target
+    const { value } = e.target
+    job[name] = value
+    setJob(job)
+  }
 
-const Job = mongoose.models.Job || mongoose.model('Job', jobSchema)
-export default Job
+  return (
+    &lt;>
+      &lt;Container>
+        &lt;Row className={AssessmentCSS.header}>
+          &lt;h2>Create new Assessment&lt;/h2>
+        &lt;/Row>
+        &lt;Form className={AssessmentCSS.form}>
+          &lt;Form.Group className="mb-3" controlId="formSiteDetails">
+            &lt;Row>
+              &lt;Col>
+                &lt;Row className={AssessmentCSS.row}>
+                  &lt;Input
+                    type="text"
+                    label="Job Site:"
+                    placeholder="Name of Location"
+                    name="JobSite"
+                    onChange={inputsHandler}
+                  />
+                &lt;/Row>
+                {/* &lt;Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} /> */}
+                {/* &lt;Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} /> */}
+
+                &lt;Row className={AssessmentCSS.textArea}>
+                  &lt;Input
+                    type="notes"
+                    label="Notes"
+                    placeholder="What have you noticed..."
+                    name="Notes"
+                    onChange={inputsHandler}
+                  />
+                  {/* &lt;Col> 
+                &lt;Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
+              &lt;/Col>
+              &lt;Col>
+                &lt;Input type="tel" label="phone Number:" placeholder="phone Number of Location" name="phone" onChange={inputsHandler} />
+              &lt;/Col>
+              &lt;Col>
+                &lt;Input label="Date:" type="date" name="date" onChange={inputsHandler} />
+              &lt;/Col>
+              {/* &lt;Col>
+                &lt;Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
+              &lt;/Col> */}
+                &lt;/Row>
+              &lt;/Col>
+              &lt;Col>
+                &lt;Image src={logoimg} size={10} />
+              &lt;/Col>
+            &lt;/Row>
+
+            &lt;Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
+            &lt;Prompt />
+          &lt;/Form.Group>
+        &lt;/Form>
+      &lt;/Container>
+    &lt;/>
+  )
+}
+export default NewDRAForm
 </code></pre>
         </article>
     </section>

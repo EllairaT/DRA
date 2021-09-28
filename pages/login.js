@@ -52,10 +52,12 @@ function Login({ csrfToken }) {
     if (details.userEmail == '' && details.userPassword == '') {
       setError('Please enter your credentials to continue')
       return false
-    } if (details.userEmail == '') {
+    }
+    if (details.userEmail == '') {
       setError('Please enter your email address')
       return false
-    } if (details.userPassword == '') {
+    }
+    if (details.userPassword == '') {
       setError('Please enter your password')
       return false
     }
@@ -100,7 +102,6 @@ function Login({ csrfToken }) {
                   <Form.Text>Never tell anyone your password. </Form.Text>
 
                   <Button as="input" type="submit" value="Submit" />
-                  
                 </Form.Group>
                 <p className="text-danger mt-5">{error}</p>
               </Form>

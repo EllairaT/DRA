@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Models</title>
+  <title> Users</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>Models</h1>
+                    <h1>Users</h1>
                 </header>
                 
 
@@ -117,8 +117,8 @@
             
                 <div class="member">
 
-<h4 class="name" id="~Job">
-    <a class="href-link" href="#~Job">#</a>
+<h4 class="name" id="~User">
+    <a class="href-link" href="#~User">#</a>
     
         
             <span class='tag'>inner</span>
@@ -127,7 +127,7 @@
         
     
     <span class="code-name">
-        Job
+        User
     </span>
     
 </h4>
@@ -136,8 +136,10 @@
 
 
 <div class="description">
-    <p>Model object for the Job schema.
-See <code>jobSchema</code></p>
+    <p>Model object for the user schema.
+It is HIGHLY recommended that the string for the password paramater is already hashed.
+This app hashes password on the client side.
+See <code>userSchema</code></p>
 </div>
 
 
@@ -177,9 +179,9 @@ See <code>jobSchema</code></p>
 
     
         <p class="tag-source">
-            <a href="models_job.model.js.html" class="button">View Source</a>
+            <a href="models_users.model.js.html" class="button">View Source</a>
             <span>
-                <a href="models_job.model.js.html">models/job.model.js</a>, <a href="models_job.model.js.html#line45">line 45</a>
+                <a href="models_users.model.js.html">models/users.model.js</a>, <a href="models_users.model.js.html#line56">line 56</a>
             </span>
         </p>
     
@@ -187,6 +189,17 @@ See <code>jobSchema</code></p>
 
 
 
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const user = new User({
+      name: steve,
+      email: steve@ex.com,
+      password: passw123 
+    })</code></pre>
+    
 
 
 </div>
@@ -207,16 +220,16 @@ See <code>jobSchema</code></p>
     <span class="method-parameter is-pulled-right">
         <label>Type:</label>
         
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
     </span>
 
-<h4 class="name" id="~jobSchema">
-    <a class="href-link" href="#~jobSchema">#</a>
+<h4 class="name" id="~userSchema">
+    <a class="href-link" href="#~userSchema">#</a>
     
     <span class="code-name">
-        jobSchema
+        userSchema
     </span>
     
 </h4>
@@ -225,7 +238,8 @@ See <code>jobSchema</code></p>
 
 
 <div class="description">
-    <p>model for job</p>
+    <p>Model for users.
+Note that Date is generated for you, no need to do anything.</p>
 </div>
 
 
@@ -258,6 +272,75 @@ See <code>jobSchema</code></p>
             
 <tr class="deep-level-0">
     
+        <td class="name"><code>name</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>name of user</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>password</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>password of user (STRONGLY recommended to hash first)</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>email</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>email address of the user</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
         <td class="name"><code>date</code></td>
     
 
@@ -274,191 +357,7 @@ See <code>jobSchema</code></p>
 
     
 
-    <td class="description last"><p>the date of job</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>date</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">Timestamp</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>the start time of the job</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>date</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">Timestamp</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>the end time of the job</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>site</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">String</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>name of site being visited</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>siteAddress</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">String</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>address of the site</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>phone</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">String</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>phone number of the site</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>inspector</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">String</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>name of inspector on the job</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>notes</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">String</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>additional notes</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>siteTags</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">Array.&lt;String></span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>keywords related to site address/site type</p></td>
+    <td class="description last"><p>date that user was created.</p></td>
 </tr>
 
         
@@ -501,9 +400,9 @@ See <code>jobSchema</code></p>
 
     
         <p class="tag-source">
-            <a href="models_job.model.js.html" class="button">View Source</a>
+            <a href="models_users.model.js.html" class="button">View Source</a>
             <span>
-                <a href="models_job.model.js.html">models/job.model.js</a>, <a href="models_job.model.js.html#line9">line 9</a>
+                <a href="models_users.model.js.html">models/users.model.js</a>, <a href="models_users.model.js.html#line10">line 10</a>
             </span>
         </p>
     

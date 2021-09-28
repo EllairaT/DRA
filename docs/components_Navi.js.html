@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
@@ -87,28 +87,33 @@
         <article>
             <pre class="prettyprint source linenums"><code>import { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
+import Image from 'next/image'
 import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
-import NavCSS from './Navi.module.css'
+import NavCSS from '../styles/Navi.module.css'
+import logoimg from '../hardHat.png'
 
 /**
- * Navigation menu.
- * Uses custom css module. 
- * Bootstrap icons are of size 30.
  * @component
- * @returns {Component} 
+ *
+ * This is a function component
+ * Returns a React Sidebar
+ * @returns {Component}
  */
 function Navi() {
   return (
     &lt;>
       &lt;Nav className={NavCSS.customnav}>
+        &lt;Nav.Item className={NavCSS.image}>
+          &lt;Image src={logoimg} size={10} />
+        &lt;/Nav.Item>
         &lt;Nav.Link href="/" className={NavCSS.icons}>
-          &lt;HouseDoor size={30} />
+          &lt;HouseDoor size={40} />
         &lt;/Nav.Link>
         &lt;Nav.Link href="/createAssessment" className={NavCSS.icons}>
-          &lt;JournalPlus size={30} />
+          &lt;JournalPlus size={40} />
         &lt;/Nav.Link>
         &lt;Nav.Link href="/scheduleAssessment" className={NavCSS.icons}>
-          &lt;CalendarPlus size={30} />
+          &lt;CalendarPlus size={40} />
         &lt;/Nav.Link>
         {/* &lt;Nav.Link eventKey="link-2">Link&lt;/Nav.Link> */}
       &lt;/Nav>

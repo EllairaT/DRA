@@ -2,22 +2,22 @@ import { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Image from 'next/image'
 import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
-import NavCSS from './Navi.module.css'
+import NavCSS from '../styles/Navi.module.css'
 import logoimg from '../hardHat.png'
 
 /**
- * Navigation menu.
- * Uses custom css module. 
- * Bootstrap icons are of size 30.
  * @component
- * @returns {Component} 
+ *
+ * This is a function component
+ * Returns a React Sidebar
+ * @returns {Component}
  */
 function Navi() {
   return (
     <>
       <Nav className={NavCSS.customnav}>
         <Nav.Item className={NavCSS.image}>
-          <Image src = {logoimg} size ={10}/>
+          <Image src={logoimg} size={10} />
         </Nav.Item>
         <Nav.Link href="/" className={NavCSS.icons}>
           <HouseDoor size={40} />

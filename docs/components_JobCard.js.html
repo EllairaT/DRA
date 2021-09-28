@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> pages/createAssessment.js</title>
+  <title> components/JobCard.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>pages/createAssessment.js</h1>
+                    <h1>components/JobCard.js</h1>
                 </header>
                 
 
@@ -86,27 +86,47 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import Container from 'react-bootstrap/Container'
-import Form from '../components/newAssessmentForm'
-import Navi from '../components/Navi'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { Clock, Phone, Geo } from 'react-bootstrap-icons'
+import Row from 'react-bootstrap/Row'
+import Input from './Input'
+
 /**
- * Page for creating new assessments
- * @Category Pages
+ * Bootstrap Card that contains job information
+ * @component
+ * @param {Object} job job information. See {@link models/job.model.js}
+ * @returns {Component} Card
  */
-function NewAssessment() {
+function JobCard({ job }) {
   return (
     &lt;>
-
-      &lt;h1>Create New Job&lt;/h1>
-      &lt;Navi />
       &lt;Container>
-        &lt;Form />
-      &lt;/Container>
+        &lt;h1>
+          {job.site} | {job.siteType}
+        &lt;/h1>
 
+        &lt;p>
+          &lt;Geo size={20} />
+          &amp;nbsp;
+          {job.siteAddress}
+        &lt;/p>
+
+        &lt;p>
+          &lt;Phone size={20} />
+          &amp;nbsp;
+          {job.phone}
+        &lt;/p>
+
+        &lt;p>
+          {/* have to be view in dd-mm hh-mm format */}
+          &lt;Clock size={20} />
+          &amp;nbsp;
+          {job.date}
+        &lt;/p>
+      &lt;/Container>
     &lt;/>
   )
 }
-export default NewAssessment
+export default JobCard
 </code></pre>
         </article>
     </section>

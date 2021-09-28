@@ -71,7 +71,6 @@ function Register() {
                   />
                   <Form.Text>Never tell anyone your password. </Form.Text>
                   <Button as="input" type="submit" value="Submit" onClick={submitHandler} />
-                  
                 </Form.Group>
               </Form>
             </div>

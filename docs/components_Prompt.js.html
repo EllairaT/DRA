@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> index.js</title>
+  <title> components/Prompt.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>index.js</h1>
+                    <h1>components/Prompt.js</h1>
                 </header>
                 
 
@@ -85,24 +85,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Container, Row, Col } from 'react-bootstrap'
-import JobCard from '../components/JobCard'
-import Navi from '../components/Navi'
+            <pre class="prettyprint source linenums"><code>import React, { Component, useEffect, useState } from 'react'
+import Button from 'react-bootstrap/Button'
+// import Modal from 'react-bootstrap/Modal'
+// import Modal from 'react-bootstrap/Modal'
+import Popup from './Popup'
+import Input from './Input'
 
 /**
- * Entry point of the app. 
- * @Category Pages
+ * This component creates a prompt that is opened by clicking the button
+ * @component
+ * @author Jarod
+ * @returns {Component} Prompt,Button
  */
-function Home() {
+function Prompt() {
+  const data = [
+    ['Weather', 'Have you thought about the weather in this area today?'],
+    ['Below Risks', 'Have you checked beneath you for any risks?'],
+    ['Above Risks', 'Have you looked up? Is there any potential for harm?'],
+    ['Whoose in Charge?', 'Is the safety warden working? Are they aware of immediate risks? '],
+    ['Level Risks', 'Are there any risks at ground level?'],
+    ['Uniform', 'Is everyone wearing the correct equipment for their roles?']
+  ]
+
+  const hint = Math.floor(Math.random() * 6)
+  const [show, setShow] = useState(false)
+
+  const close = () => setShow(false)
+  const popupShow = () => setShow(true)
+
   return (
     &lt;>
-      &lt;h1>Dynamic Risk Assessment &lt;/h1>
-      &lt;Navi />
-      &lt;JobCard />
+      &lt;Button variant="primary" onClick={popupShow}>
+        Hint
+      &lt;/Button>
+      &lt;Popup show={show} handleShow={popupShow} handleClose={close} title={data[hint][0]} body={data[hint][1]} />
     &lt;/>
   )
 }
-export default Home</code></pre>
+
+export default Prompt
+</code></pre>
         </article>
     </section>
 

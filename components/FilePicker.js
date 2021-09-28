@@ -1,11 +1,20 @@
 import * as filestack from 'filestack-js'
-import { useState } from 'react'
-
+import { Component, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 
-export default function FilePicker({ displaymode }) {
-  const [button, setButton] = useState('closed')
-
+/**
+ * Filepicker component.
+ *
+ * @component
+ * @param {string} [displaymode=inline] - sets display mode for the filepicker.
+ * @property {string} apikey - api key for filestack
+ * @property {Object} client - client object
+ * @property {Object} options - options for the filepicker
+ * @returns {Component} Filestack FilePicker
+ * @author Victor <@fengv1976>
+ * @author Ellaira <@EllairaT>
+ */
+function FilePicker({ displaymode }) {
   const apikey = 'A0yHkhiKiR0uyQlW7XLzrz'
   const client = filestack.init(apikey)
   const options = {
@@ -13,24 +22,16 @@ export default function FilePicker({ displaymode }) {
     displayMode: 'inline',
     fromSources: ['local_file_system'],
     // all info about upload in res
-    onUploadDone: (res) => console.log(res),
-    onOpen: () => console.log('opened!')
+    onUploadDone: (res) => console.log(res)
   }
 
   const picker = client.picker(options)
   const p = picker.open()
 
-  // const c = client('A0yHkhiKiR0uyQlW7XLzrz', options)
-  // const getURL = (e) => {}
-  // .return(
-  //   <>
-  //     <h1>FileStack</h1>
-  //     <PickerInline apikey="A0yHkhiKiR0uyQlW7XLzrz" pickerOptions={options} />
-  //   </>
-  // )
   return (
     <>
       <Container>{() => p}</Container>
     </>
   )
 }
+export default FilePicker

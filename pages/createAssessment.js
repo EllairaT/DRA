@@ -3,10 +3,7 @@ import Form from '../components/newAssessmentForm'
 import Navi from '../components/Navi'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-/**
- * Page for creating new assessments
- * @Category Pages
- */
+
 function NewAssessment() {
   return (
     <>

@@ -23,11 +23,6 @@ import Input from '../components/Input'
 import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
 
-/**
- * Entry point of the app.
- * @Category Pages
- */
-
 function Home({ jobs }) {
   // access session
   const { data: session, status } = useSession()
@@ -36,15 +31,13 @@ function Home({ jobs }) {
     return <h1>loading...</h1>
   }
 
-  jobs = {}
+  // jobs = {}
 
   // print out jobCard
   const printJobs = () => (
     <>
       {jobs.map((job, i) => (
-        <>
-          <JobCard job={job} key={i} />
-        </>
+        <JobCard job={job} key={i} />
       ))}
     </>
   )

@@ -1,11 +1,15 @@
 import { Container, Row, Form, Col, Button } from 'react-bootstrap'
-import React, { useState } from 'react'
+import React, { Component, useState } from 'react'
 import Image from 'next/image'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
-import AssessmentCSS from './Assessment.module.css'
-
+import AssessmentCSS from '../styles/Assessment.module.css'
+/**
+ * @component
+ * @param {*} props
+ * @returns {Component} Form
+ */
 function NewDRAForm(props) {
   const [job, setJob] = useState({
     assessment: [],
@@ -100,7 +104,8 @@ function NewDRAForm(props) {
                 <Image src={logoimg} size={10} />
               </Col>
             </Row>
-            <Button className={AssessmentCSS.button} as="input" onClick={onSubmit} value="submit" />
+
+            <Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
             <Prompt />
           </Form.Group>
         </Form>

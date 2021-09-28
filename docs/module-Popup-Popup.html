@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Input</title>
+  <title> Popup</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Models.html">Models</a></li></ul><h3>Components</h3><ul><li><a href="module-App-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="module-Popup-Popup.html">Popup</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>components</h2><h3>Modules</h3><ul><li><a href="module-Popup.html">Popup</a></li></ul></div>
                 
             </nav>
         </div>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Components</p>
-                    <h1>Input</h1>
+                    <h1>Popup</h1>
                 </header>
                 
 
@@ -86,7 +86,7 @@
 <header>
     
         <h2>
-            &ltInput  /&gt
+            &ltPopup  /&gt
         </h2>
         
     
@@ -106,12 +106,12 @@
 
 
     
-    <h4 class="name" id="Input">
-        <a class="href-link" href="#Input">#</a>
+    <h4 class="name" id="Popup">
+        <a class="href-link" href="#Popup">#</a>
         
         <span class="code-name">
             
-                &ltInput  /&gt
+                &ltPopup  /&gt
             
         </span>
     </h4>
@@ -120,7 +120,7 @@
     
     
     <div class="description">
-        <p>Generic input field for entering information</p>
+        <p>Calling Popup will return a modal object to be shown to the user.</p>
     </div>
     
 
@@ -166,7 +166,7 @@
   <td class="type">
   
       
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
   
@@ -176,8 +176,129 @@
 
   
 
-  <td class="description last"><p>Array of props (strings, ints, etc)</p></td>
+  <td class="description last"><p>json object containing string and helper function information</p></td>
 </tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>show</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+|
+
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>determine if popup is showing. Default value will be false.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>handleShow</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>function to fire when <code>event:onLoad</code> is triggered from the Modal</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>handleClose</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>function to fire when <code>event:onClick</code> is triggered from the Button</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>title</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>title string</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>body string</p></td>
+</tr>
+
+  
 
 
         
@@ -186,58 +307,6 @@
 </div>
 
 
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-<div class="table-container">
-    <table class="props table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>type</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">String</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>type of input (i.e. email, password, number, etc)</p></td>
-</tr>
-
-        
-        </tbody>
-    </table>
-</div>
 
 
 
@@ -274,9 +343,9 @@
 
     
         <p class="tag-source">
-            <a href="components_Input.js.html" class="button">View Source</a>
+            <a href="components_Popup.js.html" class="button">View Source</a>
             <span>
-                <a href="components_Input.js.html">components/Input.js</a>, <a href="components_Input.js.html#line11">line 11</a>
+                <a href="components_Popup.js.html">components/Popup.js</a>, <a href="components_Popup.js.html#line27">line 27</a>
             </span>
         </p>
     
@@ -307,11 +376,13 @@
 
 <div class="columns">
     
+    <div class='param-desc column is-7'><p>Modal</p></div>
+    
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">FormControl</span>
+<span class="param-type">Component</span>
 
 
     </div>
@@ -323,6 +394,22 @@
     </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    
+        
+
+<div id='component0'></div>
+
+<script>
+  ReactDOM.render(ReactWrapper({
+    example: "return(\r   <Popup show={show} handleShow={popupShow} handleClose={close} title=\"title\" body=\"lorem ipsum\" />\r)",
+    uniqId: "component0",
+  }), document.getElementById('component0'));
+</script>
+    
 
 
 

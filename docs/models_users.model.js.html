@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> createAssessment.js</title>
+  <title> models/users.model.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>createAssessment.js</h1>
+                    <h1>models/users.model.js</h1>
                 </header>
                 
 
@@ -85,28 +85,64 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Container from 'react-bootstrap/Container'
-import Form from '../components/newAssessmentForm'
-import Navi from '../components/Navi'
-import 'bootstrap/dist/css/bootstrap.min.css'
-/**
- * Page for creating new assessments
- * @Category Pages
+            <pre class="prettyprint source linenums"><code>/**
+ * @module Users
+ * @category Models
  */
-function NewAssessment() {
-  return (
-    &lt;>
 
-      &lt;h1>Create New Job&lt;/h1>
-      &lt;Navi />
-      &lt;Container>
-        &lt;Form />
-      &lt;/Container>
+const mongoose = require('mongoose')
 
-    &lt;/>
-  )
-}
-export default NewAssessment
+const { Schema } = mongoose
+
+/**
+ * Model for users.
+ * Note that Date is generated for you, no need to do anything.
+ * @typedef {Object} userSchema
+ * @property {String} name - name of user
+ * @property {String} password - password of user (STRONGLY recommended to hash first)
+ * @property {String} email - email address of the user
+ * @property {Date} date - date that user was created.
+ */
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true,
+      min: 6
+    },
+    email: {
+      type: String,
+      required: true,
+      min: 6
+    },
+    date: {
+      type: Date,
+      default: Date.now
+    }
+  },
+  { collection: 'users' }
+)
+
+/**
+ * Model object for the user schema.
+ * It is HIGHLY recommended that the string for the password paramater is already hashed.
+ * This app hashes password on the client side. 
+ * See {@link userSchema}
+ * 
+ * @example
+ *  const user = new User({
+      name: steve,
+      email: steve@ex.com,
+      password: passw123 
+    })
+ */
+const User = mongoose.models.User || mongoose.model('User', userSchema)
+
+export default User
 </code></pre>
         </article>
     </section>

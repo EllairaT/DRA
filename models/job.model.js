@@ -1,14 +1,15 @@
-/** @module Models */
-
+/**
+ * @module Job
+ * @category Models
+ * */
 const mongoose = require('mongoose')
 
 const { Schema } = mongoose
 mongoose.Promise = global.Promise
 
-
-/**   
+/**
  * model for job
- * @typedef {object} jobSchema
+ * @typedef {Object} jobSchema
  * @property {Date} date - the date of job
  * @property {Timestamp} timeStart - the start time of the job
  * @property {Timestamp} timeEnd - the end time of the job
@@ -18,8 +19,8 @@ mongoose.Promise = global.Promise
  * @property {String} inspector - name of inspector on the job
  * @property {String} notes - additional notes
  * @property {Array<String>} siteTags - keywords related to site address/site type
- * 
-*/
+ *
+ */
 const jobSchema = new Schema({
   date: Date,
   site: String,
@@ -39,7 +40,8 @@ const jobSchema = new Schema({
 /**
  * Model object for the Job schema.
  * See {@link jobSchema}
- * @Category Models
+ * @todo create example
  */
 
-module.exports = mongoose.models.Job || mongoose.model('Job', jobSchema)
+const Job = mongoose.models.Job || mongoose.model('Job', jobSchema)
+export default Job

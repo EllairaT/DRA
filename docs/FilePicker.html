@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Input</title>
+  <title> FilePicker</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Input.html">Input</a></li><li><a href="module-job.html">job</a></li></ul><h3>Components</h3><ul><li><a href="module-Input-Input.html">Input</a></li><li><a href="Navi.html">Navi</a></li></ul></div><div class="category"><h2>Others</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#NewAssessment">NewAssessment</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div>
                 
             </nav>
         </div>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Components</p>
-                    <h1>Input</h1>
+                    <h1>FilePicker</h1>
                 </header>
                 
 
@@ -86,7 +86,7 @@
 <header>
     
         <h2>
-            &ltInput  /&gt
+            &ltFilePicker  /&gt
         </h2>
         
     
@@ -106,12 +106,12 @@
 
 
     
-    <h4 class="name" id="Input">
-        <a class="href-link" href="#Input">#</a>
+    <h4 class="name" id="FilePicker">
+        <a class="href-link" href="#FilePicker">#</a>
         
         <span class="code-name">
             
-                &ltInput  /&gt
+                &ltFilePicker  /&gt
             
         </span>
     </h4>
@@ -120,7 +120,7 @@
     
     
     <div class="description">
-        <p>Generic input field for entering information</p>
+        <p>Filepicker component.</p>
     </div>
     
 
@@ -147,7 +147,11 @@
             <th>Type</th>
 
             
+            <th>Attributes</th>
+            
 
+            
+            <th>Default</th>
             
 
             <th class="last">Description</th>
@@ -160,23 +164,39 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>props</code></td>
+      <td class="name"><code>displaymode</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
   
   </td>
 
   
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
 
+      
+
+      
+      </td>
   
 
-  <td class="description last"><p>Array of props (strings, ints, etc)</p></td>
+  
+      <td class="default">
+      
+          inline
+      
+      </td>
+  
+
+  <td class="description last"><p>sets display mode for the filepicker.</p></td>
 </tr>
 
 
@@ -215,13 +235,13 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>type</code></td>
+        <td class="name"><code>apikey</code></td>
     
 
     <td class="type">
     
         
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
     
@@ -231,7 +251,53 @@
 
     
 
-    <td class="description last"><p>type of input (i.e. email, password, number, etc)</p></td>
+    <td class="description last"><p>api key for filestack</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>client</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Object</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>client object</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>options</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Object</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>options for the filepicker</p></td>
 </tr>
 
         
@@ -260,6 +326,15 @@
     
 
     
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Victor &lt;@fengv1976></li>
+        
+            <li>Ellaira &lt;@EllairaT></li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -274,9 +349,9 @@
 
     
         <p class="tag-source">
-            <a href="components_Input.js.html" class="button">View Source</a>
+            <a href="components_FilePicker.js.html" class="button">View Source</a>
             <span>
-                <a href="components_Input.js.html">components/Input.js</a>, <a href="components_Input.js.html#line11">line 11</a>
+                <a href="components_FilePicker.js.html">components/FilePicker.js</a>, <a href="components_FilePicker.js.html#line17">line 17</a>
             </span>
         </p>
     
@@ -307,11 +382,13 @@
 
 <div class="columns">
     
+    <div class='param-desc column is-7'><p>Filestack FilePicker</p></div>
+    
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">FormControl</span>
+<span class="param-type">Component</span>
 
 
     </div>
