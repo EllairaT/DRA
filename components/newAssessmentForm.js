@@ -5,6 +5,7 @@ import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
+import { server } from '../config'
 /**
  * @component
  * @param {*} props
@@ -12,24 +13,19 @@ import AssessmentCSS from '../styles/Assessment.module.css'
  */
 function NewDRAForm(props) {
   const [job, setJob] = useState({
-    assessment: [],
-    siteTags: [],
-    createdAt: `${Date()}`,
-    date: '',
-    site: '',
-    siteAddress: '',
-    siteType: '',
-    phone: '',
-    inspector: '',
-    notes: ''
+    JobSite: '',
+    Notes: '',
+    URL: '',
+    time: `${Date()}`
   })
-
+  
   // Stores to database
+  // Current not working yet
   const createJob = async () => {
     try {
-      const res = await fetch(`${server}/api/jobs`, {
+      const res = await fetch(`${server}/api/jobs/6154232f1fc4822240747237`, {
         // calling method type
-        method: 'POST',
+        method: 'PUT',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -58,6 +54,7 @@ function NewDRAForm(props) {
 
   return (
     <>
+
       <Container>
         <Row className={AssessmentCSS.header}>
           <h2>Create new Assessment</h2>
