@@ -1,4 +1,4 @@
-import { Container, Row, Form, Col, Button } from 'react-bootstrap'
+import { Container, Row, Form, Col, Button, Alert } from 'react-bootstrap'
 import React, { Component, useState } from 'react'
 import Image from 'next/image'
 import Input from './Input'
@@ -25,6 +25,10 @@ function NewDRAForm(props) {
         notes: ''
     })
 
+    // for Alert message
+    const [variant, setVariant] = useState('')
+    const [text, setText] = useState('')
+
     // Stores to database
     const createJob = async () => {
         try {
@@ -37,8 +41,12 @@ function NewDRAForm(props) {
                 },
                 body: JSON.stringify(job)
             })
+            setVariant('success')
+            setText('Success, you may now return home or make new assessment for this job')
             alert('Success')
         } catch (error) {
+            setVariant('danger')
+            setText('Failed please try again')
             alert('Failed')
             console.log(error)
         }
@@ -61,7 +69,7 @@ function NewDRAForm(props) {
         <>
             <Container>
                 <Row className={AssessmentCSS.header}>
-                    <h2>Create new Assessment</h2>
+                    <h2>Schedule new Job</h2>
                 </Row>
                 <Form className={AssessmentCSS.form}>
                     <Form.Group className="mb-3" controlId="formSiteDetails">
@@ -78,22 +86,21 @@ function NewDRAForm(props) {
                                     type="text"
                                     label="Job Address:"
                                     placeholder="Address of Location"
-                                    name="JobAddress"
-                                    onChange={inputsHandler} />
-
+                                    name="siteAddress"
+                                    onChange={inputsHandler}
+                                />
                                 <Input
                                     type="text"
                                     label="Description:"
                                     placeholder="Description of Location"
-                                    name="JobSiteDescription"
-                                    onChange={inputsHandler} />
-
-
+                                    name="siteType"
+                                    onChange={inputsHandler}
+                                />
                                 <Input
                                     type="notes"
                                     label="Notes"
                                     placeholder="What have you noticed..."
-                                    name="Notes"
+                                    name="notes"
                                     onChange={inputsHandler}
                                 />
                                 <Row>
@@ -103,24 +110,25 @@ function NewDRAForm(props) {
                                             label="phone Number:"
                                             placeholder="phone Number of Location"
                                             name="phone"
-                                            onChange={inputsHandler} 
-                                            />
-                                    </Col>
-                                    <Col>
-                                    <Input
-                                        type="date"
-                                        label="Date:"
-                                        name="date"
-                                        onChange={inputsHandler} 
+                                            onChange={inputsHandler}
                                         />
                                     </Col>
-                                <Col>
-                                    <Input
-                                        label="Time:"
-                                        type="time"
-                                        name="Time"
-                                        onChange={inputsHandler} />
-                                </Col>
+                                    <Col>
+                                        <Input
+                                            type="date"
+                                            label="Date:"
+                                            name="date"
+                                            onChange={inputsHandler}
+                                        />
+                                    </Col>
+                                    <Col>
+                                        <Input
+                                            label="Time:"
+                                            type="time"
+                                            name="Time"
+                                            onChange={inputsHandler}
+                                        />
+                                    </Col>
                                 </Row>
                             </Col>
 
@@ -131,9 +139,24 @@ function NewDRAForm(props) {
                             type="submit"
                             value="Submit"
                             className={AssessmentCSS.button}
-                            onClick={onSubmit} />
-                        {/* <Prompt /> */}
+                            onClick={onSubmit}
+                        />
                     </Form.Group>
+                    {/* Alert message after submit */}
+                    {/* True if variant is not empty */}
+                    {variant && (
+                        <>
+                            <Alert variant={variant}>
+                                {text}
+                                <Button href='../'>
+                                    Home
+                                </Button>
+                                <Button href='../createAssessment'>
+                                    New Assessment
+                                </Button>
+                            </Alert>
+                        </>
+                    )}
                 </Form>
             </Container>
         </>

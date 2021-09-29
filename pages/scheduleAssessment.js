@@ -7,9 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 function scheduleAssessment() {
   return (
     <>
-      {/* <h1>Create New Job</h1> */}
-
-      <h1>Create New Job</h1>
       <Navi />
       <Container>
         <Form />

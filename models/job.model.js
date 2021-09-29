@@ -7,6 +7,13 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 mongoose.Promise = global.Promise
 
+const assessmentSchema = new Schema({
+  JobSite: String,
+  Notes: String,
+  URL: String,
+})
+
+
 /**
  * model for job
  * @typedef {Object} jobSchema
@@ -30,7 +37,7 @@ const jobSchema = new Schema({
   inspector: String,
   notes: String,
   siteTags: [String],
-  assessments: [String],
+  assessments: [assessmentSchema],
   createdAt: {
     type: Date,
     default: new Date()
