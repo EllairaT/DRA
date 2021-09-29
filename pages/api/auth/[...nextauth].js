@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-//require('dotenv').config()
+// require('dotenv').config()
 
 export default NextAuth({
   providers: [
@@ -38,7 +38,7 @@ export default NextAuth({
   },
   pages: {
     signIn: '/login',
-    error: '/login' //stay on login page to display errors
+    error: '/login' // stay on login page to display errors
   },
   callbacks: {
     async signIn(user) {
