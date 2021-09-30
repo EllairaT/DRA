@@ -1,7 +1,15 @@
 import * as filestack from 'filestack-js'
 import { Component, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
+import dynamic from 'next/dynamic'
+import { client } from 'filestack-react'
 
+const InlinePicker = dynamic(
+  import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerInline),
+  {
+    ssr: false
+  }
+)
 /**
  * Filepicker component.
  *
@@ -11,27 +19,40 @@ import { Button, Container } from 'react-bootstrap'
  * @property {Object} client - client object
  * @property {Object} options - options for the filepicker
  * @returns {Component} Filestack FilePicker
- * @author Victor <@fengv1976>
- * @author Ellaira <@EllairaT>
+ * @author Victor
+ * @author Ellaira
  */
 function FilePicker({ displaymode }) {
-  const apikey = 'A0yHkhiKiR0uyQlW7XLzrz'
-  const client = filestack.init(apikey)
+  const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
+
   const options = {
+    storeTo: {
+      location: 'azure',
+      path: '/DRA_uploads/'
+    },
     container: '#inline',
     displayMode: 'inline',
     fromSources: ['local_file_system'],
-    // all info about upload in res
     onUploadDone: (res) => console.log(res)
   }
 
-  const picker = client.picker(options)
-  const p = picker.open()
+  // const picker = client.picker(options)
+  // const p = <Container>{picker.open()}</Container>
+  // return <>{p}</>
 
+  //initialise filestack client
+  const c = client.init(apikey, options)
+
+  // console.log(c.session.apikey, c.options)
   return (
-    <>
-      <Container>{() => p}</Container>
-    </>
+    <Container>
+      <InlinePicker
+        apikey={c.session.apikey}
+        pickerOptions={c.options}
+        onSuccess={(res) => console.log(res)}
+        onUploadDone={(res) => console.log(res)}
+      />
+    </Container>
   )
 }
 export default FilePicker

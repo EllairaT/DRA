@@ -8,6 +8,8 @@ import Input from './Input'
 /**
  * This component creates a prompt that is opened by clicking the button
  * @component
+ * @namespace Prompt
+ * @property {Array<String[]>} data - array of lists with questions. 1st string will be the title, 2nd string will be the body of the question.
  * @author Jarod
  * @returns {Component} Prompt,Button
  */

@@ -92,11 +92,6 @@ import Modal from 'react-bootstrap/Modal'
 /**
  * Calling Popup will return a modal object to be shown to the user.
  * @component
- * @example
- * return(
- *    &lt;Popup show={show} handleShow={popupShow} handleClose={close} title="title" body="lorem ipsum" />
- * )
- *
  * @param {Object} props json object containing string and helper function information
  * @param {boolean|string} props.show determine if popup is showing. Default value will be false.
  * @param {function} props.handleShow function to fire when `event:onLoad` is triggered from the Modal
@@ -105,7 +100,7 @@ import Modal from 'react-bootstrap/Modal'
  * @param {string} props.body body string
  *
  * @returns {Component} Modal
- *
+ * @author Jarod
  */
 function Popup(props) {
   const { show, handleShow, handleClose, title, body } = props

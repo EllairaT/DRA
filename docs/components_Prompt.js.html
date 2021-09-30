@@ -95,6 +95,8 @@ import Input from './Input'
 /**
  * This component creates a prompt that is opened by clicking the button
  * @component
+ * @namespace Prompt
+ * @property {Array&lt;String[]>} data - array of lists with questions. 1st string will be the title, 2nd string will be the body of the question.
  * @author Jarod
  * @returns {Component} Prompt,Button
  */
@@ -109,6 +111,10 @@ function Prompt() {
   ]
 
   const hint = Math.floor(Math.random() * 6)
+  /**
+   * @type {[Boolean,Function]} react useState hook for the show property of the modal
+   * @memberof Prompt
+   */
   const [show, setShow] = useState(false)
 
   const close = () => setShow(false)

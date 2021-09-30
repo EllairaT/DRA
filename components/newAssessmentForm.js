@@ -5,10 +5,25 @@ import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
+
 /**
+ * Functional Component that returns a Form to add Job information
  * @component
- * @param {*} props
+ * @namespace NewDRAForm
+ * @param {Object} props
+ * @param {Array<Object>} props.assessment - array of assessment (JSON) objects
+ * @param {Array<String>} props.siteTags - array of strings for tags relating to the site
+ * @param {Date} props.createdAt - date when Job was created
+ * @param {Date} props.date - date of job
+ * @param {String} props.site - name of the job site
+ * @param {String} props.siteAddress - address of the job site
+ * @param {String} props.siteType - type of job e.g. Construction
+ * @param {String} [props.phone] - phone number of the site
+ * @param {String} props.inspector - inspector assigned to job
+ * @param {String} [props.notes] - any additional notes
  * @returns {Component} Form
+ *
+ * @author Victor
  */
 function NewDRAForm(props) {
   const [job, setJob] = useState({
@@ -24,7 +39,13 @@ function NewDRAForm(props) {
     notes: ''
   })
 
-  // Stores to database
+  /**
+   * Function to store to database
+   * @async
+   * @function createJob
+   * @memberof NewDRAForm
+   * @returns {Promise<Object>} data from api
+   */
   const createJob = async () => {
     try {
       const res = await fetch(`${server}/api/jobs`, {
@@ -43,13 +64,26 @@ function NewDRAForm(props) {
     }
   }
 
-  // on submit
+  /**
+   * submit handler
+   * @function onSubmit
+   * @memberof NewDRAForm
+   * @param {*} e - event target
+   * @returns {void}
+   */
   const onSubmit = (e) => {
     e.preventDefault()
     createJob()
   }
+
+  /**
+   * input handler
+   * @function inputsHandler
+   * @memberof NewDRAForm
+   * @param {*} e - event target
+   * @returns {void}
+   */
   const inputsHandler = (e) => {
-    // update the attributes in object
     const { name } = e.target
     const { value } = e.target
     job[name] = value
