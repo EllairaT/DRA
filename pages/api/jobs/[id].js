@@ -37,10 +37,7 @@ async function jobReqs (req, res) {
         case 'PUT':
             // Update Job by ID
             try {
-                const job = await Job.findByIdAndUpdate(id, req.body, {
-                    new: true,
-                    runValidators: true
-                })
+                const job = await Job.findByIdAndUpdate(id, req.body )
 
                 if (!job) {
                     res.status(400).json({ success: false })

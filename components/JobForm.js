@@ -12,6 +12,7 @@ import { server } from '../config'
  * @returns {Component} Form
  */
 function NewDRAForm(props) {
+
     const [job, setJob] = useState({
         assessment: [],
         siteTags: [],
@@ -43,11 +44,10 @@ function NewDRAForm(props) {
             })
             setVariant('success')
             setText('Success, you may now return home or make new assessment for this job')
-            alert('Success')
+
         } catch (error) {
             setVariant('danger')
             setText('Failed please try again')
-            alert('Failed')
             console.log(error)
         }
     }
@@ -146,8 +146,9 @@ function NewDRAForm(props) {
                     {/* True if variant is not empty */}
                     {variant && (
                         <>
-                            <Alert variant={variant}>
+                            <Alert variant={variant}> {/* variant is for the look of the alertbox */}
                                 {text}
+                                <br />
                                 <Button href='../'>
                                     Home
                                 </Button>

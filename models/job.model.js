@@ -42,23 +42,7 @@ const jobSchema = new Schema({
   notes: String,
   siteTags: [String],
   // Not working yet can still can be changed
-  assessments: [
-    {
-      JobSite: {
-        type: String,
-      },
-      Notes: {
-        type: String,
-      },
-      URL: {
-        type: String,
-      },
-      time: {
-        type: Date,
-        default: new Date()
-      },
-    }
-  ],
+  assessments: [ assessmentSchema ],
   createdAt: {
     type: Date,
     default: new Date()
