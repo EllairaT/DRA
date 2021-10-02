@@ -50,15 +50,9 @@ function NewDRAForm(props) {
 
   // on submit
   const onSubmit = (e) => {
-    
-    setBody({
-      // push adds element to array
-      $push:
-      {
-        assessments: assessment,
-      }
-    })
     e.preventDefault()
+    setVariant('')
+    setText('')
     createAssessment()
     console.log(body)
     console.log(assessment)
