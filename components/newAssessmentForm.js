@@ -22,9 +22,6 @@ function NewDRAForm(props) {
   // help with the API body
   const [body, setBody] = useState('')
 
-  // get the ID of the Job I want to add assignment
-  const [id, setId] = useState(`${props.props}`)
-
   // for Alert message
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
@@ -33,7 +30,7 @@ function NewDRAForm(props) {
   // Current not working yet
   const createAssessment = async () => {
     try {
-      const res = await fetch(`${server}/api/jobs/61552766854b234ba4facf36`, {
+      const res = await fetch(`${server}/api/jobs/${props.props}`, {
         // calling method type
         method: 'PUT',
         headers: {
@@ -53,7 +50,7 @@ function NewDRAForm(props) {
 
   // on submit
   const onSubmit = (e) => {
-    e.preventDefault()
+    
     setBody({
       // push adds element to array
       $push:
@@ -61,8 +58,10 @@ function NewDRAForm(props) {
         assessments: assessment,
       }
     })
-    console.log(body)
+    e.preventDefault()
     createAssessment()
+    console.log(body)
+    console.log(assessment)
   }
   const inputsHandler = (e) => {
     // update the attributes in object
@@ -70,14 +69,22 @@ function NewDRAForm(props) {
     const { value } = e.target
     assessment[name] = value
     setAssessment(assessment)
-    console.log(id)
+    
+    // set body is here because OnSubmit it won't work unless buttom is pressed twice 
+    setBody({
+      // push adds element to array
+      $push:
+      {
+        assessments: assessment,
+      }
+    })
   }
 
   return (
     <>
       <Container>
         <Row className={AssessmentCSS.header}>
-          <h2>Create new Assessment {id}</h2>
+          <h2>Create new Assessment</h2>
         </Row>
         <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
