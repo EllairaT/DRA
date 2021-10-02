@@ -22,6 +22,9 @@ function NewDRAForm(props) {
   // help with the API body
   const [body, setBody] = useState('')
 
+  // get the ID of the Job I want to add assignment
+  const [id, setId] = useState(`${props.props}`)
+
   // for Alert message
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
@@ -67,13 +70,14 @@ function NewDRAForm(props) {
     const { value } = e.target
     assessment[name] = value
     setAssessment(assessment)
+    console.log(id)
   }
 
   return (
     <>
       <Container>
         <Row className={AssessmentCSS.header}>
-          <h2>Create new Assessment</h2>
+          <h2>Create new Assessment {id}</h2>
         </Row>
         <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">

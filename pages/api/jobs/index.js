@@ -44,6 +44,17 @@ export default async function jobReqs (req, res) {
                 res.status(400).json({ success: false })
             }
             break
+
+        case 'COPY':
+                try {
+                    // Get the newest job
+                    const job = await Job.findOne().sort({_id:-1})
+    
+                    res.status(200).json({data: job })
+                } catch (error) {
+                    res.status(400).json({ success: false })
+                }
+                break
         default:
             res.status(400).json({ success: false })
             break

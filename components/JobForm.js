@@ -30,6 +30,8 @@ function NewDRAForm(props) {
     const [variant, setVariant] = useState('')
     const [text, setText] = useState('')
 
+    const [id, setId] = useState('')
+
     // Stores to database
     const createJob = async () => {
         try {
@@ -42,8 +44,10 @@ function NewDRAForm(props) {
                 },
                 body: JSON.stringify(job)
             })
+
             setVariant('success')
             setText('Success, you may now return home or make new assessment for this job')
+
 
         } catch (error) {
             setVariant('danger')
@@ -55,6 +59,8 @@ function NewDRAForm(props) {
     // on submit
     const onSubmit = (e) => {
         e.preventDefault()
+        setVariant('')
+        setText('')
         createJob()
     }
     const inputsHandler = (e) => {
@@ -63,6 +69,30 @@ function NewDRAForm(props) {
         const { value } = e.target
         job[name] = value
         setJob(job)
+    }
+
+    const FindId = async () => {
+        try {
+            const jobRes = await fetch(`${server}/api/jobs`, {
+                // calling method type
+                method: 'COPY',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            })
+            const { data } = await jobRes.json()
+
+            return {
+                props: {
+                    job: data
+                }
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -152,7 +182,7 @@ function NewDRAForm(props) {
                                 <Button href='../'>
                                     Home
                                 </Button>
-                                <Button href='../createAssessment'>
+                                <Button href='../createAssessment/[id]' as={`../createAssessment/${props._id}`} onClick={FindId()}>
                                     New Assessment
                                 </Button>
                             </Alert>
