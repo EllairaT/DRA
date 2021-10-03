@@ -44,7 +44,7 @@ function NewDRAForm(props) {
    * @async
    * @function createJob
    * @memberof NewDRAForm
-   * @returns {Promise<Object>} data from api
+   * @returns {Promise} data from api
    */
   const createJob = async () => {
     try {
@@ -57,6 +57,7 @@ function NewDRAForm(props) {
         },
         body: JSON.stringify(job)
       })
+      //TODO: remove alert
       alert('Success')
     } catch (error) {
       alert('Failed')

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> components/Popup.js</title>
+  <title> pages/index.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>components/Popup.js</h1>
+                    <h1>pages/index.js</h1>
                 </header>
                 
 
@@ -85,44 +85,152 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+            <pre class="prettyprint source linenums"><code>import {
+  Container,
+  Form,
+  FormControl,
+  InputGroup,
+  CardGroup,
+  Card,
+  Row,
+  Col,
+  Button,
+  Carousel,
+  Modal
+} from 'react-bootstrap'
+import { signOut, useSession, getSession, signIn } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+import { Search } from 'react-bootstrap-icons'
+import cx from 'classnames'
+import JobCard from '../components/JobCard'
+// import { server } from '../config'
+import Navi from '../components/Navi'
+import Login from './login'
+import Input from '../components/Input'
+import createAssessment from './createAssessment'
+import indexCSS from '../styles/index.module.css'
 
 /**
- * Calling Popup will return a modal object to be shown to the user.
- * @component
- * @param {Object} props json object containing string and helper function information
- * @param {boolean|string} props.show determine if popup is showing. Default value will be false.
- * @param {function} props.handleShow function to fire when `event:onLoad` is triggered from the Modal
- * @param {function} props.handleClose function to fire when `event:onClick` is triggered from the Button
- * @param {string} props.title title string
- * @param {string} props.body body string
- *
- * @returns {Component} Modal
- * @author Jarod
+ * @category Pages
+ * @name Home
+ * @param {*} param0
+ * @returns {void}
+ * @author Ellaira
+ * @author Victor
+ * @author StJohn
  */
-function Popup(props) {
-  const { show, handleShow, handleClose, title, body } = props
+function Home({ jobs }) {
+  // access session
+  const { data: session, status } = useSession()
+
+  if (status === 'loading') {
+    return &lt;h1>loading...&lt;/h1>
+  }
+
+  // jobs = {}
+
+  // print out jobCard
+  const printJobs = () => (
+    &lt;>
+      {jobs.map((job, i) => (
+        &lt;JobCard job={job} key={i} />
+      ))}
+    &lt;/>
+  )
+
+  const printButtons = () => (
+    &lt;>
+      &lt;h1>No jobs found&lt;/h1>
+      &lt;Container>
+        &lt;Row>
+          &lt;Col className={indexCSS.col}>
+            &lt;Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
+              {' '}
+              Schedule New Job Column
+            &lt;/Button>
+          &lt;/Col>
+
+          &lt;Col className={indexCSS.col}>
+            &lt;Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
+              {' '}
+              Create New Assessment
+            &lt;/Button>
+          &lt;/Col>
+        &lt;/Row>
+      &lt;/Container>
+    &lt;/>
+  )
+
+  const content = (
+    &lt;Container>
+      &lt;Row>
+        {/* sidebar */}
+        &lt;Col xs={2}>
+          &lt;Navi />
+
+          &lt;Button onClick={() => signOut()}>Sign Out&lt;/Button>
+        &lt;/Col>
+        &lt;h1>Dynamic Risk Jobs &lt;/h1>
+        {/* check if jobs are empty */}
+        {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
+        &lt;Col />
+      &lt;/Row>
+      &lt;h6 className="text-primary">Signed in as {session?.user.name || 'guest'}&lt;/h6>
+    &lt;/Container>
+  )
+
   return (
     &lt;>
-      &lt;Modal show={show} onLoad={handleShow}>
-        &lt;Modal.Header>
-          &lt;Modal.Title>{title}&lt;/Modal.Title>
-        &lt;/Modal.Header>
-        &lt;Modal.Body>{body}&lt;/Modal.Body>
+      {/* show login page if there is no session */}
+      {!session &amp;&amp; (
+        &lt;>
+          &lt;Modal.Dialog>
+            &lt;Modal.Header closeButton>
+              &lt;Modal.Title>Unauthenticated User&lt;/Modal.Title>
+            &lt;/Modal.Header>
 
-        &lt;Modal.Footer>
-          &lt;Button variant="primary" onClick={handleClose}>
-            Close
-          &lt;/Button>
-        &lt;/Modal.Footer>
-      &lt;/Modal>
+            &lt;Modal.Body>
+              &lt;p>Please sign in to view this page.&lt;/p>
+            &lt;/Modal.Body>
+
+            &lt;Modal.Footer>
+              &lt;Button variant="primary" onClick={() => signIn()}>
+                Sign In
+              &lt;/Button>
+            &lt;/Modal.Footer>
+          &lt;/Modal.Dialog>
+        &lt;/>
+      )}
+      {/* else, show 'signed in as'  */}
+      {session &amp;&amp; (
+        &lt;>
+          {/* Signed in as {session.user.name} */}
+          {content}
+        &lt;/>
+      )}
     &lt;/>
   )
 }
 
-export default Popup
+/**
+ * get job and session information from server when page is loaded. Props is passed to the page component.
+ * returns page props
+ */
+export async function getServerSideProps(context) {
+  // const res = await fetch(`${server}/api/jobs`)
+  // fetch data
+  const jobRes = await fetch('http://localhost:3000/api/jobs')
+  // get json response for job
+  const { data } = await jobRes.json()
+  return {
+    props: {
+      jobs: data,
+      session: await getSession(context)
+    }
+  }
+}
+
+export default Home
 </code></pre>
         </article>
     </section>

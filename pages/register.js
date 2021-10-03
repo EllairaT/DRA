@@ -4,6 +4,13 @@ import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from '../components/Input'
 
+/**
+ *
+ * @param {} param0
+ * @returns {void}
+ * @author Ellaira
+ */
+
 function Register() {
   const [details, setDetails] = useState({
     userName: '',
@@ -82,20 +89,17 @@ function Register() {
 }
 
 export default Register
-
-Register.getInitialProps = async (context) => {
+//TODO: replace with getServerSideProps
+export async function getServerSideProps(context) {
   const { req, res } = context
   const session = await getSession({ req })
-
-  if (session && res) {
-    res.writeHead(302, {
-      Location: '/'
-    })
-    res.end()
-    return
+  if (res && session) {
+    //check if session.user is an admin
+    //if yes, provide access
+    //otherwise, redirect to index
   }
+
   return {
-    session: undefined,
-    providers: await getProviders(context)
+    props: { session }
   }
 }

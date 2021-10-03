@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Popup</title>
+  <title> Home</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,15 +66,15 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li><li><a href="global.html#getServerSideProps">getServerSideProps</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Register">Register</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Register">Register</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Namespaces</h3><ul><li><a href="Home.html">Home</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Components</p>
-                    <h1>Popup</h1>
+                    <p>Namespace</p>
+                    <h1>Home</h1>
                 </header>
                 
 
@@ -85,9 +85,7 @@
 
 <header>
     
-        <h2>
-            &ltPopup  /&gt
-        </h2>
+        <h2>Home</h2>
         
     
 </header>
@@ -96,22 +94,98 @@
     <div class="container-overview">
     
         
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Ellaira</li>
+        
+            <li>StJohn</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_index.js.html" class="button">View Source</a>
+            <span>
+                <a href="pages_index.js.html">pages/index.js</a>, <a href="pages_index.js.html#line26">line 26</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
 
 
     
-    <h4 class="name" id="Popup">
-        <a class="href-link" href="#Popup">#</a>
+    <h4 class="name" id=".exports.getServerSideProps">
+        <a class="href-link" href="#.exports.getServerSideProps">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
         
         <span class="code-name">
             
-                &ltPopup  /&gt
+                exports.getServerSideProps<span class="signature">(context)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -120,7 +194,7 @@
     
     
     <div class="description">
-        <p>Calling Popup will return a modal object to be shown to the user.</p>
+        <p>gets job and session information from server when page is loaded. Props is passed to the page component.</p>
     </div>
     
 
@@ -129,8 +203,6 @@
 
 
 
-
-    
 
 
 
@@ -160,13 +232,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>props</code></td>
+      <td class="name"><code>context</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">Object</span>
+<span class="param-type">any</span>
 
 
   
@@ -176,129 +248,8 @@
 
   
 
-  <td class="description last"><p>json object containing string and helper function information</p></td>
+  <td class="description last"><p>page props to be passed in the page component</p></td>
 </tr>
-
-  
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>show</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">boolean</span>
-|
-
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>determine if popup is showing. Default value will be false.</p></td>
-</tr>
-
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>handleShow</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">function</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>function to fire when <code>event:onLoad</code> is triggered from the Modal</p></td>
-</tr>
-
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>handleClose</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">function</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>function to fire when <code>event:onClick</code> is triggered from the Button</p></td>
-</tr>
-
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>title</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>title string</p></td>
-</tr>
-
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>body</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>body string</p></td>
-</tr>
-
-  
 
 
         
@@ -332,7 +283,9 @@
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Jarod</li>
+            <li>Victor</li>
+        
+            <li>Ellaira</li>
         </ul>
     </dd>
     
@@ -350,9 +303,9 @@
 
     
         <p class="tag-source">
-            <a href="components_Popup.js.html" class="button">View Source</a>
+            <a href="pages_index.js.html" class="button">View Source</a>
             <span>
-                <a href="components_Popup.js.html">components/Popup.js</a>, <a href="components_Popup.js.html#line18">line 18</a>
+                <a href="pages_index.js.html">pages/index.js</a>, <a href="pages_index.js.html#line135">line 135</a>
             </span>
         </p>
     
@@ -383,16 +336,8 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'><p>Modal</p></div>
+    <div class='param-desc column is-7'><p>props</p></div>
     
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<span class="param-type">Component</span>
-
-
-    </div>
     
 </div>
 
@@ -403,30 +348,10 @@
 
 
 
-
-                    </div>
-                </div>
+</div>
+            
             </div>
-        
-    
-    </div>
-    
-        
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
+        </div>
     
 
     

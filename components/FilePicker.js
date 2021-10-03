@@ -3,6 +3,8 @@ import { Component, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import dynamic from 'next/dynamic'
 import { client } from 'filestack-react'
+
+//disable server-side rendering for filepicker
 const InlinePicker = dynamic(
   import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerInline),
   {

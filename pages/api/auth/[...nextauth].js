@@ -1,8 +1,6 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-//require('dotenv').config()
-
 export default NextAuth({
   providers: [
     CredentialsProvider({
@@ -13,6 +11,7 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
+        //TODO: change to next auth url
         const res = await fetch('http://localhost:3000/api/auth/login', {
           method: 'POST',
           body: JSON.stringify(credentials),

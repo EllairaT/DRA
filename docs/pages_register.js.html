@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> components/Popup.js</title>
+  <title> pages/register.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>components/Popup.js</h1>
+                    <h1>pages/register.js</h1>
                 </header>
                 
 
@@ -85,44 +85,114 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+            <pre class="prettyprint source linenums"><code>// register user will only be available to an existing manager user(for now)
+import { signIn, getSession, getProviders } from 'next-auth/react'
+import { Row, Col, Card, Form, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import Input from '../components/Input'
 
 /**
- * Calling Popup will return a modal object to be shown to the user.
- * @component
- * @param {Object} props json object containing string and helper function information
- * @param {boolean|string} props.show determine if popup is showing. Default value will be false.
- * @param {function} props.handleShow function to fire when `event:onLoad` is triggered from the Modal
- * @param {function} props.handleClose function to fire when `event:onClick` is triggered from the Button
- * @param {string} props.title title string
- * @param {string} props.body body string
  *
- * @returns {Component} Modal
- * @author Jarod
+ * @param {} param0
+ * @returns {void}
+ * @author Ellaira
  */
-function Popup(props) {
-  const { show, handleShow, handleClose, title, body } = props
-  return (
-    &lt;>
-      &lt;Modal show={show} onLoad={handleShow}>
-        &lt;Modal.Header>
-          &lt;Modal.Title>{title}&lt;/Modal.Title>
-        &lt;/Modal.Header>
-        &lt;Modal.Body>{body}&lt;/Modal.Body>
 
-        &lt;Modal.Footer>
-          &lt;Button variant="primary" onClick={handleClose}>
-            Close
-          &lt;/Button>
-        &lt;/Modal.Footer>
-      &lt;/Modal>
-    &lt;/>
+function Register() {
+  const [details, setDetails] = useState({
+    userName: '',
+    userEmail: '',
+    userPassword: ''
+  })
+
+  // submit input to register API
+  const submitHandler = async (e) => {
+    e.preventDefault()
+    console.log(details.userName, details.userEmail, details.userPassword)
+
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: details.userEmail,
+        name: details.userName,
+        password: details.userPassword
+      })
+    })
+    // await for response
+    const data = await res.json()
+    console.log(data)
+  }
+
+  // assign input values to details
+  const inputHandler = (e) => {
+    const { name } = e.target
+    const { value } = e.target
+    details[name] = value
+    setDetails(details)
+  }
+
+  return (
+    &lt;div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+      &lt;Card className="container p-0 mx-auto">
+        &lt;div className="d-flex">
+          &lt;Card>
+            &lt;div className="my-auto mx-md-5 px-md-5 right">
+              &lt;Form>
+                &lt;div className="h5">Login to your account&lt;/div>
+                &lt;Form.Group controlId="loginDetails">
+                  &lt;Input
+                    label="Email"
+                    type="email"
+                    name="userEmail"
+                    placeholder="example@outlook.com"
+                    onChange={inputHandler}
+                  />
+                  &lt;Input
+                    label="Username"
+                    type="text"
+                    name="userName"
+                    placeholder="example@outlook.com"
+                    onChange={inputHandler}
+                  />
+                  &lt;Input
+                    label="Password"
+                    type="password"
+                    name="userPassword"
+                    placeholder="Enter password"
+                    onChange={inputHandler}
+                    required
+                  />
+                  &lt;Form.Text>Never tell anyone your password. &lt;/Form.Text>
+                  &lt;Button as="input" type="submit" value="Submit" onClick={submitHandler} />
+                &lt;/Form.Group>
+              &lt;/Form>
+            &lt;/div>
+          &lt;/Card>
+        &lt;/div>
+      &lt;/Card>
+    &lt;/div>
   )
 }
 
-export default Popup
+export default Register
+//TODO: replace with getServerSideProps
+Register.getInitialProps = async (context) => {
+  const { req, res } = context
+  const session = await getSession({ req })
+
+  if (session &amp;&amp; res) {
+    res.writeHead(302, {
+      Location: '/'
+    })
+    res.end()
+    return
+  }
+  return {
+    session: undefined,
+    providers: await getProviders(context)
+  }
+}
 </code></pre>
         </article>
     </section>

@@ -8,6 +8,7 @@ import Input from './Input'
  * @component
  * @param {Object} job job information. See {@link models/job.model.js}
  * @returns {Component} Card
+ * @author Victor
  */
 function JobCard({ job }) {
   return (
