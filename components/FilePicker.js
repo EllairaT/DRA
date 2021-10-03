@@ -3,7 +3,6 @@ import { Component, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import dynamic from 'next/dynamic'
 import { client } from 'filestack-react'
-// import getResponse from '../pages/api/filestack/upload'
 const InlinePicker = dynamic(
   import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerInline),
   {
@@ -39,6 +38,7 @@ function FilePicker({ displaymode }) {
   //initialise filestack client
   const c = client.init(apikey, options)
 
+  //function to get metadata after file is uploaded
   const getMetadata = (res) => {
     c.metadata(res.filesUploaded[0].handle)
       .then((response) => {
@@ -48,18 +48,14 @@ function FilePicker({ displaymode }) {
         console.error(error)
       })
   }
-  // const picker = client.picker(options)
-  // const p = <Container>{picker.open()}</Container>
-  // return <>{p}</>
 
-  // console.log(c.session.apikey, c.options)
   return (
     <Container>
       <InlinePicker
         apikey={c.session.apikey}
         pickerOptions={c.options}
         onError={(res) => console.log(res)}
-        onUploadDone={(res) => getMetadata(res)} //need to get webhook after upload
+        onUploadDone={(res) => getMetadata(res)}
       />
     </Container>
   )
