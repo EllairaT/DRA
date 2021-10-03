@@ -20,7 +20,7 @@ import JobCard from '../components/JobCard'
 import Navi from '../components/Navi'
 import Login from './login'
 import Input from '../components/Input'
-import createAssessment from './createAssessment'
+// import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
 
 /**

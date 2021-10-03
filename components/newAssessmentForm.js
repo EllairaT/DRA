@@ -1,11 +1,11 @@
-import { Container, Row, Form, Col, Button } from 'react-bootstrap'
+import { Container, Row, Form, Col, Button, Alert } from 'react-bootstrap'
 import React, { Component, useState } from 'react'
 import Image from 'next/image'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
-
+import { server } from '../config'
 /**
  * Functional Component that returns a Form to add Job information
  * @component
@@ -26,41 +26,46 @@ import AssessmentCSS from '../styles/Assessment.module.css'
  * @author Victor
  */
 function NewDRAForm(props) {
-  const [job, setJob] = useState({
-    assessment: [],
-    siteTags: [],
-    createdAt: `${Date()}`,
-    date: '',
-    site: '',
-    siteAddress: '',
-    siteType: '',
-    phone: '',
-    inspector: '',
-    notes: ''
+  const [assessment, setAssessment] = useState({
+    JobSite: '',
+    Notes: '',
+    URL: '',
+    time: `${Date()}`
   })
+
+  // help with the API body
+  const [body, setBody] = useState('')
+
+  // for Alert message
+  const [variant, setVariant] = useState('')
+  const [text, setText] = useState('')
+
+  const [id, setId] = useState(`${props.props}`)
 
   /**
    * Function to store to database
    * @async
-   * @function createJob
+   * @function createAssessment
    * @memberof NewDRAForm
    * @returns {Promise} data from api
    */
-  const createJob = async () => {
+  // Stores to database
+  const createAssessment = async () => {
     try {
-      const res = await fetch(`${server}/api/jobs`, {
+      const res = await fetch(`${server}/api/jobs/${id}`, {
         // calling method type
-        method: 'POST',
+        method: 'PUT',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(job)
+        body: JSON.stringify(body)
       })
-      //TODO: remove alert
-      alert('Success')
+      setVariant('success')
+      setText('Success, you may now return home or make another assessment for this job')
     } catch (error) {
-      alert('Failed')
+      setVariant('danger')
+      setText('Failed please try again')
       console.log(error)
     }
   }
@@ -74,7 +79,9 @@ function NewDRAForm(props) {
    */
   const onSubmit = (e) => {
     e.preventDefault()
-    createJob()
+    setVariant('')
+    setText('')
+    createAssessment()
   }
 
   /**
@@ -87,8 +94,16 @@ function NewDRAForm(props) {
   const inputsHandler = (e) => {
     const { name } = e.target
     const { value } = e.target
-    job[name] = value
-    setJob(job)
+    assessment[name] = value
+    setAssessment(assessment)
+
+    // setBody is here because OnSubmit it won't work unless buttom is pressed twice
+    setBody({
+      // push adds element to array
+      $push: {
+        assessments: assessment
+      }
+    })
   }
 
   return (
@@ -96,6 +111,7 @@ function NewDRAForm(props) {
       <Container>
         <Row className={AssessmentCSS.header}>
           <h2>Create new Assessment</h2>
+          <h1>{id}</h1>
         </Row>
         <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
@@ -110,9 +126,6 @@ function NewDRAForm(props) {
                     onChange={inputsHandler}
                   />
                 </Row>
-                {/* <Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} /> */}
-                {/* <Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} /> */}
-
                 <Row className={AssessmentCSS.textArea}>
                   <Input
                     type="notes"
@@ -121,18 +134,6 @@ function NewDRAForm(props) {
                     name="Notes"
                     onChange={inputsHandler}
                   />
-                  {/* <Col> 
-                <Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
-              </Col>
-              <Col>
-                <Input type="tel" label="phone Number:" placeholder="phone Number of Location" name="phone" onChange={inputsHandler} />
-              </Col>
-              <Col>
-                <Input label="Date:" type="date" name="date" onChange={inputsHandler} />
-              </Col>
-              {/* <Col>
-                <Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
-              </Col> */}
                 </Row>
               </Col>
               <Col>
@@ -143,6 +144,25 @@ function NewDRAForm(props) {
             <Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
             <Prompt />
           </Form.Group>
+
+          {/* Alert message after submit */}
+          {/* True if variant is not empty */}
+          {variant && (
+            <>
+              <Alert variant={variant}>
+                {' '}
+                {/* variant is for the look of the alertbox */}
+                {text}
+                <br />
+                <Button href="../" className={AssessmentCSS.button}>
+                  Home
+                </Button>
+                <Button href={`../createAssessment/${id}`} className={AssessmentCSS.button}>
+                  Create another Assessment
+                </Button>
+              </Alert>
+            </>
+          )}
         </Form>
       </Container>
     </>
