@@ -11,7 +11,7 @@ import { server } from '../config'
  * @param {*} props
  * @returns {Component} Form
  */
-function NewDRAForm(props) {
+function NewDRAForm({ newJob }) {
 
     const [job, setJob] = useState({
         assessment: [],
@@ -27,9 +27,12 @@ function NewDRAForm(props) {
     })
 
     // for Alert message
+    // variant is the type/look of the alertBox 
     const [variant, setVariant] = useState('')
     const [text, setText] = useState('')
 
+    // Store ID of recently made entry
+    // Needed for dynamic routing
     const [id, setId] = useState('')
 
     // Stores to database
@@ -44,10 +47,10 @@ function NewDRAForm(props) {
                 },
                 body: JSON.stringify(job)
             })
-
             setVariant('success')
             setText('Success, you may now return home or make new assessment for this job')
 
+            FindId()
 
         } catch (error) {
             setVariant('danger')
@@ -71,24 +74,15 @@ function NewDRAForm(props) {
         setJob(job)
     }
 
+    // Gets the entry just made
     const FindId = async () => {
         try {
             const jobRes = await fetch(`${server}/api/jobs`, {
                 // calling method type
-                method: 'COPY',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
+                method: 'COPY'
             })
             const { data } = await jobRes.json()
-
-            return {
-                props: {
-                    job: data
-                }
-            }
-
+            setId(data._id)
 
         } catch (error) {
             console.log(error)
@@ -176,13 +170,14 @@ function NewDRAForm(props) {
                     {/* True if variant is not empty */}
                     {variant && (
                         <>
-                            <Alert variant={variant}> {/* variant is for the look of the alertbox */}
+                            <Alert variant={variant}>
                                 {text}
                                 <br />
-                                <Button href='../'>
+                                <Button href='../' className={AssessmentCSS.button} >
                                     Home
                                 </Button>
-                                <Button href='../createAssessment/[id]' as={`../createAssessment/${props._id}`} onClick={FindId()}>
+                                {/* the id allows createAssessment page to get the id for a more easy search */}
+                                <Button href={`../createAssessment/${id}`} className={AssessmentCSS.button} >
                                     New Assessment
                                 </Button>
                             </Alert>

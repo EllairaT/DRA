@@ -54,8 +54,6 @@ function NewDRAForm(props) {
     setVariant('')
     setText('')
     createAssessment()
-    console.log(body)
-    console.log(assessment)
   }
   const inputsHandler = (e) => {
     // update the attributes in object
@@ -63,8 +61,8 @@ function NewDRAForm(props) {
     const { value } = e.target
     assessment[name] = value
     setAssessment(assessment)
-    
-    // set body is here because OnSubmit it won't work unless buttom is pressed twice 
+
+    // setBody is here because OnSubmit it won't work unless buttom is pressed twice 
     setBody({
       // push adds element to array
       $push:
@@ -128,7 +126,7 @@ function NewDRAForm(props) {
                 <Button href='../' className={AssessmentCSS.button} >
                   Home
                 </Button>
-                <Button href='../createAssessment' className={AssessmentCSS.button} >
+                <Button href={`../createAssessment/${props.props}`} className={AssessmentCSS.button} >
                   Create another Assessment
                 </Button>
               </Alert>

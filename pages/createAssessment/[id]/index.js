@@ -1,13 +1,12 @@
 import Container from 'react-bootstrap/Container'
 import Form from '../../../components/newAssessmentForm'
 import Navi from '../../../components/Navi'
-import { server } from '../../../config'
 import { useRouter } from 'next/router'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
-function NewAssessment({ props }) {
+function NewAssessment() {
 
     // gets the id from the url string
     const router = useRouter()
