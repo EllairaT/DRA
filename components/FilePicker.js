@@ -3,7 +3,7 @@ import { Component, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import dynamic from 'next/dynamic'
 import { client } from 'filestack-react'
-
+// import getResponse from '../pages/api/filestack/upload'
 const InlinePicker = dynamic(
   import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerInline),
   {
@@ -27,21 +27,30 @@ function FilePicker({ displaymode }) {
 
   const options = {
     storeTo: {
+      workflows: ['4b88240f-b06c-4fa4-9b3a-37a3e423b692'],
       location: 'azure',
       path: '/DRA_uploads/'
     },
     container: '#inline',
-    displayMode: 'inline',
-    fromSources: ['local_file_system'],
-    onUploadDone: (res) => console.log(res)
+    displayMode: displaymode,
+    fromSources: ['local_file_system']
   }
-
-  // const picker = client.picker(options)
-  // const p = <Container>{picker.open()}</Container>
-  // return <>{p}</>
 
   //initialise filestack client
   const c = client.init(apikey, options)
+
+  const getMetadata = (res) => {
+    c.metadata(res.filesUploaded[0].handle)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+  // const picker = client.picker(options)
+  // const p = <Container>{picker.open()}</Container>
+  // return <>{p}</>
 
   // console.log(c.session.apikey, c.options)
   return (
@@ -49,8 +58,8 @@ function FilePicker({ displaymode }) {
       <InlinePicker
         apikey={c.session.apikey}
         pickerOptions={c.options}
-        onSuccess={(res) => console.log(res)}
-        onUploadDone={(res) => console.log(res)}
+        onError={(res) => console.log(res)}
+        onUploadDone={(res) => getMetadata(res)} //need to get webhook after upload
       />
     </Container>
   )
