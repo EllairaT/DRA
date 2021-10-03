@@ -40,7 +40,7 @@ function NewDRAForm(props) {
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
 
-  const [id, setId] = useState(props.props)
+  const [id, setId] = useState(`${props.props}`)
 
   
   /**
