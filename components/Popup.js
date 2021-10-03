@@ -13,7 +13,7 @@ import Modal from 'react-bootstrap/Modal'
  * @param {string} props.body body string
  *
  * @returns {Component} Modal
- *
+ * @author Jarod
  */
 function Popup(props) {
   const { show, handleShow, handleClose, title, body } = props

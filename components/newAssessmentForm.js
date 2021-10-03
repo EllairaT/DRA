@@ -7,9 +7,23 @@ import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
 import { server } from '../config'
 /**
+ * Functional Component that returns a Form to add Job information
  * @component
- * @param {*} props
+ * @namespace NewDRAForm
+ * @param {Object} props
+ * @param {Array<Object>} props.assessment - array of assessment (JSON) objects
+ * @param {Array<String>} props.siteTags - array of strings for tags relating to the site
+ * @param {Date} props.createdAt - date when Job was created
+ * @param {Date} props.date - date of job
+ * @param {String} props.site - name of the job site
+ * @param {String} props.siteAddress - address of the job site
+ * @param {String} props.siteType - type of job e.g. Construction
+ * @param {String} [props.phone] - phone number of the site
+ * @param {String} props.inspector - inspector assigned to job
+ * @param {String} [props.notes] - any additional notes
  * @returns {Component} Form
+ *
+ * @author Victor
  */
 function NewDRAForm(props) {
   const [assessment, setAssessment] = useState({
@@ -28,8 +42,15 @@ function NewDRAForm(props) {
 
   const [id, setId] = useState(props.props)
 
+  
+  /**
+   * Function to store to database
+   * @async
+   * @function createAssessment
+   * @memberof NewDRAForm
+   * @returns {Promise<Object>} data from api
+   */
   // Stores to database
-  // Current not working yet
   const createAssessment = async () => {
     try {
       const res = await fetch(`${server}/api/jobs/${id}`, {
@@ -50,15 +71,28 @@ function NewDRAForm(props) {
     }
   }
 
-  // on submit
+  /**
+   * submit handler
+   * @function onSubmit
+   * @memberof NewDRAForm
+   * @param {*} e - event target
+   * @returns {void}
+   */
   const onSubmit = (e) => {
     e.preventDefault()
     setVariant('')
     setText('')
     createAssessment()
   }
+
+  /**
+   * input handler
+   * @function inputsHandler
+   * @memberof NewDRAForm
+   * @param {*} e - event target
+   * @returns {void}
+   */
   const inputsHandler = (e) => {
-    // update the attributes in object
     const { name } = e.target
     const { value } = e.target
     assessment[name] = value

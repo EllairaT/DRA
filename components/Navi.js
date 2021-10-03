@@ -6,11 +6,13 @@ import NavCSS from '../styles/Navi.module.css'
 import logoimg from '../hardHat.png'
 
 /**
+ * Returns a React Sidebar
  * @component
  *
- * This is a function component
- * Returns a React Sidebar
- * @returns {Component}
+ * @returns {Component} Navigation Menu
+ *
+ * @author Victor
+ * @author Ellaira
  */
 function Navi() {
   return (

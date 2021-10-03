@@ -3,12 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 import '../styles/login.css'
 
-/**
- * @Category App
- */
-
-// const queryClient = new QueryClient()
-
 function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     // provide ability to pass session around the app
