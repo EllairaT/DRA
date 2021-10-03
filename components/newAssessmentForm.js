@@ -26,11 +26,13 @@ function NewDRAForm(props) {
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
 
+  const [id, setId] = useState(props.props)
+
   // Stores to database
   // Current not working yet
   const createAssessment = async () => {
     try {
-      const res = await fetch(`${server}/api/jobs/${props.props}`, {
+      const res = await fetch(`${server}/api/jobs/${id}`, {
         // calling method type
         method: 'PUT',
         headers: {
@@ -67,7 +69,7 @@ function NewDRAForm(props) {
       // push adds element to array
       $push:
       {
-        assessments: assessment,
+        assessments: assessment
       }
     })
   }
@@ -77,6 +79,7 @@ function NewDRAForm(props) {
       <Container>
         <Row className={AssessmentCSS.header}>
           <h2>Create new Assessment</h2>
+          <h1>{id}</h1>
         </Row>
         <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
@@ -126,7 +129,7 @@ function NewDRAForm(props) {
                 <Button href='../' className={AssessmentCSS.button} >
                   Home
                 </Button>
-                <Button href={`../createAssessment/${props.props}`} className={AssessmentCSS.button} >
+                <Button href={`../createAssessment/${id}`} className={AssessmentCSS.button} >
                   Create another Assessment
                 </Button>
               </Alert>

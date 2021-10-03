@@ -35,6 +35,21 @@ function NewDRAForm({ newJob }) {
     // Needed for dynamic routing
     const [id, setId] = useState('')
 
+    // Gets the entry just made
+    const FindId = async () => {
+        try {
+            const jobRes = await fetch(`${server}/api/jobs`, {
+                // calling method type
+                method: 'COPY'
+            })
+            const { data } = await jobRes.json()
+            setId(data._id)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     // Stores to database
     const createJob = async () => {
         try {
@@ -49,7 +64,6 @@ function NewDRAForm({ newJob }) {
             })
             setVariant('success')
             setText('Success, you may now return home or make new assessment for this job')
-
             FindId()
 
         } catch (error) {
@@ -73,22 +87,7 @@ function NewDRAForm({ newJob }) {
         job[name] = value
         setJob(job)
     }
-
-    // Gets the entry just made
-    const FindId = async () => {
-        try {
-            const jobRes = await fetch(`${server}/api/jobs`, {
-                // calling method type
-                method: 'COPY'
-            })
-            const { data } = await jobRes.json()
-            setId(data._id)
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
+    
     return (
         <>
             <Container>
