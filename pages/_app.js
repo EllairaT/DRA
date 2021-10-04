@@ -2,7 +2,9 @@ import { SessionProvider } from 'next-auth/react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 import '../styles/login.css'
-
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import Navi from '../components/Navi'
+import { signOut } from 'next-auth/react'
 /**
  *
  * Entry point of the application.
@@ -14,8 +16,23 @@ function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     // provide ability to pass session around the app
     <SessionProvider session={session}>
-      {/* provide pageProps to the current component */}
-      <Component {...pageProps} />
+      <Container>
+        <Row>
+          {/* sidebar */}
+          {session && (
+            <Col md={2}>
+              <div>
+                <Navi />
+                <Button onClick={() => signOut()}>Sign Out</Button>
+              </div>
+            </Col>
+          )}
+          <Col>
+            {/* provide pageProps to the current component */}
+            <Component {...pageProps} />
+          </Col>
+        </Row>
+      </Container>
     </SessionProvider>
   )
 }

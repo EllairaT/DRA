@@ -75,21 +75,13 @@ function Home({ jobs }) {
   )
 
   const content = (
-    <Container>
-      <Row>
-        {/* sidebar */}
-        <Col xs={2}>
-          <Navi />
+    <>
+      <h1>Dynamic Risk Jobs </h1>
+      {/* check if jobs are empty */}
+      {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
 
-          <Button onClick={() => signOut()}>Sign Out</Button>
-        </Col>
-        <h1>Dynamic Risk Jobs </h1>
-        {/* check if jobs are empty */}
-        {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
-        <Col />
-      </Row>
       <h6 className="text-primary">Signed in as {session?.user.name || 'guest'}</h6>
-    </Container>
+    </>
   )
 
   return (
