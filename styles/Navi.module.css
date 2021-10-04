@@ -13,9 +13,9 @@
   align-items: center;
 }
 
-/* .logout {
-  margin-top: -150px;
-} */
+.tooltip {
+  font-size: 20px !important;
+}
 
 .icons {
   color: #f0f0f0;
