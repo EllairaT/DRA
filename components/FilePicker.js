@@ -16,6 +16,8 @@ const InlinePicker = dynamic(
  *
  * @component
  * @param {string} [displaymode=inline] - sets display mode for the filepicker.
+ * @param {string} h - set height of file picker
+ * @param {string} w - set width of file picker
  * @property {string} apikey - api key for filestack
  * @property {Object} client - client object
  * @property {Object} options - options for the filepicker
@@ -23,7 +25,7 @@ const InlinePicker = dynamic(
  * @author Victor
  * @author Ellaira
  */
-function FilePicker({ displaymode }) {
+function FilePicker({ displaymode, h, w }) {
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
 
   const options = {
@@ -52,14 +54,16 @@ function FilePicker({ displaymode }) {
   }
 
   return (
-    <Container>
-      <InlinePicker
-        apikey={c.session.apikey}
-        pickerOptions={c.options}
-        onError={(res) => console.log(res)}
-        onUploadDone={(res) => getMetadata(res)}
-      />
-    </Container>
+    <>
+      <div id="inline" style={{ height: h, width: w }}>
+        <InlinePicker
+          apikey={c.session.apikey}
+          pickerOptions={c.options}
+          onError={(res) => console.log(res)}
+          onUploadDone={(res) => getMetadata(res)}
+        />{' '}
+      </div>
+    </>
   )
 }
 export default FilePicker
