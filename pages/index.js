@@ -40,8 +40,6 @@ function Home({ jobs }) {
     return <h1>loading...</h1>
   }
 
-  // jobs = {}
-
   // print out jobCard
   const printJobs = () => (
     <>
@@ -54,23 +52,22 @@ function Home({ jobs }) {
   const printButtons = () => (
     <>
       <h1>No jobs found</h1>
-      <Container>
-        <Row>
-          <Col className={indexCSS.col}>
-            <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
-              {' '}
-              Schedule New Job Column
-            </Button>
-          </Col>
 
-          <Col className={indexCSS.col}>
-            <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
-              {' '}
-              Create New Assessment
-            </Button>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col className={indexCSS.col}>
+          <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
+            {' '}
+            Schedule New Job Column
+          </Button>
+        </Col>
+
+        <Col className={indexCSS.col}>
+          <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
+            {' '}
+            Create New Assessment
+          </Button>
+        </Col>
+      </Row>
     </>
   )
 

@@ -18,13 +18,10 @@ function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
     <SessionProvider session={session}>
       <Container>
         <Row>
-          {/* sidebar */}
+          {/* sidebar. if there is a session, show sidebar */}
           {session && (
             <Col md={2}>
-              <div>
-                <Navi />
-                <Button onClick={() => signOut()}>Sign Out</Button>
-              </div>
+              <Navi />
             </Col>
           )}
           <Col>

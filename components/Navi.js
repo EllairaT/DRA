@@ -1,10 +1,11 @@
 import { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Image from 'next/image'
-import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
+import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor, BoxArrowLeft } from 'react-bootstrap-icons'
 import NavCSS from '../styles/Navi.module.css'
 import logoimg from '../hardHat.png'
-
+import { signOut } from 'next-auth/react'
+import cx from 'classnames'
 /**
  * Returns a React Sidebar
  * @component
@@ -31,6 +32,9 @@ function Navi() {
           <CalendarPlus size={40} />
         </Nav.Link>
         {/* <Nav.Link eventKey="link-2">Link</Nav.Link> */}
+        <Nav.Link onClick={() => signOut()} className={cx('position-absolute bottom-0 start-0 mb-3', NavCSS.icons)}>
+          <BoxArrowLeft size={40} />
+        </Nav.Link>
       </Nav>
     </>
   )

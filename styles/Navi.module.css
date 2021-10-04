@@ -13,12 +13,17 @@
   align-items: center;
 }
 
+/* .logout {
+  margin-top: -150px;
+} */
+
 .icons {
   color: #f0f0f0;
   padding-top: 20px;
 }
+
 .icons:hover {
-  background-color: #CA9061;
+  background-color: #ca9061;
   color: #f0f0f0;
 }
 
@@ -28,6 +33,3 @@
   padding-top: 0px;
   padding-bottom: 20px;
 }
-
-
-
