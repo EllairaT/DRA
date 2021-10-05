@@ -50,7 +50,7 @@ function Navi() {
         {/* SCHEDULE ASSESSMENT */}
         <Nav.Link data-tip data-for="ScheduleNewAssessment" href="/scheduleAssessment" className={NavCSS.icons}>
           <CalendarPlus size={40} />
-          <ReactTooltip id="Schedule  NewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
+          <ReactTooltip id="ScheduleNewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
             Schedule New Assessment
           </ReactTooltip>
         </Nav.Link>

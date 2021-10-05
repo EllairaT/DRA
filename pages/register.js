@@ -89,7 +89,7 @@ function Register() {
 }
 
 export default Register
-//TODO: replace with getServerSideProps
+
 export async function getServerSideProps(context) {
   const { req, res } = context
   const session = await getSession({ req })

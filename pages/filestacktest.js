@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-import { Container } from 'react-bootstrap'
 import FilePicker from '../components/FilePicker'
 
 export default function FS() {
