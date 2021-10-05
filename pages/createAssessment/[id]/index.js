@@ -11,12 +11,12 @@ function NewAssessment() {
     // gets the id from the url string
     const router = useRouter()
     const { id } = router.query
-    
+
     return (
         <>
             <Navi />
             <Container>
-            <Form props={id} />
+                <Form id={id} />
             </Container>
         </>
     )

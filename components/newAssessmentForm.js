@@ -25,7 +25,7 @@ import { server } from '../config'
  *
  * @author Victor
  */
-function NewDRAForm(props) {
+function NewDRAForm({ id }) {
   const [assessment, setAssessment] = useState({
     JobSite: '',
     Notes: '',
@@ -39,8 +39,6 @@ function NewDRAForm(props) {
   // for Alert message
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
-
-  const [id, setId] = useState(`${props.props}`)
 
   /**
    * Function to store to database
@@ -98,8 +96,8 @@ function NewDRAForm(props) {
     setAssessment(assessment)
 
     // setBody is here because OnSubmit it won't work unless buttom is pressed twice
+    // push adds element to array
     setBody({
-      // push adds element to array
       $push: {
         assessments: assessment
       }

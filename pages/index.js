@@ -38,7 +38,7 @@ function Home({ jobs }) {
 
   // sort From newest to oldest booking date 
   jobs.sort((a, b) => new Date(b.date) - new Date(a.date))
-
+  
 
   if (status === 'loading') {
     return <h1>loading...</h1>
