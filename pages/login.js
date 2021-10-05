@@ -7,17 +7,25 @@ import Input from '../components/Input'
 import logoimg from '../1.png'
 import login from '../styles/login.module.css'
 
+/**
+ *
+ * @param {} param0
+ * @returns {void}
+ * @author Ellaira
+ */
 function Login({ csrfToken }) {
   // csrf token is for email signin. For now we have emails
   // saved in MongoDB. Might need to change that in the future
   // to validate email addressess
   const router = useRouter()
+
   const [details, setDetails] = useState({
     userEmail: '',
     userPassword: ''
   })
 
   const [error, setError] = useState('')
+
   const submitHandler = (e) => {
     e.preventDefault()
     // validate input first
@@ -115,6 +123,9 @@ function Login({ csrfToken }) {
 
 export default Login
 
+/*
+  redirect to index page if there is already a session 
+*/
 export async function getServerSideProps(context) {
   const { req, res } = context
   const session = await getSession({ req })

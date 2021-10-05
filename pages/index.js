@@ -23,6 +23,15 @@ import Input from '../components/Input'
 // import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
 
+/**
+ * @category Pages
+ * @name Home
+ * @param {*} param0
+ * @returns {void}
+ * @author Ellaira
+ * @author Victor
+ * @author StJohn
+ */
 function Home({ jobs }) {
   // access session
   const { data: session, status } = useSession()
@@ -120,6 +129,10 @@ function Home({ jobs }) {
   )
 }
 
+/**
+ * get job and session information from server when page is loaded. Props is passed to the page component.
+ * returns page props
+ */
 export async function getServerSideProps(context) {
   // const res = await fetch(`${server}/api/jobs`)
   // fetch data

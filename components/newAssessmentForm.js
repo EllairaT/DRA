@@ -42,13 +42,12 @@ function NewDRAForm(props) {
 
   const [id, setId] = useState(`${props.props}`)
 
-  
   /**
    * Function to store to database
    * @async
    * @function createAssessment
    * @memberof NewDRAForm
-   * @returns {Promise<Object>} data from api
+   * @returns {Promise} data from api
    */
   // Stores to database
   const createAssessment = async () => {
@@ -98,11 +97,10 @@ function NewDRAForm(props) {
     assessment[name] = value
     setAssessment(assessment)
 
-    // setBody is here because OnSubmit it won't work unless buttom is pressed twice 
+    // setBody is here because OnSubmit it won't work unless buttom is pressed twice
     setBody({
       // push adds element to array
-      $push:
-      {
+      $push: {
         assessments: assessment
       }
     })
@@ -143,13 +141,7 @@ function NewDRAForm(props) {
               </Col>
             </Row>
 
-            <Button
-              as="input"
-              type="submit"
-              value="Submit"
-              className={AssessmentCSS.button}
-              onClick={onSubmit}
-            />
+            <Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
             <Prompt />
           </Form.Group>
 
@@ -157,19 +149,20 @@ function NewDRAForm(props) {
           {/* True if variant is not empty */}
           {variant && (
             <>
-              <Alert variant={variant}> {/* variant is for the look of the alertbox */}
+              <Alert variant={variant}>
+                {' '}
+                {/* variant is for the look of the alertbox */}
                 {text}
                 <br />
-                <Button href='../' className={AssessmentCSS.button} >
+                <Button href="../" className={AssessmentCSS.button}>
                   Home
                 </Button>
-                <Button href={`../createAssessment/${id}`} className={AssessmentCSS.button} >
+                <Button href={`../createAssessment/${id}`} className={AssessmentCSS.button}>
                   Create another Assessment
                 </Button>
               </Alert>
             </>
           )}
-
         </Form>
       </Container>
     </>
