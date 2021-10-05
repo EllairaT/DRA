@@ -35,7 +35,7 @@ function NewDRAForm({ newJob }) {
     // Needed for dynamic routing
     const [id, setId] = useState('')
 
-    // Gets the entry just made
+    // Gets the entry just made for
     const FindId = async () => {
         try {
             const jobRes = await fetch(`${server}/api/jobs`, {
@@ -144,19 +144,17 @@ function NewDRAForm({ newJob }) {
                                             onChange={inputsHandler}
                                         />
                                     </Col>
-                                    <Col>
+                                    {/* <Col>
                                         <Input
                                             label="Time:"
                                             type="time"
                                             name="Time"
                                             onChange={inputsHandler}
                                         />
-                                    </Col>
+                                    </Col> */}
                                 </Row>
                             </Col>
-
                         </Row>
-
                         <Button
                             as="input"
                             type="submit"

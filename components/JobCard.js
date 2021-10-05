@@ -11,6 +11,12 @@ import Input from './Input'
  */
 function JobCard({ job }) {
   // const
+
+  function formatDate(){
+    let date = job.date.substring(0,10)
+    return date.substring(8,10)+'/'+date.substring(5,7)+'/'+date.substring(0,4)
+  }
+
   return (
     <>
       <Card style={{ width: '50rem' }}>
@@ -35,7 +41,7 @@ function JobCard({ job }) {
             {/* have to be view in dd-mm hh-mm format */}
             <Clock size={20} />
             &nbsp;
-            {job.date.substring(0,10)}
+            {formatDate()}
           </p>
           {/* DropDown menu*/}
           <DropdownButton variant='Secondary' >
