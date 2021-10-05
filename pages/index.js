@@ -1,25 +1,7 @@
-import {
-  Container,
-  Form,
-  FormControl,
-  InputGroup,
-  CardGroup,
-  Card,
-  Row,
-  Col,
-  Button,
-  Carousel,
-  Modal
-} from 'react-bootstrap'
-import { signOut, useSession, getSession, signIn } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import { Search } from 'react-bootstrap-icons'
+import { Row, Col, Button, Modal } from 'react-bootstrap'
+import { useSession, getSession, signIn } from 'next-auth/react'
 import cx from 'classnames'
 import JobCard from '../components/JobCard'
-// import { server } from '../config'
-import Navi from '../components/Navi'
-import Login from './login'
-import Input from '../components/Input'
 // import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
 
@@ -37,6 +19,7 @@ function Home({ jobs }) {
   const { data: session, status } = useSession()
 
   if (status === 'loading') {
+    console.log('loading')
     return <h1>loading...</h1>
   }
 
@@ -85,23 +68,21 @@ function Home({ jobs }) {
     <>
       {/* show login page if there is no session */}
       {!session && (
-        <>
-          <Modal.Dialog>
-            <Modal.Header closeButton>
-              <Modal.Title>Unauthenticated User</Modal.Title>
-            </Modal.Header>
+        <Modal show centered>
+          <Modal.Header>
+            <Modal.Title>Unauthenticated User</Modal.Title>
+          </Modal.Header>
 
-            <Modal.Body>
-              <p>Please sign in to view this page.</p>
-            </Modal.Body>
+          <Modal.Body>
+            <p>Please sign in to view this page.</p>
+          </Modal.Body>
 
-            <Modal.Footer>
-              <Button variant="primary" onClick={() => signIn()}>
-                Sign In
-              </Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </>
+          <Modal.Footer>
+            <Button variant="primary" onClick={() => signIn()}>
+              Sign In
+            </Button>
+          </Modal.Footer>
+        </Modal>
       )}
       {/* else, show 'signed in as'  */}
       {session && (

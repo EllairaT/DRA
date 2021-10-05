@@ -6,7 +6,13 @@ import NavCSS from '../styles/Navi.module.css'
 import logoimg from '../hardHat.png'
 import { signOut } from 'next-auth/react'
 import cx from 'classnames'
-import ReactTooltip from 'react-tooltip'
+import dynamic from 'next/dynamic'
+
+//dynamically importing prevents Warning: Prop dangerouslySetInnerHTML did not match
+const ReactTooltip = dynamic(() => import('react-tooltip'), {
+  ssr: false
+})
+
 /**
  * Returns a React Sidebar
  * @component
@@ -44,13 +50,12 @@ function Navi() {
         {/* SCHEDULE ASSESSMENT */}
         <Nav.Link data-tip data-for="ScheduleNewAssessment" href="/scheduleAssessment" className={NavCSS.icons}>
           <CalendarPlus size={40} />
-          <ReactTooltip id="ScheduleNewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
+          <ReactTooltip id="Schedule  NewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
             Schedule New Assessment
           </ReactTooltip>
         </Nav.Link>
 
         {/* LOGOUT */}
-        {/* <Nav.Link eventKey="link-2">Link</Nav.Link> */}
         <Nav.Link
           data-tip
           data-for="logout"
