@@ -9,16 +9,16 @@ function Assessment() {
   const { data: session, status } = useSession()
   // gets the id from the url string
   const router = useRouter()
-  const { id, slug } = router.query
+  const { id } = router.query
   const q = router.query
   console.log(q)
 
   return (
     <>
-      {{ slug } ? <h1>Your job id: {`${slug}`}</h1> : ''}
+      {Object.keys(router.query).length === 0 ? 'no job found' : <h1>Your job id: {`${id}`}</h1>}
 
       <Container>
-        <Form props={slug} />
+        <Form props={id} />
       </Container>
     </>
   )

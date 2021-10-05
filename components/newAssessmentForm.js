@@ -6,6 +6,7 @@ import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
 import { server } from '../config'
+import FilePicker from './FilePicker'
 /**
  * Functional Component that returns a Form to add Job information
  * @component
@@ -136,8 +137,8 @@ function NewDRAForm(props) {
                   />
                 </Row>
               </Col>
-              <Col>
-                <Image src={logoimg} size={10} />
+              <Col id="fpInline">
+                <FilePicker displaymode="inline" container="fpInline" h="0" w="0" />
               </Col>
             </Row>
 

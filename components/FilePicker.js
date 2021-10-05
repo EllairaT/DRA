@@ -25,16 +25,16 @@ const InlinePicker = dynamic(
  * @author Victor
  * @author Ellaira
  */
-function FilePicker({ displaymode, h, w }) {
+function FilePicker({ displaymode, container, h, w }) {
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
-
+  const containerName = '#' + container
   const options = {
     storeTo: {
       workflows: ['4b88240f-b06c-4fa4-9b3a-37a3e423b692'],
       location: 'azure',
       path: '/DRA_uploads/'
     },
-    container: '#inline',
+    container: containerName,
     displayMode: displaymode,
     fromSources: ['local_file_system']
   }
@@ -61,7 +61,7 @@ function FilePicker({ displaymode, h, w }) {
           pickerOptions={c.options}
           onError={(res) => console.log(res)}
           onUploadDone={(res) => getMetadata(res)}
-        />{' '}
+        />
       </div>
     </>
   )
