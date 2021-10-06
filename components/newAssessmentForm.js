@@ -1,4 +1,4 @@
-import { Container, Row, Form, Col, Button, Alert } from 'react-bootstrap'
+import { Container, Row, Form, Col, Button, Alert, FloatingLabel } from 'react-bootstrap'
 import React, { Component, useState } from 'react'
 import Image from 'next/image'
 import Input from './Input'
@@ -26,7 +26,7 @@ import FilePicker from './FilePicker'
  *
  * @author Victor
  */
-function NewDRAForm(props) {
+function NewDRAForm({ props }) {
   const [assessment, setAssessment] = useState({
     JobSite: '',
     Notes: '',
@@ -41,8 +41,8 @@ function NewDRAForm(props) {
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
 
-  const [id, setId] = useState(`${props.props}`)
-
+  const [id, setId] = useState(`${props}`)
+  console.log(id)
   /**
    * Function to store to database
    * @async
@@ -106,18 +106,23 @@ function NewDRAForm(props) {
       }
     })
   }
-
   return (
     <>
       <Container>
         <Row className={AssessmentCSS.header}>
           <h2>Create new Assessment</h2>
-          <h1>{id}</h1>
         </Row>
         <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
             <Row>
               <Col>
+                <Row className={AssessmentCSS.row}>
+                  <FloatingLabel name="id" label="Select Job to Add Assessment">
+                    <Form.Select>
+                      <option>Pick a Job</option>
+                    </Form.Select>
+                  </FloatingLabel>
+                </Row>
                 <Row className={AssessmentCSS.row}>
                   <Input
                     type="text"
@@ -169,4 +174,5 @@ function NewDRAForm(props) {
     </>
   )
 }
+
 export default NewDRAForm
