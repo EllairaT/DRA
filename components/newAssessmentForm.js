@@ -33,6 +33,7 @@ const Picker = React.memo((props) => {
  * @author Victor
  */
 function NewDRAForm(props) {
+  console.log('dra form:', props.id)
   const [assessment, setAssessment] = useState({
     JobSite: '',
     Notes: '',
@@ -47,7 +48,7 @@ function NewDRAForm(props) {
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
 
-  const [id, setId] = useState(`${props}`)
+  const [id, setId] = useState(props.id)
 
   /**
    * Function to store to database
@@ -67,7 +68,7 @@ function NewDRAForm(props) {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(assessment)
+        body: JSON.stringify(body)
       })
       setVariant('success')
       setText('Success, you may now return home or make another assessment for this job')
@@ -179,10 +180,3 @@ function NewDRAForm(props) {
   )
 }
 export default NewDRAForm
-
-export async function getServerSideProps(context) {
-  console.log(context)
-  return {
-    props: { context }
-  }
-}
