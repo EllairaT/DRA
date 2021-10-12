@@ -105,12 +105,31 @@ function Login({ csrfToken }) {
   // saved in MongoDB. Might need to change that in the future
   // to validate email addressess
   const router = useRouter()
+
   const [details, setDetails] = useState({
     userEmail: '',
     userPassword: ''
   })
 
   const [error, setError] = useState('')
+
+  const checkInput = () => {
+    if (details.userEmail === '' &amp;&amp; details.userPassword === '') {
+      setError('Please enter your credentials to continue')
+      return false
+    }
+    if (details.userEmail === '') {
+      setError('Please enter your email address')
+      return false
+    }
+    if (details.userPassword === '') {
+      setError('Please enter your password')
+      return false
+    }
+
+    return true
+  }
+
   const submitHandler = (e) => {
     e.preventDefault()
     // validate input first
@@ -130,7 +149,7 @@ function Login({ csrfToken }) {
             setError('Your email or password might be incorrect. Please try again.')
           }
         })
-        .catch((error) => console.log('error: ', error))
+        .catch((err) => setError(err))
     }
   }
 
@@ -139,23 +158,6 @@ function Login({ csrfToken }) {
     const { value } = e.target
     details[name] = value
     setDetails(details)
-  }
-
-  const checkInput = () => {
-    if (details.userEmail == '' &amp;&amp; details.userPassword == '') {
-      setError('Please enter your credentials to continue')
-      return false
-    }
-    if (details.userEmail == '') {
-      setError('Please enter your email address')
-      return false
-    }
-    if (details.userPassword == '') {
-      setError('Please enter your password')
-      return false
-    }
-
-    return true
   }
 
   return (
@@ -208,6 +210,9 @@ function Login({ csrfToken }) {
 
 export default Login
 
+/*
+  redirect to index page if there is already a session 
+*/
 export async function getServerSideProps(context) {
   const { req, res } = context
   const session = await getSession({ req })

@@ -40,6 +40,7 @@
     "react-bootstrap": "^2.0.0-beta.4",
     "react-bootstrap-icons": "^1.5.0",
     "react-dom": "17.0.2",
+    "react-places-autocomplete": "^7.3.0",
     "react-tooltip": "^4.2.21",
     "tedious": "^11.4.0"
   },

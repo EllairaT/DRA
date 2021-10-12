@@ -34,11 +34,14 @@ reactComponents['JobCard'] = Component2;
 import Component3 from '../components/Navi.js';
 reactComponents['Navi'] = Component3;
 
-import Component4 from '../components/newAssessmentForm.js';
+import Component4 from '../components/JobForm.js';
 reactComponents['NewDRAForm'] = Component4;
 
-import Component5 from '../components/Popup.js';
-reactComponents['Popup'] = Component5;
+import Component5 from '../components/newAssessmentForm.js';
+reactComponents['NewDRAForm'] = Component5;
 
-import Component6 from '../components/Prompt.js';
-reactComponents['Prompt'] = Component6;
+import Component6 from '../components/Popup.js';
+reactComponents['Popup'] = Component6;
+
+import Component7 from '../components/Prompt.js';
+reactComponents['Prompt'] = Component7;

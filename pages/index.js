@@ -19,7 +19,6 @@ function Home({ jobs }) {
   const { data: session, status } = useSession()
 
   if (status === 'loading') {
-    console.log('loading')
     return <h1>loading...</h1>
   }
 
@@ -27,7 +26,7 @@ function Home({ jobs }) {
   const printJobs = () => (
     <>
       {jobs.map((job, i) => (
-        <JobCard job={job} key={i} />
+        <JobCard job={job} key={job.i} />
       ))}
     </>
   )

@@ -1,9 +1,9 @@
 import Container from 'react-bootstrap/Container'
-import Form from '../../components/newAssessmentForm'
 
 import { useRouter } from 'next/router'
 
 import { useSession, getSession } from 'next-auth/react'
+import Form from '../../components/newAssessmentForm'
 
 function Assessment() {
   const { data: session, status } = useSession()
@@ -11,7 +11,6 @@ function Assessment() {
   const router = useRouter()
   const { id } = router.query
   const q = router.query
-  console.log(q)
 
   return (
     <>

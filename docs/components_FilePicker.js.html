@@ -91,7 +91,7 @@ import { Button, Container } from 'react-bootstrap'
 import dynamic from 'next/dynamic'
 import { client } from 'filestack-react'
 
-//disable server-side rendering for filepicker
+// disable server-side rendering for filepicker
 const InlinePicker = dynamic(
   import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerInline),
   {
@@ -103,6 +103,8 @@ const InlinePicker = dynamic(
  *
  * @component
  * @param {string} [displaymode=inline] - sets display mode for the filepicker.
+ * @param {string} h - set height of file picker
+ * @param {string} w - set width of file picker
  * @property {string} apikey - api key for filestack
  * @property {Object} client - client object
  * @property {Object} options - options for the filepicker
@@ -110,24 +112,24 @@ const InlinePicker = dynamic(
  * @author Victor
  * @author Ellaira
  */
-function FilePicker({ displaymode }) {
+function FilePicker({ displaymode, container, h, w }) {
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
-
+  const containerName = `#${container}`
+  console.log(containerName)
   const options = {
     storeTo: {
       workflows: ['4b88240f-b06c-4fa4-9b3a-37a3e423b692'],
       location: 'azure',
       path: '/DRA_uploads/'
     },
-    container: '#inline',
+    container: containerName,
     displayMode: displaymode,
     fromSources: ['local_file_system']
   }
 
-  //initialise filestack client
+  // initialise filestack client
   const c = client.init(apikey, options)
 
-  //function to get metadata after file is uploaded
   const getMetadata = (res) => {
     c.metadata(res.filesUploaded[0].handle)
       .then((response) => {
@@ -139,14 +141,16 @@ function FilePicker({ displaymode }) {
   }
 
   return (
-    &lt;Container>
-      &lt;InlinePicker
-        apikey={c.session.apikey}
-        pickerOptions={c.options}
-        onError={(res) => console.log(res)}
-        onUploadDone={(res) => getMetadata(res)}
-      />
-    &lt;/Container>
+    &lt;>
+      &lt;div id="inline" style={{ height: h, width: w }}>
+        &lt;InlinePicker
+          apikey={c.session.apikey}
+          pickerOptions={c.options}
+          onError={(err) => console.error(err)}
+          onUploadDone={(res) => getMetadata(res)}
+        />
+      &lt;/div>
+    &lt;/>
   )
 }
 export default FilePicker

@@ -88,9 +88,17 @@
             <pre class="prettyprint source linenums"><code>import { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Image from 'next/image'
-import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor } from 'react-bootstrap-icons'
-import NavCSS from '../styles/Navi.module.css'
+import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor, BoxArrowLeft } from 'react-bootstrap-icons'
+import { signOut } from 'next-auth/react'
+import cx from 'classnames'
+import dynamic from 'next/dynamic'
 import logoimg from '../hardHat.png'
+import NavCSS from '../styles/Navi.module.css'
+
+// dynamically importing prevents Warning: Prop dangerouslySetInnerHTML did not match
+const ReactTooltip = dynamic(() => import('react-tooltip'), {
+  ssr: false
+})
 
 /**
  * Returns a React Sidebar
@@ -104,20 +112,48 @@ import logoimg from '../hardHat.png'
 function Navi() {
   return (
     &lt;>
+      {/* LOGO IMG */}
       &lt;Nav className={NavCSS.customnav}>
         &lt;Nav.Item className={NavCSS.image}>
           &lt;Image src={logoimg} size={10} />
         &lt;/Nav.Item>
-        &lt;Nav.Link href="/" className={NavCSS.icons}>
+
+        {/* HOME ICON */}
+        &lt;Nav.Link data-tip data-for="home" href="/" className={NavCSS.icons}>
           &lt;HouseDoor size={40} />
+          &lt;ReactTooltip id="home" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
+            Home
+          &lt;/ReactTooltip>
         &lt;/Nav.Link>
-        &lt;Nav.Link href="/createAssessment" className={NavCSS.icons}>
+
+        {/* NEW ASSESSMENT */}
+        &lt;Nav.Link data-tip data-for="CreateNewAssessment" href="/createAssessment" className={NavCSS.icons}>
           &lt;JournalPlus size={40} />
+          &lt;ReactTooltip id="CreateNewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
+            Create New Assessment
+          &lt;/ReactTooltip>
         &lt;/Nav.Link>
-        &lt;Nav.Link href="/scheduleAssessment" className={NavCSS.icons}>
+
+        {/* SCHEDULE ASSESSMENT */}
+        &lt;Nav.Link data-tip data-for="ScheduleNewAssessment" href="/scheduleAssessment" className={NavCSS.icons}>
           &lt;CalendarPlus size={40} />
+          &lt;ReactTooltip id="ScheduleNewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
+            Schedule New Assessment
+          &lt;/ReactTooltip>
         &lt;/Nav.Link>
-        {/* &lt;Nav.Link eventKey="link-2">Link&lt;/Nav.Link> */}
+
+        {/* LOGOUT */}
+        &lt;Nav.Link
+          data-tip
+          data-for="logout"
+          onClick={() => signOut()}
+          className={cx('position-absolute bottom-0 start-0 mb-3', NavCSS.icons)}
+        >
+          &lt;BoxArrowLeft size={40} />
+          &lt;ReactTooltip id="logout" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
+            Log Out
+          &lt;/ReactTooltip>
+        &lt;/Nav.Link>
       &lt;/Nav>
     &lt;/>
   )

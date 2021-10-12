@@ -89,6 +89,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 import '../styles/login.css'
+import { Container, Row, Col } from 'react-bootstrap'
+import Navi from '../components/Navi'
 
 /**
  *
@@ -101,8 +103,20 @@ function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     // provide ability to pass session around the app
     &lt;SessionProvider session={session}>
-      {/* provide pageProps to the current component */}
-      &lt;Component {...pageProps} />
+      &lt;Container>
+        &lt;Row>
+          {/* sidebar. if there is a session, show sidebar */}
+          {session &amp;&amp; (
+            &lt;Col md={2}>
+              &lt;Navi />
+            &lt;/Col>
+          )}
+          &lt;Col>
+            {/* provide pageProps to the current component */}
+            &lt;Component {...pageProps} />
+          &lt;/Col>
+        &lt;/Row>
+      &lt;/Container>
     &lt;/SessionProvider>
   )
 }

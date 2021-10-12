@@ -11,7 +11,7 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        //TODO: change to next auth url
+        // TODO : change to next auth url
         const res = await fetch('http://localhost:3000/api/auth/login', {
           method: 'POST',
           body: JSON.stringify(credentials),

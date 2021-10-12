@@ -2,13 +2,13 @@ import { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Image from 'next/image'
 import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor, BoxArrowLeft } from 'react-bootstrap-icons'
-import NavCSS from '../styles/Navi.module.css'
-import logoimg from '../hardHat.png'
 import { signOut } from 'next-auth/react'
 import cx from 'classnames'
 import dynamic from 'next/dynamic'
+import logoimg from '../hardHat.png'
+import NavCSS from '../styles/Navi.module.css'
 
-//dynamically importing prevents Warning: Prop dangerouslySetInnerHTML did not match
+// dynamically importing prevents Warning: Prop dangerouslySetInnerHTML did not match
 const ReactTooltip = dynamic(() => import('react-tooltip'), {
   ssr: false
 })
