@@ -3,14 +3,15 @@ import { Component, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import dynamic from 'next/dynamic'
 import { client } from 'filestack-react'
-
-//disable server-side rendering for filepicker
+import AssessmentCSS from '../styles/Assessment.module.css'
+// disable server-side rendering for filepicker
 const InlinePicker = dynamic(
   import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerInline),
   {
     ssr: false
   }
 )
+
 /**
  * Filepicker component.
  *
@@ -25,8 +26,9 @@ const InlinePicker = dynamic(
  * @author Victor
  * @author Ellaira
  */
-function FilePicker({ displaymode, h, w }) {
+function FilePicker({ displaymode, container, h, w }) {
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
+  const containerName = `#${container}`
 
   const options = {
     storeTo: {
@@ -34,15 +36,18 @@ function FilePicker({ displaymode, h, w }) {
       location: 'azure',
       path: '/DRA_uploads/'
     },
-    container: '#inline',
+    container: containerName,
     displayMode: displaymode,
-    fromSources: ['local_file_system']
+    fromSources: ['local_file_system'],
+    viewType: 'list',
+    disableTransformer: true,
+    uploadInBackground: true
   }
 
-  //initialise filestack client
+  // initialise filestack client
   const c = client.init(apikey, options)
 
-  //function to get metadata after file is uploaded
+  //return metadata
   const getMetadata = (res) => {
     c.metadata(res.filesUploaded[0].handle)
       .then((response) => {
@@ -59,9 +64,9 @@ function FilePicker({ displaymode, h, w }) {
         <InlinePicker
           apikey={c.session.apikey}
           pickerOptions={c.options}
-          onError={(res) => console.log(res)}
+          onError={(err) => console.error(err)}
           onUploadDone={(res) => getMetadata(res)}
-        />{' '}
+        />
       </div>
     </>
   )

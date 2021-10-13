@@ -1,17 +1,19 @@
 import Container from 'react-bootstrap/Container'
+import { useSession, getSession } from 'next-auth/react'
 import Form from '../components/JobForm'
-import Navi from '../components/Navi'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-
-function scheduleAssessment() {
+function ScheduleAssessment() {
+  const { data: session, status } = useSession()
   return (
     <>
-      <Navi />
       <Container>
         <Form />
       </Container>
     </>
   )
 }
-export default scheduleAssessment
+export default ScheduleAssessment
+
+export async function getServerSideProps(context) {
+  return { props: { session: await getSession(context) } }
+}

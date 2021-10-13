@@ -26,6 +26,23 @@ function Login({ csrfToken }) {
 
   const [error, setError] = useState('')
 
+  const checkInput = () => {
+    if (details.userEmail === '' && details.userPassword === '') {
+      setError('Please enter your credentials to continue')
+      return false
+    }
+    if (details.userEmail === '') {
+      setError('Please enter your email address')
+      return false
+    }
+    if (details.userPassword === '') {
+      setError('Please enter your password')
+      return false
+    }
+
+    return true
+  }
+
   const submitHandler = (e) => {
     e.preventDefault()
     // validate input first
@@ -45,7 +62,7 @@ function Login({ csrfToken }) {
             setError('Your email or password might be incorrect. Please try again.')
           }
         })
-        .catch((error) => console.log('error: ', error))
+        .catch((err) => setError(err))
     }
   }
 
@@ -54,23 +71,6 @@ function Login({ csrfToken }) {
     const { value } = e.target
     details[name] = value
     setDetails(details)
-  }
-
-  const checkInput = () => {
-    if (details.userEmail == '' && details.userPassword == '') {
-      setError('Please enter your credentials to continue')
-      return false
-    }
-    if (details.userEmail == '') {
-      setError('Please enter your email address')
-      return false
-    }
-    if (details.userPassword == '') {
-      setError('Please enter your password')
-      return false
-    }
-
-    return true
   }
 
   return (

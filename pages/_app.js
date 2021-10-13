@@ -2,9 +2,9 @@ import { SessionProvider } from 'next-auth/react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 import '../styles/login.css'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import Navi from '../components/Navi'
-import { signOut } from 'next-auth/react'
+
 /**
  *
  * Entry point of the application.

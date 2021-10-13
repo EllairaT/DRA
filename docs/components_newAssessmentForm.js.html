@@ -85,13 +85,16 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Container, Row, Form, Col, Button } from 'react-bootstrap'
-import React, { Component, useState } from 'react'
+            <pre class="prettyprint source linenums"><code>import { Container, Row, Form, Col, Button, Alert } from 'react-bootstrap'
+import React, { Component, useState, useMemo } from 'react'
 import Image from 'next/image'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
+import { server } from '../config'
+
+import FilePicker from './FilePicker'
 
 /**
  * Functional Component that returns a Form to add Job information
@@ -113,41 +116,51 @@ import AssessmentCSS from '../styles/Assessment.module.css'
  * @author Victor
  */
 function NewDRAForm(props) {
-  const [job, setJob] = useState({
-    assessment: [],
-    siteTags: [],
-    createdAt: `${Date()}`,
-    date: '',
-    site: '',
-    siteAddress: '',
-    siteType: '',
-    phone: '',
-    inspector: '',
-    notes: ''
+  const [assessment, setAssessment] = useState({
+    JobSite: '',
+    Notes: '',
+    URL: '',
+    time: `${Date()}`
+  })
+
+  // help with the API body
+  const [body, setBody] = useState('')
+
+  // for Alert message
+  const [variant, setVariant] = useState('')
+  const [text, setText] = useState('')
+
+  const [id, setId] = useState(`${props}`)
+
+  const Picker = React.memo((props) => {
+    console.log(props)
+    return &lt;FilePicker displaymode="inline" container="fpInline" height="100px" width="100px" />
   })
 
   /**
    * Function to store to database
    * @async
-   * @function createJob
+   * @function createAssessment
    * @memberof NewDRAForm
    * @returns {Promise} data from api
    */
-  const createJob = async () => {
+  // Stores to database
+  const createAssessment = async () => {
     try {
-      const res = await fetch(`${server}/api/jobs`, {
+      const res = await fetch(`${server}/api/jobs/${id}`, {
         // calling method type
-        method: 'POST',
+        method: 'PUT',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(job)
+        body: JSON.stringify(body)
       })
-      //TODO: remove alert
-      alert('Success')
+      setVariant('success')
+      setText('Success, you may now return home or make another assessment for this job')
     } catch (error) {
-      alert('Failed')
+      setVariant('danger')
+      setText('Failed please try again')
       console.log(error)
     }
   }
@@ -161,7 +174,9 @@ function NewDRAForm(props) {
    */
   const onSubmit = (e) => {
     e.preventDefault()
-    createJob()
+    setVariant('')
+    setText('')
+    createAssessment()
   }
 
   /**
@@ -174,8 +189,20 @@ function NewDRAForm(props) {
   const inputsHandler = (e) => {
     const { name } = e.target
     const { value } = e.target
-    job[name] = value
-    setJob(job)
+    assessment[name] = value
+    setAssessment(assessment)
+
+    // setBody is here because OnSubmit it won't work unless buttom is pressed twice
+    setBody({
+      // push adds element to array
+      $push: {
+        assessments: assessment
+      }
+    })
+  }
+
+  const uploadHandler = (e) => {
+    // function to get metadata after file is uploaded
   }
 
   return (
@@ -183,6 +210,7 @@ function NewDRAForm(props) {
       &lt;Container>
         &lt;Row className={AssessmentCSS.header}>
           &lt;h2>Create new Assessment&lt;/h2>
+          &lt;h1>{id}&lt;/h1>
         &lt;/Row>
         &lt;Form className={AssessmentCSS.form}>
           &lt;Form.Group className="mb-3" controlId="formSiteDetails">
@@ -197,9 +225,6 @@ function NewDRAForm(props) {
                     onChange={inputsHandler}
                   />
                 &lt;/Row>
-                {/* &lt;Input type="text" label="Job Address:" placeholder="Address of Location" name="JobAddress" onChange={inputsHandler} /> */}
-                {/* &lt;Input type="text" label="Description:" placeholder="Description of Location" name="JobSiteDescription" onChange={inputsHandler} /> */}
-
                 &lt;Row className={AssessmentCSS.textArea}>
                   &lt;Input
                     type="notes"
@@ -208,28 +233,35 @@ function NewDRAForm(props) {
                     name="Notes"
                     onChange={inputsHandler}
                   />
-                  {/* &lt;Col> 
-                &lt;Input type="tel" label="Phone Number:" placeholder="Phone Number of Location" name="Phone" onChange={inputsHandler} />
-              &lt;/Col>
-              &lt;Col>
-                &lt;Input type="tel" label="phone Number:" placeholder="phone Number of Location" name="phone" onChange={inputsHandler} />
-              &lt;/Col>
-              &lt;Col>
-                &lt;Input label="Date:" type="date" name="date" onChange={inputsHandler} />
-              &lt;/Col>
-              {/* &lt;Col>
-                &lt;Input label="Time:" type="time" name="Time" onChange={inputsHandler} />
-              &lt;/Col> */}
                 &lt;/Row>
               &lt;/Col>
-              &lt;Col>
-                &lt;Image src={logoimg} size={10} />
+              &lt;Col id="fpInline">
+                &lt;Picker id="fp" />
               &lt;/Col>
             &lt;/Row>
-
+            {/* filepicker goes here later */}
             &lt;Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
             &lt;Prompt />
           &lt;/Form.Group>
+
+          {/* Alert message after submit */}
+          {/* True if variant is not empty */}
+          {variant &amp;&amp; (
+            &lt;>
+              &lt;Alert variant={variant}>
+                {' '}
+                {/* variant is for the look of the alertbox */}
+                {text}
+                &lt;br />
+                &lt;Button href="../" className={AssessmentCSS.button}>
+                  Home
+                &lt;/Button>
+                &lt;Button href={`../createAssessment/${id}`} className={AssessmentCSS.button}>
+                  Create another Assessment
+                &lt;/Button>
+              &lt;/Alert>
+            &lt;/>
+          )}
         &lt;/Form>
       &lt;/Container>
     &lt;/>

@@ -21,7 +21,6 @@ function Register() {
   // submit input to register API
   const submitHandler = async (e) => {
     e.preventDefault()
-    console.log(details.userName, details.userEmail, details.userPassword)
 
     const res = await fetch('/api/auth/register', {
       method: 'POST',
@@ -34,7 +33,6 @@ function Register() {
     })
     // await for response
     const data = await res.json()
-    console.log(data)
   }
 
   // assign input values to details
@@ -89,14 +87,14 @@ function Register() {
 }
 
 export default Register
-//TODO: replace with getServerSideProps
+
 export async function getServerSideProps(context) {
   const { req, res } = context
   const session = await getSession({ req })
   if (res && session) {
-    //check if session.user is an admin
-    //if yes, provide access
-    //otherwise, redirect to index
+    // check if session.user is an admin
+    // if yes, provide access
+    // otherwise, redirect to index
   }
 
   return {

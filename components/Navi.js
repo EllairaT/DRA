@@ -2,13 +2,13 @@ import { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Image from 'next/image'
 import { CalendarPlus, JournalPlus, ClockHistory, HouseDoor, BoxArrowLeft } from 'react-bootstrap-icons'
-import NavCSS from '../styles/Navi.module.css'
-import logoimg from '../hardHat.png'
 import { signOut } from 'next-auth/react'
 import cx from 'classnames'
 import dynamic from 'next/dynamic'
+import logoimg from '../hardHat.png'
+import NavCSS from '../styles/Navi.module.css'
 
-//dynamically importing prevents Warning: Prop dangerouslySetInnerHTML did not match
+// dynamically importing prevents Warning: Prop dangerouslySetInnerHTML did not match
 const ReactTooltip = dynamic(() => import('react-tooltip'), {
   ssr: false
 })
@@ -50,7 +50,7 @@ function Navi() {
         {/* SCHEDULE ASSESSMENT */}
         <Nav.Link data-tip data-for="ScheduleNewAssessment" href="/scheduleAssessment" className={NavCSS.icons}>
           <CalendarPlus size={40} />
-          <ReactTooltip id="Schedule  NewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
+          <ReactTooltip id="ScheduleNewAssessment" place="right" backgroundColor="#232323" className={NavCSS.tooltip}>
             Schedule New Assessment
           </ReactTooltip>
         </Nav.Link>
