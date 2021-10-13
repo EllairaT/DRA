@@ -5,21 +5,19 @@ import { useRouter } from 'next/router'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-
 function NewAssessment() {
+  // gets the id from the url string
+  const router = useRouter()
+  const { id } = router.query
 
-    // gets the id from the url string
-    const router = useRouter()
-    const { id } = router.query
-
-    return (
-        <>
-            <Navi />
-            <Container>
-                <Form id={id} />
-            </Container>
-        </>
-    )
+  return (
+    <>
+      <Navi />
+      <Container>
+        <Form props={id} />
+      </Container>
+    </>
+  )
 }
 
 export default NewAssessment

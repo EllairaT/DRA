@@ -1,25 +1,7 @@
-import {
-  Container,
-  Form,
-  FormControl,
-  InputGroup,
-  CardGroup,
-  Card,
-  Row,
-  Col,
-  Button,
-  Carousel,
-  Modal
-} from 'react-bootstrap'
-import { signOut, useSession, getSession, signIn } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import { Search } from 'react-bootstrap-icons'
+import { Row, Col, Button, Modal } from 'react-bootstrap'
+import { useSession, getSession, signIn } from 'next-auth/react'
 import cx from 'classnames'
 import JobCard from '../components/JobCard'
-// import { server } from '../config'
-import Navi from '../components/Navi'
-import Login from './login'
-import Input from '../components/Input'
 // import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
 
@@ -41,10 +23,9 @@ function Home({ jobs }) {
   
 
   if (status === 'loading') {
+    console.log('loading')
     return <h1>loading...</h1>
   }
-
-  // jobs = {}
 
   // print out jobCard
   const printJobs = () => (
@@ -58,65 +39,54 @@ function Home({ jobs }) {
   const printButtons = () => (
     <>
       <h1>No jobs found</h1>
-      <Container>
-        <Row>
-          <Col className={indexCSS.col}>
-            <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
-              {' '}
-              Schedule New Job Column
-            </Button>
-          </Col>
 
-          <Col className={indexCSS.col}>
-            <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
-              {' '}
-              Create New Assessment
-            </Button>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col className={indexCSS.col}>
+          <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
+            {' '}
+            Schedule New Job Column
+          </Button>
+        </Col>
+
+        <Col className={indexCSS.col}>
+          <Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
+            {' '}
+            Create New Assessment
+          </Button>
+        </Col>
+      </Row>
     </>
   )
 
   const content = (
-    <Container>
-      <Row>
-        {/* sidebar */}
-        <Col xs={2}>
-          <Navi />
+    <>
+      <h1>Dynamic Risk Jobs </h1>
+      {/* check if jobs are empty */}
+      {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
 
-          <Button onClick={() => signOut()}>Sign Out</Button>
-        </Col>
-        <h1>Dynamic Risk Jobs </h1>
-        {/* check if jobs are empty */}
-        {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
-        <Col />
-      </Row>
       <h6 className="text-primary">Signed in as {session?.user.name || 'guest'}</h6>
-    </Container>
+    </>
   )
 
   return (
     <>
       {/* show login page if there is no session */}
       {!session && (
-        <>
-          <Modal.Dialog>
-            <Modal.Header closeButton>
-              <Modal.Title>Unauthenticated User</Modal.Title>
-            </Modal.Header>
+        <Modal show centered>
+          <Modal.Header>
+            <Modal.Title>Unauthenticated User</Modal.Title>
+          </Modal.Header>
 
-            <Modal.Body>
-              <p>Please sign in to view this page.</p>
-            </Modal.Body>
+          <Modal.Body>
+            <p>Please sign in to view this page.</p>
+          </Modal.Body>
 
-            <Modal.Footer>
-              <Button variant="primary" onClick={() => signIn()}>
-                Sign In
-              </Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </>
+          <Modal.Footer>
+            <Button variant="primary" onClick={() => signIn()}>
+              Sign In
+            </Button>
+          </Modal.Footer>
+        </Modal>
       )}
       {/* else, show 'signed in as'  */}
       {session && (

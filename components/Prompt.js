@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button'
 // import Modal from 'react-bootstrap/Modal'
 // import Modal from 'react-bootstrap/Modal'
 import Popup from './Popup'
-import Input from './Input'
 
 /**
  * This component creates a prompt that is opened by clicking the button
@@ -32,7 +31,7 @@ function Prompt() {
   return (
     <>
       <Button variant="primary" onClick={popupShow}>
-        Hint
+        Reminder
       </Button>
       <Popup show={show} handleShow={popupShow} handleClose={close} title={data[hint][0]} body={data[hint][1]} />
     </>
