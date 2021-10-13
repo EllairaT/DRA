@@ -33,8 +33,6 @@ async function jobReqs(req, res) {
       break
 
     case 'PUT':
-      console.log(req.body)
-
       // Update Job by ID
       try {
         const job = await Job.findByIdAndUpdate(id, req.body)
