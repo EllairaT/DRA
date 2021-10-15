@@ -15,10 +15,13 @@ function JobView({ jobs }) {
   // Currently it would crash if input is not a real id
   return (
     <>
-      {Object.keys(router.query).length === 0 ? 'job not found' : <h1>job id is: {`${job._id}`}</h1>}
+      {Object.keys(router.query).length === 0 ? 'job not found' : 
+      <>
+      <h1>job id is: {`${job[0]._id}`}</h1> 
       <Container>
         <Card props={job[0]} />
       </Container>
+      </>}
     </>
   )
 }
