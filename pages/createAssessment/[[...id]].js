@@ -1,24 +1,21 @@
 import Container from 'react-bootstrap/Container'
-import Form from '../../components/newAssessmentForm'
 
 import { useRouter } from 'next/router'
 
 import { useSession, getSession } from 'next-auth/react'
+import DRAForm from '../../components/newAssessmentForm'
 
-function Assessment() {
+function Assessment(props) {
+  const i = props.query.id ? props.query.id[0] : null
   const { data: session, status } = useSession()
-  // gets the id from the url string
-  const router = useRouter()
-  const { id } = router.query
-  const q = router.query
-  console.log(q)
 
+  //61650e8c2ad5c02224a436aa
   return (
     <>
-      {Object.keys(router.query).length === 0 ? 'no job found' : <h1>Your job id: {`${id}`}</h1>}
+      {props.query.id ? <h1>Your job id: {i}</h1> : 'no job found'}
 
       <Container>
-        <Form props={id} />
+        <DRAForm id={i} />
       </Container>
     </>
   )
@@ -27,5 +24,6 @@ function Assessment() {
 export default Assessment
 
 export async function getServerSideProps(context) {
-  return { props: { session: await getSession(context) } }
+  const { query } = context
+  return { props: { session: await getSession(context), query } }
 }

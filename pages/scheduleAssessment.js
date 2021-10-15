@@ -1,9 +1,8 @@
 import Container from 'react-bootstrap/Container'
+import { useSession, getSession } from 'next-auth/react'
 import Form from '../components/JobForm'
 
-import { useSession, getSession } from 'next-auth/react'
-
-function scheduleAssessment() {
+function ScheduleAssessment() {
   const { data: session, status } = useSession()
   return (
     <>
@@ -13,7 +12,7 @@ function scheduleAssessment() {
     </>
   )
 }
-export default scheduleAssessment
+export default ScheduleAssessment
 
 export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } }

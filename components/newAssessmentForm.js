@@ -6,7 +6,13 @@ import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
 import { server } from '../config'
+
 import FilePicker from './FilePicker'
+import { react } from '@babel/types'
+
+const Picker = React.memo((props) => {
+  return <FilePicker displaymode="inline" container="fpInline" h="0" w="0" />
+})
 /**
  * Functional Component that returns a Form to add Job information
  * @component
@@ -26,7 +32,8 @@ import FilePicker from './FilePicker'
  *
  * @author Victor
  */
-function NewDRAForm({ props }) {
+function NewDRAForm(props) {
+  console.log('dra form:', props.id)
   const [assessment, setAssessment] = useState({
     JobSite: '',
     Notes: '',
@@ -41,8 +48,8 @@ function NewDRAForm({ props }) {
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
 
-  const [id, setId] = useState(`${props}`)
-  console.log(id)
+  const [id, setId] = useState(props.id)
+
   /**
    * Function to store to database
    * @async
@@ -52,6 +59,7 @@ function NewDRAForm({ props }) {
    */
   // Stores to database
   const createAssessment = async () => {
+    console.log(assessment)
     try {
       const res = await fetch(`${server}/api/jobs/${id}`, {
         // calling method type
@@ -82,6 +90,7 @@ function NewDRAForm({ props }) {
     e.preventDefault()
     setVariant('')
     setText('')
+
     createAssessment()
   }
 
@@ -95,8 +104,9 @@ function NewDRAForm({ props }) {
   const inputsHandler = (e) => {
     const { name } = e.target
     const { value } = e.target
-    assessment[name] = value
-    setAssessment(assessment)
+    const p = assessment[name]
+    // assessment[name] = value
+    setAssessment({ ...assessment, [name]: value })
 
     // setBody is here because OnSubmit it won't work unless buttom is pressed twice
     setBody({
@@ -143,10 +153,10 @@ function NewDRAForm({ props }) {
                 </Row>
               </Col>
               <Col id="fpInline">
-                <FilePicker displaymode="inline" container="fpInline" h="0" w="0" />
+                {/* <FilePicker displaymode="inline" container="fpInline" h="0" w="0" /> */}
+                <Picker id="p" />
               </Col>
             </Row>
-
             <Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
             <Prompt />
           </Form.Group>

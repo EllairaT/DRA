@@ -85,29 +85,11 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import {
-  Container,
-  Form,
-  FormControl,
-  InputGroup,
-  CardGroup,
-  Card,
-  Row,
-  Col,
-  Button,
-  Carousel,
-  Modal
-} from 'react-bootstrap'
-import { signOut, useSession, getSession, signIn } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import { Search } from 'react-bootstrap-icons'
+            <pre class="prettyprint source linenums"><code>import { Row, Col, Button, Modal } from 'react-bootstrap'
+import { useSession, getSession, signIn } from 'next-auth/react'
 import cx from 'classnames'
 import JobCard from '../components/JobCard'
-// import { server } from '../config'
-import Navi from '../components/Navi'
-import Login from './login'
-import Input from '../components/Input'
-import createAssessment from './createAssessment'
+// import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
 
 /**
@@ -127,13 +109,11 @@ function Home({ jobs }) {
     return &lt;h1>loading...&lt;/h1>
   }
 
-  // jobs = {}
-
   // print out jobCard
   const printJobs = () => (
     &lt;>
       {jobs.map((job, i) => (
-        &lt;JobCard job={job} key={i} />
+        &lt;JobCard job={job} key={job.i} />
       ))}
     &lt;/>
   )
@@ -141,65 +121,54 @@ function Home({ jobs }) {
   const printButtons = () => (
     &lt;>
       &lt;h1>No jobs found&lt;/h1>
-      &lt;Container>
-        &lt;Row>
-          &lt;Col className={indexCSS.col}>
-            &lt;Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
-              {' '}
-              Schedule New Job Column
-            &lt;/Button>
-          &lt;/Col>
 
-          &lt;Col className={indexCSS.col}>
-            &lt;Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
-              {' '}
-              Create New Assessment
-            &lt;/Button>
-          &lt;/Col>
-        &lt;/Row>
-      &lt;/Container>
+      &lt;Row>
+        &lt;Col className={indexCSS.col}>
+          &lt;Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.create)}>
+            {' '}
+            Schedule New Job Column
+          &lt;/Button>
+        &lt;/Col>
+
+        &lt;Col className={indexCSS.col}>
+          &lt;Button href="/createAssessment" className={cx(indexCSS.btnBlock, indexCSS.schedule)}>
+            {' '}
+            Create New Assessment
+          &lt;/Button>
+        &lt;/Col>
+      &lt;/Row>
     &lt;/>
   )
 
   const content = (
-    &lt;Container>
-      &lt;Row>
-        {/* sidebar */}
-        &lt;Col xs={2}>
-          &lt;Navi />
+    &lt;>
+      &lt;h1>Dynamic Risk Jobs &lt;/h1>
+      {/* check if jobs are empty */}
+      {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
 
-          &lt;Button onClick={() => signOut()}>Sign Out&lt;/Button>
-        &lt;/Col>
-        &lt;h1>Dynamic Risk Jobs &lt;/h1>
-        {/* check if jobs are empty */}
-        {Object.keys(jobs).length === 0 ? printButtons() : printJobs()}
-        &lt;Col />
-      &lt;/Row>
       &lt;h6 className="text-primary">Signed in as {session?.user.name || 'guest'}&lt;/h6>
-    &lt;/Container>
+    &lt;/>
   )
 
   return (
     &lt;>
       {/* show login page if there is no session */}
       {!session &amp;&amp; (
-        &lt;>
-          &lt;Modal.Dialog>
-            &lt;Modal.Header closeButton>
-              &lt;Modal.Title>Unauthenticated User&lt;/Modal.Title>
-            &lt;/Modal.Header>
+        &lt;Modal show centered>
+          &lt;Modal.Header>
+            &lt;Modal.Title>Unauthenticated User&lt;/Modal.Title>
+          &lt;/Modal.Header>
 
-            &lt;Modal.Body>
-              &lt;p>Please sign in to view this page.&lt;/p>
-            &lt;/Modal.Body>
+          &lt;Modal.Body>
+            &lt;p>Please sign in to view this page.&lt;/p>
+          &lt;/Modal.Body>
 
-            &lt;Modal.Footer>
-              &lt;Button variant="primary" onClick={() => signIn()}>
-                Sign In
-              &lt;/Button>
-            &lt;/Modal.Footer>
-          &lt;/Modal.Dialog>
-        &lt;/>
+          &lt;Modal.Footer>
+            &lt;Button variant="primary" onClick={() => signIn()}>
+              Sign In
+            &lt;/Button>
+          &lt;/Modal.Footer>
+        &lt;/Modal>
       )}
       {/* else, show 'signed in as'  */}
       {session &amp;&amp; (

@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/JobForm.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li><li><a href="global.html#getServerSideProps">getServerSideProps</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Register">Register</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/JobForm.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Container, Row, Form, Col, Button, Alert } from 'react-bootstrap'
+import React, { Component, useState } from 'react'
+import Image from 'next/image'
+import Input from './Input'
+import logoimg from '../saveImage.jpg'
+import Prompt from './Prompt'
+import AssessmentCSS from '../styles/Assessment.module.css'
+import { server } from '../config'
+/**
+ * @component
+ * @param {*} props
+ * @returns {Component} Form
+ */
+function NewDRAForm({ newJob }) {
+
+    const [job, setJob] = useState({
+        assessment: [],
+        siteTags: [],
+        createdAt: `${Date()}`,
+        date: '',
+        site: '',
+        siteAddress: '',
+        siteType: '',
+        phone: '',
+        inspector: '',
+        notes: ''
+    })
+
+    // for Alert message
+    // variant is the type/look of the alertBox 
+    const [variant, setVariant] = useState('')
+    const [text, setText] = useState('')
+
+    // Store ID of recently made entry
+    // Needed for dynamic routing
+    const [id, setId] = useState('')
+
+    // Gets the entry just made
+    const FindId = async () => {
+        try {
+            const jobRes = await fetch(`${server}/api/jobs`, {
+                // calling method type
+                method: 'COPY'
+            })
+            const { data } = await jobRes.json()
+            setId(data._id)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Stores to database
+    const createJob = async () => {
+        try {
+            const res = await fetch(`${server}/api/jobs`, {
+                // calling method type
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(job)
+            })
+            setVariant('success')
+            setText('Success, you may now return home or make new assessment for this job')
+            FindId()
+
+        } catch (error) {
+            setVariant('danger')
+            setText('Failed please try again')
+            console.log(error)
+        }
+    }
+
+    // on submit
+    const onSubmit = (e) => {
+        e.preventDefault()
+        setVariant('')
+        setText('')
+        createJob()
+    }
+    const inputsHandler = (e) => {
+        // update the attributes in object
+        const { name } = e.target
+        const { value } = e.target
+        job[name] = value
+        setJob(job)
+    }
+    
+    return (
+        &lt;>
+            &lt;Container>
+                &lt;Row className={AssessmentCSS.header}>
+                    &lt;h2>Schedule new Job&lt;/h2>
+                &lt;/Row>
+                &lt;Form className={AssessmentCSS.form}>
+                    &lt;Form.Group className="mb-3" controlId="formSiteDetails">
+                        &lt;Row>
+                            &lt;Col>
+                                &lt;Input
+                                    type="text"
+                                    label="Job Site:"
+                                    placeholder="Name of Location"
+                                    name="site"
+                                    onChange={inputsHandler}
+                                />
+                                &lt;Input
+                                    type="text"
+                                    label="Job Address:"
+                                    placeholder="Address of Location"
+                                    name="siteAddress"
+                                    onChange={inputsHandler}
+                                />
+                                &lt;Input
+                                    type="text"
+                                    label="Description:"
+                                    placeholder="Description of Location"
+                                    name="siteType"
+                                    onChange={inputsHandler}
+                                />
+                                &lt;Input
+                                    type="notes"
+                                    label="Notes"
+                                    placeholder="What have you noticed..."
+                                    name="notes"
+                                    onChange={inputsHandler}
+                                />
+                                &lt;Row>
+                                    &lt;Col>
+                                        &lt;Input
+                                            type="tel"
+                                            label="phone Number:"
+                                            placeholder="phone Number of Location"
+                                            name="phone"
+                                            onChange={inputsHandler}
+                                        />
+                                    &lt;/Col>
+                                    &lt;Col>
+                                        &lt;Input
+                                            type="date"
+                                            label="Date:"
+                                            name="date"
+                                            onChange={inputsHandler}
+                                        />
+                                    &lt;/Col>
+                                    &lt;Col>
+                                        &lt;Input
+                                            label="Time:"
+                                            type="time"
+                                            name="Time"
+                                            onChange={inputsHandler}
+                                        />
+                                    &lt;/Col>
+                                &lt;/Row>
+                            &lt;/Col>
+
+                        &lt;/Row>
+
+                        &lt;Button
+                            as="input"
+                            type="submit"
+                            value="Submit"
+                            className={AssessmentCSS.button}
+                            onClick={onSubmit}
+                        />
+                    &lt;/Form.Group>
+                    {/* Alert message after submit */}
+                    {/* True if variant is not empty */}
+                    {variant &amp;&amp; (
+                        &lt;>
+                            &lt;Alert variant={variant}>
+                                {text}
+                                &lt;br />
+                                &lt;Button href='../' className={AssessmentCSS.button} >
+                                    Home
+                                &lt;/Button>
+                                {/* the id allows createAssessment page to get the id for a more easy search */}
+                                &lt;Button href={`../createAssessment/${id}`} className={AssessmentCSS.button} >
+                                    New Assessment
+                                &lt;/Button>
+                            &lt;/Alert>
+                        &lt;/>
+                    )}
+                &lt;/Form>
+            &lt;/Container>
+        &lt;/>
+    )
+}
+export default NewDRAForm
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

@@ -13,7 +13,6 @@ async function handler(req, res) {
     const { error } = registerValidation(req.body)
 
     if (error) {
-      console.log(error.details[0].message)
       return res.status(400).send(error.details[0].message)
     }
 
@@ -34,19 +33,19 @@ async function handler(req, res) {
       password: hashPass
     })
 
-    console.log(user)
     // save new user
     try {
       const newUser = await user.save()
       res.send(newUser)
     } catch (err) {
-      console.log(err)
-      res.status(400).send(err)
+      return res.status(400).send(err)
     }
     // send error if not POST
   } else {
-    res.status(500).send('Invalid Route')
+    return res.status(500).send('Invalid Route')
   }
+
+  return true
 }
 
 export default handler

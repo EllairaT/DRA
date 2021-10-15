@@ -18,8 +18,11 @@ function Home({ jobs }) {
   // access session
   const { data: session, status } = useSession()
 
+  // sort From newest to oldest booking date 
+  jobs.sort((a, b) => new Date(b.date) - new Date(a.date))
+  
+
   if (status === 'loading') {
-    console.log('loading')
     return <h1>loading...</h1>
   }
 
@@ -27,7 +30,7 @@ function Home({ jobs }) {
   const printJobs = () => (
     <>
       {jobs.map((job, i) => (
-        <JobCard job={job} key={i} />
+        <JobCard job={job} key={job.i} />
       ))}
     </>
   )
