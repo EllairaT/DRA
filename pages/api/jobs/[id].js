@@ -1,6 +1,7 @@
 import { Mongoose } from 'mongoose'
 import connectToDatabase from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
+import User from '../../../models/users.model'
 const mongoose = require('mongoose')
 connectToDatabase()
 
@@ -42,6 +43,21 @@ async function jobReqs(req, res) {
         }
 
         res.status(200).json({ success: true, data: job })
+      } catch (error) {
+        res.status(400).json({ success: false, data: error })
+      }
+      break
+
+      case 'COPY':
+      // Get use id
+      try {
+        const user = await User.findOne({email: id})
+
+        if (!user) {
+          res.status(400).json({ success: false })
+        }
+
+        res.status(200).json({ success: true, data: user })
       } catch (error) {
         res.status(400).json({ success: false, data: error })
       }

@@ -26,19 +26,16 @@ function JobCard({ job }) {
           <h1>
             {job.site} | {job.siteType}
           </h1>
-
           <p>
             <Geo size={20} />
             &nbsp;
             {job.siteAddress}
           </p>
-
           <p>
             <Phone size={20} />
             &nbsp;
             {job.phone}
           </p>
-
           <p>
             {/* have to be view in dd-mm hh-mm format */}
             <Clock size={20} />

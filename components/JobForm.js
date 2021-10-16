@@ -11,7 +11,7 @@ import { server } from '../config'
  * @param {*} props
  * @returns {Component} Form
  */
-function JobForm() {
+function JobForm({ userId }) {
   const [job, setJob] = useState({
     assessment: [],
     siteTags: [],
@@ -21,9 +21,10 @@ function JobForm() {
     siteAddress: '',
     siteType: '',
     phone: '',
-    inspector: '',
+    inspector: `${userId}`,
     notes: ''
   })
+console.log(userId)
 
   // for Alert message
   // variant is the type/look of the alertBox
@@ -83,6 +84,7 @@ function JobForm() {
     const { value } = e.target
     job[name] = value
     setJob(job)
+    console.log(job)
   }
 
   return (
