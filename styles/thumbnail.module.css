@@ -1,0 +1,13 @@
+.thumb {
+  border: 1px solid rgb(251, 225, 225);
+  border-radius: 2px;
+  padding: 5px;
+  width: 75px;
+}
+
+.cont {
+  border-radius: 15px;
+  padding: 10px;
+  height: auto;
+  background-color: rgb(235, 235, 235);
+}
