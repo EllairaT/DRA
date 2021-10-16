@@ -20,12 +20,13 @@ function ScheduleAssessment() {
       console.log(error)
     }
   }
-  getUserId()
+  console.log(getUserId())
   console.log(id)
   return (
     <>
       <Container>
-        <Form userId={id}/>
+        {/* render form when userId is set */}
+        {id ? <Form userId={id} /> : 'sss'}
       </Container>
     </>
   )
@@ -35,4 +36,3 @@ export default ScheduleAssessment
 export async function getServerSideProps(context) {
   return { props: { session: await getSession(context) } }
 }
-
