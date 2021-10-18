@@ -20,7 +20,7 @@ function ScheduleAssessment() {
       console.log(error)
     }
   }
-  console.log(getUserId())
+  getUserId()
   console.log(id)
   return (
     <>
