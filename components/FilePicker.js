@@ -1,23 +1,11 @@
 import * as filestack from 'filestack-js'
 import React, { Component, useEffect, useState } from 'react'
-import { Button, Container } from 'react-bootstrap'
+import { Button, Container, ProgressBar } from 'react-bootstrap'
 import dynamic from 'next/dynamic'
 import { client } from 'filestack-react'
 import '../styles/Assessment.module.css'
 import Summary from './Summary'
-import { File } from 'react-bootstrap-icons'
-import Image from 'next/image'
-
 import vThumb from '../videothumb.png'
-import { classBody } from '@babel/types'
-
-// disable server-side rendering for filepicker
-// const InlinePicker = dynamic(
-//   import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerDropPane),
-//   {
-//     ssr: false
-//   }
-// )
 
 /**
  * Filepicker component.
@@ -38,62 +26,60 @@ function FilePicker(props) {
   const [file, setFile] = useState({ name: '', fileURL: '' })
 
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
-  const token = {}
   const options = {
     storeTo: {
       location: 'azure',
-      path: '/DRA_uploads/'
+      path: '/DRA_uploads/',
+      workflows: ['5d9ba7b9-2dbe-45ae-86bf-71dee785dcac']
     },
-    fromSources: ['local_file_system', 'video']
-  }
-
-  const uploadOpts = {}
-  const storeOpts = {
-    location: 'azure',
-    path: '/DRA_uploads/'
+    fromSources: ['local_file_system', 'video', 'webcam'],
+    disableTransformer: true,
+    uploadInBackground: true,
+    accept: ['image/*', 'video/*', 'audio/*'],
+    onFileSelected: (file) => sanitizeFilename(file),
+    onUploadDone: (res) => getMetaData(res)
   }
 
   // initialise filestack client
-  const c = client.init(apikey, options)
+  const c = client.init(apikey)
 
-  //return metadata
-  async function getMetaData(handle) {
-    try {
-      const response = await c.metadata(handle, { upload_status: true })
-      console.log(response)
-    } catch (error) {
-      console.error(error)
-    }
+  const sanitizeFilename = (file) => {
+    const newName = file.filename.replace(/\s/g, '')
+    return { ...file, filename: newName }
   }
 
-  //works- get metadata later
-  function uploadVideo(e) {
-    c.upload(e.target.files[0], uploadOpts, storeOpts).then(async (res) => console.log(await res))
-    // .catch((err) => console.log(err))
+  //return metadata. refresh component after this. dont know why but it wont work for other uploads otherwise.
+  const getMetaData = (res) => {
+    c.metadata(res.filesUploaded[0].handle)
+      .then((response) => {
+        pickerCallback(response.path)
+        setThumbnail(response)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   //check MIME type
   const checkMIME = (e) => {
-    if (e.type.includes('video')) {
+    if (e.mimetype.includes('video')) {
       return vThumb.src
     }
-    return URL.createObjectURL(e)
+    //use the url from filestack cdn for the thumbnail
+    return `https://cdn.filestackcontent.com/${e.handle}`
   }
 
-  // handle 1Hzi1YSSHqaBG853d9Rc
-  const handleChange = (e) => {
-    const thumbURL = checkMIME(e.target.files[0])
-    setFile({ ...file, name: e.target.files[0].name, fileURL: thumbURL })
-    // pickerCallback(file.fileURL)
-    uploadVideo(e)
-    // .then((res) => getMetaData(res))
-    // .catch((err) => console.log(err))
+  const setThumbnail = (e) => {
+    const thumbURL = checkMIME(e)
+    setFile({ ...file, name: e.filename, fileURL: thumbURL })
   }
 
   return (
     <>
-      <input type="file" accept="image/*,video/*" className="custom-file-input" onChange={handleChange} />
-      {file ? <Summary name={file.name} fileURL={file.fileURL} /> : ''}
+      <Button onClick={() => c.picker(options).open()} className="btn btn-primary">
+        Upload file
+      </Button>
+      {file.fileURL ? <Summary name={file.name} fileURL={file.fileURL} /> : ''}
     </>
   )
 }
