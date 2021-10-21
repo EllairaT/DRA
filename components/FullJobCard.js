@@ -66,8 +66,8 @@ function FullJobCard({ props }) {
                         {/* Show if assessment is not null */}
                         {assessment && (
                             <>
-                                {assessment.map((assessment, i) => (
-                                    <AssessmentCard assessment={assessment} key={i} />
+                                {assessment.map((assessmentData, i) => (
+                                    <AssessmentCard assessment={assessmentData} key={assessmentData.i} />
                                 ))}
                             </>
                         )}
