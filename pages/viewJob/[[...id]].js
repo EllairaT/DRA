@@ -9,7 +9,7 @@ function JobView({ jobs }) {
   // gets the id from the url string
   const router = useRouter()
   const { id } = router.query
-  const job = jobs.filter(job => job._id === `${id}`)
+  const jobData = jobs.filter(job => job._id === `${id}`)
 
 
   // Currently it would crash if input is not a real id
@@ -17,9 +17,9 @@ function JobView({ jobs }) {
     <>
       {Object.keys(router.query).length === 0 ? 'job not found' : 
       <>
-      <h1>job id is: {`${job[0]._id}`}</h1> 
+      <h1>job id is: {`${jobData[0]._id}`}</h1> 
       <Container>
-        <Card props={job[0]} />
+        <Card props={jobData[0]} />
       </Container>
       </>}
     </>
