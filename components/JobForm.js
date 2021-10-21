@@ -24,7 +24,6 @@ function JobForm({ userId }) {
     inspector: `${userId}`,
     notes: ''
   })
-console.log(userId)
 
   // for Alert message
   // variant is the type/look of the alertBox
