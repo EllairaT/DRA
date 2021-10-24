@@ -1,4 +1,4 @@
-import { Container, Row, Form, Col, Button, Alert } from 'react-bootstrap'
+import { Container, Row, Form, Col, Button, Alert, FloatingLabel } from 'react-bootstrap'
 import React, { Component, useState } from 'react'
 import Image from 'next/image'
 import Input from './Input'
@@ -116,18 +116,23 @@ function NewDRAForm(props) {
       }
     })
   }
-
   return (
     <>
       <Container>
         <Row className={AssessmentCSS.header}>
           <h2>Create new Assessment</h2>
-          <h1>{id}</h1>
         </Row>
         <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
             <Row>
               <Col>
+                <Row className={AssessmentCSS.row}>
+                  <FloatingLabel name="id" label="Select Job to Add Assessment">
+                    <Form.Select>
+                      <option>Pick a Job</option>
+                    </Form.Select>
+                  </FloatingLabel>
+                </Row>
                 <Row className={AssessmentCSS.row}>
                   <Input
                     type="text"
@@ -179,4 +184,5 @@ function NewDRAForm(props) {
     </>
   )
 }
+
 export default NewDRAForm

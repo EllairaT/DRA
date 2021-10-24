@@ -49,6 +49,7 @@ function JobCard({ job }) {
           {/* DropDown menu*/}
           <DropdownButton variant='Secondary' title=''>
             <Dropdown.Item href={`../createAssessment/${job._id}`}>Add assessment</Dropdown.Item>
+            <Dropdown.Item href={`../viewJob/${job._id}`}>View Job</Dropdown.Item>
           </DropdownButton>
         </Container>
       </Card>
