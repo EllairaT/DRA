@@ -101,7 +101,7 @@ function Home({ jobs }) {
 export async function getServerSideProps(context) {
   // const res = await fetch(`${server}/api/jobs`)
   // fetch data
-  const jobRes = await fetch('http://localhost:3000/api/jobs')
+  const jobRes = await fetch(`${server}/api/jobs`)
   // get json response for job
   const { data } = await jobRes.json()
   return {

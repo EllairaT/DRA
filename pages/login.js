@@ -49,7 +49,7 @@ function Login({ csrfToken }) {
     if (checkInput()) {
       signIn('creds', {
         redirect: false,
-        callbackUrl: 'http://localhost:3000',
+        callbackUrl: `${server}`,
         id: 'creds',
         email: details.userEmail,
         password: details.userPassword

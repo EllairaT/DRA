@@ -26,6 +26,7 @@ function FilePicker(props) {
   const [loading, setLoading] = useState(false)
 
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
+  const filestackCDN = 'https://cdn.filestackcontent.com/'
   const clientOptions = {
     security: {
       policy: process.env.NEXT_PUBLIC_FS_POLICY,
@@ -57,16 +58,11 @@ function FilePicker(props) {
     return { ...file, filename: newName }
   }
 
-  const { promiseInProgress } = (props) => {
-    usePromiseTracker()
-    return promiseInProgress && <h1>"LOADING"</h1>
-  }
-  //return metadata. refresh component after this. dont know why but it wont work for other uploads otherwise.
   const getMetaData = async (res) => {
     setLoading(true)
     const job = parser(res)
     let data
-    const webhook = await fetch(`http://localhost:3000/api/files/webhook`, {
+    const webhook = await fetch(`${server}/api/files/webhook`, {
       method: 'POST',
       body: JSON.stringify({ jobid: job }),
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
@@ -74,14 +70,18 @@ function FilePicker(props) {
 
     const response = await webhook.json()
 
+    // set thumbnail, and pass url to parent
     if (response) {
       const {
         results: {
           store: {
-            data: { filename, handle, key, url, type }
+            data: { filename, handle, url, type }
           }
         }
       } = response
+      pickerCallback(
+        `${filestackCDN}/security=p:${process.env.NEXT_PUBLIC_FS_POLICY},s:${process.env.NEXT_PUBLIC_FS_SIGNATURE}/cache=false/${handle}`
+      )
       setThumbnail(filename, type, url)
       setLoading(false)
     }
