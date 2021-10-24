@@ -11,7 +11,7 @@ import { server } from '../config'
  * @param {*} props
  * @returns {Component} Form
  */
-function JobForm() {
+function JobForm({ userId }) {
   const [job, setJob] = useState({
     assessment: [],
     siteTags: [],
@@ -21,7 +21,7 @@ function JobForm() {
     siteAddress: '',
     siteType: '',
     phone: '',
-    inspector: '',
+    inspector: `${userId}`,
     notes: ''
   })
 
@@ -83,6 +83,7 @@ function JobForm() {
     const { value } = e.target
     job[name] = value
     setJob(job)
+    console.log(job)
   }
 
   return (
