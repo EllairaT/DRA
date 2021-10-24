@@ -26,7 +26,7 @@ function Home({ jobs }) {
   const printJobs = () => (
     <>
       {jobs.map((job, i) => (
-        <JobCard job={job} key={job.i} />
+        <JobCard job={job} key={i} />
       ))}
     </>
   )
