@@ -12,7 +12,7 @@ export default NextAuth({
       },
       async authorize(credentials) {
         // TODO : change to next auth url
-        const res = await fetch('http://localhost:3000/api/auth/login', {
+        const res = await fetch(`${server}/api/auth/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' }

@@ -1,18 +1,15 @@
 import { Container, Row, Form, Col, Button, Alert, FloatingLabel } from 'react-bootstrap'
 import React, { Component, useState } from 'react'
 import Image from 'next/image'
+import { react } from '@babel/types'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
 import { server } from '../config'
-
 import FilePicker from './FilePicker'
-import { react } from '@babel/types'
+import cx from 'classnames'
 
-const Picker = React.memo((props) => {
-  return <FilePicker displaymode="inline" container="fpInline" h="0" w="0" />
-})
 /**
  * Functional Component that returns a Form to add Job information
  * @component
@@ -33,7 +30,6 @@ const Picker = React.memo((props) => {
  * @author Victor
  */
 function NewDRAForm(props) {
-  console.log('dra form:', props.id)
   const [assessment, setAssessment] = useState({
     JobSite: '',
     Notes: '',
@@ -41,6 +37,10 @@ function NewDRAForm(props) {
     time: `${Date()}`
   })
 
+  const pickerHandleCallback = (data) => {
+    console.log(data)
+    setAssessment({ ...assessment, URL: data })
+  }
   // help with the API body
   const [body, setBody] = useState('')
 
@@ -124,7 +124,7 @@ function NewDRAForm(props) {
         </Row>
         <Form className={AssessmentCSS.form}>
           <Form.Group className="mb-3" controlId="formSiteDetails">
-            <Row>
+            <Container fluid>
               <Col>
                 <Row className={AssessmentCSS.row}>
                   <FloatingLabel name="id" label="Select Job to Add Assessment">
@@ -142,22 +142,29 @@ function NewDRAForm(props) {
                     onChange={inputsHandler}
                   />
                 </Row>
-                <Row className={AssessmentCSS.textArea}>
+                <Row className={cx(AssessmentCSS.textArea, 'mb-3 mt-3')}>
                   <Input
-                    type="notes"
+                    as="textarea"
                     label="Notes"
                     placeholder="What have you noticed..."
                     name="Notes"
                     onChange={inputsHandler}
+                    htmlSize={100}
                   />
                 </Row>
               </Col>
-              <Col id="fpInline">
-                {/* <FilePicker displaymode="inline" container="fpInline" h="0" w="0" /> */}
-                <Picker id="p" />
+              <Col id="fpInline" className="mb-3 mt-3">
+                <FilePicker pickerCallback={pickerHandleCallback} />
               </Col>
-            </Row>
-            <Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
+            </Container>
+
+            <Button
+              as="input"
+              type="submit"
+              value="Submit"
+              className={cx(AssessmentCSS.button, 'float-end btn-success')}
+              onClick={onSubmit}
+            />
             <Prompt />
           </Form.Group>
 

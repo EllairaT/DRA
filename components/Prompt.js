@@ -30,7 +30,7 @@ function Prompt() {
 
   return (
     <>
-      <Button variant="primary" onClick={popupShow}>
+      <Button onClick={popupShow} style={{ backgroundColor: '#e9e195', color: 'black' }}>
         Reminder
       </Button>
       <Popup show={show} handleShow={popupShow} handleClose={close} title={data[hint][0]} body={data[hint][1]} />

@@ -12,7 +12,7 @@ import { Component } from 'react'
  * @author Ellaira
  */
 function Input(props) {
-  const { type, label, placeholder, arialabel, ariadescribe, onChange, name } = props
+  const { type, label, placeholder, arialabel, ariadescribe, onChange, name, as } = props
   return (
     <>
       <Form.Label>{label}</Form.Label>
@@ -24,6 +24,7 @@ function Input(props) {
         aria-describedby={ariadescribe}
         onChange={onChange}
         name={name}
+        as={as}
       />
     </>
   )

@@ -1,16 +1,10 @@
 import * as filestack from 'filestack-js'
-import { Component, useState } from 'react'
-import { Button, Container } from 'react-bootstrap'
-import dynamic from 'next/dynamic'
+import React, { Component, useEffect, useState } from 'react'
+import { Button, Container, Spinner } from 'react-bootstrap'
 import { client } from 'filestack-react'
-import AssessmentCSS from '../styles/Assessment.module.css'
-// disable server-side rendering for filepicker
-const InlinePicker = dynamic(
-  import('../node_modules/filestack-react/dist/filestack-react').then((p) => p.PickerInline),
-  {
-    ssr: false
-  }
-)
+import '../styles/Assessment.module.css'
+import Summary from './Summary'
+import vThumb from '../videothumb.png'
 
 /**
  * Filepicker component.
@@ -26,48 +20,111 @@ const InlinePicker = dynamic(
  * @author Victor
  * @author Ellaira
  */
-function FilePicker({ displaymode, container, h, w }) {
+function FilePicker(props) {
+  const { pickerCallback } = props
+  const [file, setFile] = useState({ name: '', fileURL: '' })
+  const [loading, setLoading] = useState(false)
+
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
-  const containerName = `#${container}`
-
-  const options = {
+  const filestackCDN = 'https://cdn.filestackcontent.com/'
+  const clientOptions = {
+    security: {
+      policy: process.env.NEXT_PUBLIC_FS_POLICY,
+      signature: process.env.NEXT_PUBLIC_FS_SIGNATURE
+    }
+  }
+  const pickerOptions = {
     storeTo: {
-      workflows: ['4b88240f-b06c-4fa4-9b3a-37a3e423b692'],
-      location: 'azure',
-      path: '/DRA_uploads/'
+      workflows: ['5d9ba7b9-2dbe-45ae-86bf-71dee785dcac']
     },
-    container: containerName,
-    displayMode: displaymode,
-    fromSources: ['local_file_system'],
-    viewType: 'list',
+    fromSources: ['local_file_system', 'video', 'webcam'],
     disableTransformer: true,
-    uploadInBackground: true
+    uploadInBackground: true,
+    accept: ['image/*', 'video/*', 'audio/*'],
+    onFileSelected: (file) => sanitizeFilename(file),
+    onUploadDone: (res) => getMetaData(res.filesUploaded[0])
+    //getMetaData(res.filesUploaded[0])
   }
 
+  const parser = (res) => {
+    //res.filesUploaded[0]
+    return res.workflows[pickerOptions.storeTo.workflows[0]].jobid
+  }
   // initialise filestack client
-  const c = client.init(apikey, options)
+  const c = client.init(apikey, clientOptions)
 
-  //return metadata
-  const getMetadata = (res) => {
-    c.metadata(res.filesUploaded[0].handle)
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+  const sanitizeFilename = (file) => {
+    const newName = file.filename.replace(/\s/g, '')
+    return { ...file, filename: newName }
   }
 
+  const getMetaData = async (res) => {
+    setLoading(true)
+    const job = parser(res)
+    let data
+    const webhook = await fetch(`${server}/api/files/webhook`, {
+      method: 'POST',
+      body: JSON.stringify({ jobid: job }),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
+    })
+
+    const response = await webhook.json()
+
+    // set thumbnail, and pass url to parent
+    if (response) {
+      const {
+        results: {
+          store: {
+            data: { filename, handle, url, type }
+          }
+        }
+      } = response
+      pickerCallback(
+        `${filestackCDN}/security=p:${process.env.NEXT_PUBLIC_FS_POLICY},s:${process.env.NEXT_PUBLIC_FS_SIGNATURE}/cache=false/${handle}`
+      )
+      setThumbnail(filename, type, url)
+      setLoading(false)
+    }
+  }
+
+  //check MIME type
+  const checkMIME = (type, url) => {
+    if (type.includes('video')) {
+      return vThumb.src
+    }
+    return url + `?policy=${process.env.NEXT_PUBLIC_FS_POLICY}&signature=${process.env.NEXT_PUBLIC_FS_SIGNATURE}`
+  }
+
+  const setThumbnail = (fname, type, url) => {
+    const thumbURL = checkMIME(type, url)
+    //setFile({ ...file, name: e.filename, fileURL: thumbURL })
+    setFile({ ...file, name: fname, fileURL: thumbURL ? thumbURL : url })
+  }
+
+  const openPicker = () => {
+    c.picker(pickerOptions).open()
+  }
+
+  const LoadingSpinner = () => {
+    return (
+      <>
+        <div className="d-block mb-3 mt-3">
+          <Spinner animation="border" variant="warning" />
+          <p className="text-muted lead d-inline m-2">
+            <i>We're processing your file for you</i>
+          </p>
+        </div>
+      </>
+    )
+  }
   return (
     <>
-      <div id="inline" style={{ height: h, width: w }}>
-        <InlinePicker
-          apikey={c.session.apikey}
-          pickerOptions={c.options}
-          onError={(err) => console.error(err)}
-          onUploadDone={(res) => getMetadata(res)}
-        />
-      </div>
+      <Button onClick={() => openPicker()} className="btn btn-primary">
+        Upload file
+      </Button>
+
+      {loading ? LoadingSpinner() : ''}
+      {file.fileURL ? <Summary name={file.name} fileURL={file.fileURL} /> : ''}
     </>
   )
 }
