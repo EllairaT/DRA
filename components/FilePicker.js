@@ -53,7 +53,7 @@ function FilePicker(props) {
     setLoading(true)
     const job = parser(res)
     let data
-    const webhook = await fetch(`/api/files/webhook`, {
+    const webhook = await fetch('/api/files/webhook', {
       method: 'POST',
       body: JSON.stringify({ jobid: job }),
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' }

@@ -37,7 +37,7 @@ function JobForm({ userId }) {
   // Gets the entry just made
   const FindId = async () => {
     try {
-      const jobRes = await fetch(`/api/jobs`, {
+      const jobRes = await fetch('/api/jobs', {
         // calling method type
         method: 'COPY'
       })
