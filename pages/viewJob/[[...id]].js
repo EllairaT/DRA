@@ -29,7 +29,7 @@ function JobView({ jobs }) {
 }
 
 export async function getServerSideProps(context) {
-  const jobRes = await fetch('/api/jobs')
+  const jobRes = await fetch(`${server}/api/jobs`)
   // get json response for job
   const { data } = await jobRes.json()
   return {

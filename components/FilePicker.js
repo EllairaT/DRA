@@ -53,7 +53,11 @@ function FilePicker(props) {
     setLoading(true)
     const job = parser(res)
     let data
+<<<<<<< HEAD
     const webhook = await fetch('/api/files/webhook', {
+=======
+    const webhook = await fetch(`${server}/api/files/webhook`, {
+>>>>>>> parent of 842bbc9 (removed server variable from fetch middleware)
       method: 'POST',
       body: JSON.stringify({ jobid: job }),
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
