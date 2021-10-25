@@ -62,7 +62,7 @@ function NewDRAForm(props) {
   const createAssessment = async () => {
     console.log(assessment)
     try {
-      const res = await fetch(`${server}/api/jobs/${id}`, {
+      const res = await fetch(`/api/jobs/${id}`, {
         // calling method type
         method: 'PUT',
         headers: {
