@@ -37,11 +37,7 @@ function JobForm({ userId }) {
   // Gets the entry just made
   const FindId = async () => {
     try {
-<<<<<<< HEAD
-      const jobRes = await fetch('/api/jobs', {
-=======
       const jobRes = await fetch(`${server}/api/jobs`, {
->>>>>>> parent of 842bbc9 (removed server variable from fetch middleware)
         // calling method type
         method: 'COPY'
       })
