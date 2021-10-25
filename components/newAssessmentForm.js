@@ -76,7 +76,6 @@ function NewDRAForm(props) {
     } catch (error) {
       setVariant('danger')
       setText('Failed please try again')
-      console.log(error)
     }
   }
 
