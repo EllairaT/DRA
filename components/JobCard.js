@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import { Clock, Phone, Geo } from 'react-bootstrap-icons'
 import { Row, Card, DropdownButton, Dropdown } from 'react-bootstrap'
 import Input from './Input'
-import { useState } from 'react'
 
 /**
  * Bootstrap Card that contains job information
@@ -12,11 +12,10 @@ import { useState } from 'react'
  * @author Victor
  */
 function JobCard({ job }) {
-
   const [date, setDate] = useState(job.date)
 
-  function formatDate(){
-    return date.substring(8,10)+'/'+date.substring(5,7)+'/'+date.substring(0,4)
+  function formatDate() {
+    return `${date.substring(8, 10)}/${date.substring(5, 7)}/${date.substring(0, 4)}`
   }
 
   return (
@@ -43,8 +42,8 @@ function JobCard({ job }) {
             {formatDate()}
             {/* {date} */}
           </p>
-          {/* DropDown menu*/}
-          <DropdownButton variant='Secondary' title=''>
+          {/* DropDown menu */}
+          <DropdownButton variant="Secondary" title="">
             <Dropdown.Item href={`../createAssessment/${job._id}`}>Add assessment</Dropdown.Item>
             <Dropdown.Item href={`../viewJob/${job._id}`}>View Job</Dropdown.Item>
           </DropdownButton>

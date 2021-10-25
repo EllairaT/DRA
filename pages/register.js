@@ -3,6 +3,7 @@ import { signIn, getSession, getProviders } from 'next-auth/react'
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import Input from '../components/Input'
+import { server } from '../config/index'
 
 /**
  *

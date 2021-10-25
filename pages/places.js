@@ -16,7 +16,7 @@ function Places() {
         <script
           async
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDor5APMdLLIrbWeShLLUlpIjqmskJ_qjU&libraries=places"
-        ></script>{' '}
+        />
       </Head>
 
       <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}>

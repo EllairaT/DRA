@@ -1,7 +1,7 @@
-import { Row, Col } from 'react-bootstrap'
-import thumbnail from '../styles/thumbnail.module.css'
-import cx from 'classnames'
 import { useState } from 'react'
+import { Row, Col } from 'react-bootstrap'
+import cx from 'classnames'
+import thumbnail from '../styles/thumbnail.module.css'
 
 function Summary(props) {
   const { fileURL, name } = props

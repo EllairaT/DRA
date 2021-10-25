@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { server } from '../../../config/index'
 
 export default NextAuth({
   providers: [

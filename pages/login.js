@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import Input from '../components/Input'
 import logoimg from '../1.png'
 import login from '../styles/login.module.css'
+import { server } from '../config/index'
 
 /**
  *

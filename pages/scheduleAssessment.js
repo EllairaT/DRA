@@ -1,7 +1,7 @@
-import Container from 'react-bootstrap/Container'
-import { useSession, getSession } from 'next-auth/react'
-import Form from '../components/JobForm'
 import React, { Component, useState } from 'react'
+import { useSession, getSession } from 'next-auth/react'
+import Container from 'react-bootstrap/Container'
+import Form from '../components/JobForm'
 import { server } from '../config'
 
 function ScheduleAssessment() {
@@ -15,13 +15,14 @@ function ScheduleAssessment() {
       })
       const { data } = await userRes.json()
       setId(data._id)
-
     } catch (error) {
-      console.log(error)
+      return false
     }
+    return true
   }
+
   getUserId()
-  console.log(id)
+
   return (
     <>
       <Container>

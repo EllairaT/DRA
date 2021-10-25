@@ -4,6 +4,7 @@ import cx from 'classnames'
 import JobCard from '../components/JobCard'
 // import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
+import { server } from '../config/index'
 
 /**
  * @category Pages
@@ -18,9 +19,8 @@ function Home({ jobs }) {
   // access session
   const { data: session, status } = useSession()
 
-  // sort From newest to oldest booking date 
+  // sort From newest to oldest booking date
   jobs.sort((a, b) => new Date(b.date) - new Date(a.date))
-  
 
   if (status === 'loading') {
     return <h1>loading...</h1>
@@ -30,7 +30,7 @@ function Home({ jobs }) {
   const printJobs = () => (
     <>
       {jobs.map((job, i) => (
-        <JobCard job={job} key={i} />
+        <JobCard job={job} key={job._id} />
       ))}
     </>
   )

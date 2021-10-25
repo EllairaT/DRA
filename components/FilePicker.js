@@ -5,6 +5,7 @@ import { client } from 'filestack-react'
 import '../styles/Assessment.module.css'
 import Summary from './Summary'
 import vThumb from '../videothumb.png'
+import { server } from '../config/index'
 
 /**
  * Filepicker component.
@@ -24,7 +25,7 @@ function FilePicker(props) {
   const { pickerCallback } = props
   const [file, setFile] = useState({ name: '', fileURL: '' })
   const [loading, setLoading] = useState(false)
-
+  const workflow = '5d9ba7b9-2dbe-45ae-86bf-71dee785dcac'
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
   const filestackCDN = 'https://cdn.filestackcontent.com/'
   const clientOptions = {
@@ -33,30 +34,20 @@ function FilePicker(props) {
       signature: process.env.NEXT_PUBLIC_FS_SIGNATURE
     }
   }
-  const pickerOptions = {
-    storeTo: {
-      workflows: ['5d9ba7b9-2dbe-45ae-86bf-71dee785dcac']
-    },
-    fromSources: ['local_file_system', 'video', 'webcam'],
-    disableTransformer: true,
-    uploadInBackground: true,
-    accept: ['image/*', 'video/*', 'audio/*'],
-    onFileSelected: (file) => sanitizeFilename(file),
-    onUploadDone: (res) => getMetaData(res.filesUploaded[0])
-    //getMetaData(res.filesUploaded[0])
+
+  const checkMIME = (type, url) => {
+    if (type.includes('video')) {
+      return vThumb.src
+    }
+    return `${url}?policy=${process.env.NEXT_PUBLIC_FS_POLICY}&signature=${process.env.NEXT_PUBLIC_FS_SIGNATURE}`
   }
 
-  const parser = (res) => {
-    //res.filesUploaded[0]
-    return res.workflows[pickerOptions.storeTo.workflows[0]].jobid
+  const setThumbnail = (fname, type, url) => {
+    const thumbURL = checkMIME(type, url)
+    setFile({ ...file, name: fname, fileURL: thumbURL })
   }
-  // initialise filestack client
-  const c = client.init(apikey, clientOptions)
 
-  const sanitizeFilename = (file) => {
-    const newName = file.filename.replace(/\s/g, '')
-    return { ...file, filename: newName }
-  }
+  const parser = (res) => res.workflows[workflow].jobid
 
   const getMetaData = async (res) => {
     setLoading(true)
@@ -87,36 +78,41 @@ function FilePicker(props) {
     }
   }
 
-  //check MIME type
-  const checkMIME = (type, url) => {
-    if (type.includes('video')) {
-      return vThumb.src
-    }
-    return url + `?policy=${process.env.NEXT_PUBLIC_FS_POLICY}&signature=${process.env.NEXT_PUBLIC_FS_SIGNATURE}`
+  const sanitizeFilename = (f) => {
+    const newName = f.filename.replace(/\s/g, '')
+    return { ...file, filename: newName }
   }
 
-  const setThumbnail = (fname, type, url) => {
-    const thumbURL = checkMIME(type, url)
-    //setFile({ ...file, name: e.filename, fileURL: thumbURL })
-    setFile({ ...file, name: fname, fileURL: thumbURL ? thumbURL : url })
+  const pickerOptions = {
+    storeTo: {
+      workflows: workflow
+    },
+    fromSources: ['local_file_system', 'video', 'webcam'],
+    disableTransformer: true,
+    uploadInBackground: true,
+    accept: ['image/*', 'video/*', 'audio/*'],
+    onFileSelected: (fn) => sanitizeFilename(fn),
+    onUploadDone: (res) => getMetaData(res.filesUploaded[0])
   }
+
+  // initialise filestack client
+  const c = client.init(apikey, clientOptions)
 
   const openPicker = () => {
     c.picker(pickerOptions).open()
   }
 
-  const LoadingSpinner = () => {
-    return (
-      <>
-        <div className="d-block mb-3 mt-3">
-          <Spinner animation="border" variant="warning" />
-          <p className="text-muted lead d-inline m-2">
-            <i>We're processing your file for you</i>
-          </p>
-        </div>
-      </>
-    )
-  }
+  const LoadingSpinner = () => (
+    <>
+      <div className="d-block mb-3 mt-3">
+        <Spinner animation="border" variant="warning" />
+        <p className="text-muted lead d-inline m-2">
+          <i>We&#39re processing your file for you</i>
+        </p>
+      </div>
+    </>
+  )
+
   return (
     <>
       <Button onClick={() => openPicker()} className="btn btn-primary">

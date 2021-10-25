@@ -2,13 +2,13 @@ import { Container, Row, Form, Col, Button, Alert, FloatingLabel } from 'react-b
 import React, { Component, useState } from 'react'
 import Image from 'next/image'
 import { react } from '@babel/types'
+import cx from 'classnames'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
 import { server } from '../config'
 import FilePicker from './FilePicker'
-import cx from 'classnames'
 
 /**
  * Functional Component that returns a Form to add Job information
@@ -30,6 +30,7 @@ import cx from 'classnames'
  * @author Victor
  */
 function NewDRAForm(props) {
+  const { id } = props
   const [assessment, setAssessment] = useState({
     JobSite: '',
     Notes: '',
@@ -48,7 +49,7 @@ function NewDRAForm(props) {
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
 
-  const [id, setId] = useState(props.id)
+  // const [jobId, setJobId] = useState(id)
 
   /**
    * Function to store to database
