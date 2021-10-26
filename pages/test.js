@@ -1,3 +1,6 @@
+import { useSession, getSession, signIn } from 'next-auth/react'
+import { server } from '../config/index'
+
 export default function test({ jobs }) {
   console.log(jobs)
   return (
