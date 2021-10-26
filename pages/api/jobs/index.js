@@ -1,11 +1,12 @@
-import connectToDatabase from '../../../lib/dbConnect'
+import { connectToDatabase } from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
-
-connectToDatabase()
+const clientPromise = require('../../../lib/dbConnect')
+const ObjectId = require('mongodb').ObjectID
+//connectToDatabase()
 
 export default async function jobReqs(req, res) {
   const { method } = req
-
+  let { db } = await connectToDatabase()
   // testing url http://localhost:3000/api/jobs
 
   // testing for post
@@ -24,15 +25,19 @@ export default async function jobReqs(req, res) {
 
   switch (method) {
     case 'GET':
-      try {
-        // get all jobs
-        const job = await Job.find({})
+      // try {
+      //   // get all jobs
+      //   const job = await Job.find({})
 
-        res.status(200).json({ data: job })
-      } catch (error) {
-        res.status(400).json({ success: false })
-      }
-      break
+      //   res.status(200).json({ data: job })
+      // } catch (error) {
+      //   res.status(400).json({ success: false })
+      // }
+      const jobs = await db.collection('jobs').find({}).toArray()
+      return res.json({
+        data: JSON.parse(JSON.stringify(jobs)),
+        success: true
+      })
 
     case 'POST':
       try {

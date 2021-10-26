@@ -1,6 +1,3 @@
-import { useSession, getSession, signIn } from 'next-auth/react'
-import { server } from '../config/index'
-
 export default function test({ jobs }) {
   console.log(jobs)
   return (
@@ -13,17 +10,4 @@ export default function test({ jobs }) {
       </form>
     </div>
   )
-}
-export async function getServerSideProps(context) {
-  // const res = await fetch(`${server}/api/jobs`)
-  // fetch data
-  const jobRes = await fetch(`${server}/api/jobs`)
-  // get json response for job
-  const { data } = await jobRes.json()
-  return {
-    props: {
-      jobs: data,
-      session: await getSession(context)
-    }
-  }
 }
