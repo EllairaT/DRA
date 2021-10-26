@@ -1,9 +1,8 @@
-import { connectToDatabase } from '../../../lib/dbConnect'
+import connectToDatabase from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
-const clientPromise = require('../../../lib/dbConnect')
-const ObjectId = require('mongodb').ObjectID
 
 export default async function jobReqs(req, res) {
+  connectToDatabase()
   const { method } = req
 
   // testing url http://localhost:3000/api/jobs
