@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 import '../styles/login.css'
 import { Container, Row, Col } from 'react-bootstrap'
-import Navi from '../components/Navi'
 import SSRProvider from 'react-bootstrap/SSRProvider'
+import Navi from '../components/Navi'
 
 /**
  *

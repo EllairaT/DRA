@@ -107,7 +107,7 @@ function FilePicker(props) {
       <div className="d-block mb-3 mt-3">
         <Spinner animation="border" variant="warning" />
         <p className="text-muted lead d-inline m-2">
-          <i>{"We're processing your file for you"}</i>
+          <i>Please wait while we process your file.</i>
         </p>
       </div>
     </>
