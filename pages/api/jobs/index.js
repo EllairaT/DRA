@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectID
 
 export default async function jobReqs(req, res) {
   const { method } = req
-  const { db } = await connectToDatabase()
+
   // testing url http://localhost:3000/api/jobs
 
   // testing for post
@@ -24,20 +24,16 @@ export default async function jobReqs(req, res) {
 
   switch (method) {
     case 'GET':
-      // try {
-      //   // get all jobs
-      //   const job = await Job.find({})
+      try {
+        // get all jobs
+        const job = await Job.find()
 
-      //   res.status(200).json({ data: job })
-      // } catch (error) {
-      //   res.status(400).json({ success: false })
-      // }
-      const jobs = await db.collection('jobs').find({}).toArray()
-      res.json({
-        data: JSON.parse(JSON.stringify(jobs)),
-        success: true
-      })
+        res.status(200).json({ data: job })
+      } catch (error) {
+        res.status(400).json({ success: false })
+      }
       break
+
     case 'POST':
       try {
         // create new job

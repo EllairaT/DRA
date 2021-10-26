@@ -17,22 +17,20 @@ function CustomApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     // provide ability to pass session around the app
     <SessionProvider session={session}>
-      <SSRProvider>
-        <Container>
-          <Row>
-            {/* sidebar. if there is a session, show sidebar */}
-            {session && (
-              <Col md={2}>
-                <Navi />
-              </Col>
-            )}
-            <Col>
-              {/* provide pageProps to the current component */}
-              <Component {...pageProps} />
+      <Container>
+        <Row>
+          {/* sidebar. if there is a session, show sidebar */}
+          {session && (
+            <Col md={2}>
+              <Navi />
             </Col>
-          </Row>
-        </Container>
-      </SSRProvider>
+          )}
+          <Col>
+            {/* provide pageProps to the current component */}
+            <Component {...pageProps} />
+          </Col>
+        </Row>
+      </Container>
     </SessionProvider>
   )
 }

@@ -3,8 +3,6 @@ import connectToDatabase from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
 import User from '../../../models/users.model'
 
-const mongoose = require('mongoose')
-
 connectToDatabase()
 
 async function jobReqs(req, res) {

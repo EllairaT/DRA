@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Container from 'react-bootstrap/Container'
-import { Clock, Phone, Geo, TypeH3 } from 'react-bootstrap-icons'
+import { Clock, Phone, Geo } from 'react-bootstrap-icons'
 import { Row, Card, DropdownButton, Dropdown } from 'react-bootstrap'
+import Input from './Input'
 
 /**
  * Bootstrap Card that contains job information
