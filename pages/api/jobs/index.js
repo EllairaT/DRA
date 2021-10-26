@@ -2,11 +2,10 @@ import { connectToDatabase } from '../../../lib/dbConnect'
 import Job from '../../../models/job.model'
 const clientPromise = require('../../../lib/dbConnect')
 const ObjectId = require('mongodb').ObjectID
-//connectToDatabase()
 
 export default async function jobReqs(req, res) {
   const { method } = req
-  let { db } = await connectToDatabase()
+  const { db } = await connectToDatabase()
   // testing url http://localhost:3000/api/jobs
 
   // testing for post
@@ -34,11 +33,11 @@ export default async function jobReqs(req, res) {
       //   res.status(400).json({ success: false })
       // }
       const jobs = await db.collection('jobs').find({}).toArray()
-      return res.json({
+      res.json({
         data: JSON.parse(JSON.stringify(jobs)),
         success: true
       })
-
+      break
     case 'POST':
       try {
         // create new job

@@ -2,7 +2,6 @@ import { Row, Col, Button, Modal } from 'react-bootstrap'
 import { useSession, getSession, signIn } from 'next-auth/react'
 import cx from 'classnames'
 import JobCard from '../components/JobCard'
-// import createAssessment from './createAssessment'
 import indexCSS from '../styles/index.module.css'
 import { server } from '../config/index'
 
