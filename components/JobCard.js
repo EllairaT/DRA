@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import Container from 'react-bootstrap/Container'
-import { Clock, Phone, Geo } from 'react-bootstrap-icons'
+import { Clock, Phone, Geo, TypeH3 } from 'react-bootstrap-icons'
 import { Row, Card, DropdownButton, Dropdown } from 'react-bootstrap'
-import Input from './Input'
 
 /**
  * Bootstrap Card that contains job information
@@ -20,11 +19,11 @@ function JobCard({ job }) {
 
   return (
     <>
-      <Card style={{ width: '50rem' }}>
-        <Container>
-          <h1>
-            {job.site} | {job.siteType}
-          </h1>
+      <Card style={{ width: '50rem' }} className="mb-3">
+        <Container fluid>
+          <p className="h2">
+            {job.site} | <small className="text-muted">{job.siteType}</small>
+          </p>
           <p>
             <Geo size={20} />
             &nbsp;
@@ -43,7 +42,8 @@ function JobCard({ job }) {
             {/* {date} */}
           </p>
           {/* DropDown menu */}
-          <DropdownButton variant="Secondary" title="">
+          <hr className="m-0" />
+          <DropdownButton variant="Secondary" title="Actions" drop="end">
             <Dropdown.Item href={`../createAssessment/${job._id}`}>Add assessment</Dropdown.Item>
             <Dropdown.Item href={`../viewJob/${job._id}`}>View Job</Dropdown.Item>
           </DropdownButton>

@@ -25,7 +25,7 @@ function FilePicker(props) {
   const { pickerCallback } = props
   const [file, setFile] = useState({ name: '', fileURL: '' })
   const [loading, setLoading] = useState(false)
-  const workflow = '5d9ba7b9-2dbe-45ae-86bf-71dee785dcac'
+  const workflow = ['5d9ba7b9-2dbe-45ae-86bf-71dee785dcac']
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
   const filestackCDN = 'https://cdn.filestackcontent.com/'
   const clientOptions = {
@@ -107,7 +107,7 @@ function FilePicker(props) {
       <div className="d-block mb-3 mt-3">
         <Spinner animation="border" variant="warning" />
         <p className="text-muted lead d-inline m-2">
-          <i>We&#39re processing your file for you</i>
+          <i>{"We're processing your file for you"}</i>
         </p>
       </div>
     </>
