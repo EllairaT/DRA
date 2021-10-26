@@ -1,4 +1,5 @@
-export default function test() {
+export default function test({ jobs }) {
+  console.log(jobs)
   return (
     <div>
       <small>
@@ -9,4 +10,17 @@ export default function test() {
       </form>
     </div>
   )
+}
+export async function getServerSideProps(context) {
+  // const res = await fetch(`${server}/api/jobs`)
+  // fetch data
+  const jobRes = await fetch(`${server}/api/jobs`)
+  // get json response for job
+  const { data } = await jobRes.json()
+  return {
+    props: {
+      jobs: data,
+      session: await getSession(context)
+    }
+  }
 }
