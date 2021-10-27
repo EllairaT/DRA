@@ -20,7 +20,6 @@ function ScheduleAssessment() {
     }
     return true
   }
-
   getUserId()
 
   return (
