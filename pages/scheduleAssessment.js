@@ -10,7 +10,7 @@ function ScheduleAssessment() {
 
   async function getUserId() {
     try {
-      const userRes = await fetch(`${server}/api/jobs/${session.user.email}`, {
+      const userRes = await fetch(`/api/jobs/${session.user.email}`, {
         method: 'COPY'
       })
       const { data } = await userRes.json()
