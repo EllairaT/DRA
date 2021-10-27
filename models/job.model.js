@@ -17,7 +17,6 @@ const assessmentSchema = new Schema({
   }
 })
 
-
 /**
  * model for job
  * @typedef {Object} jobSchema
@@ -42,7 +41,7 @@ const jobSchema = new Schema({
   notes: String,
   siteTags: [String],
   // Not working yet can still can be changed
-  assessments: [ assessmentSchema ],
+  assessments: [assessmentSchema],
   createdAt: {
     type: Date,
     default: new Date()

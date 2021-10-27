@@ -35,6 +35,7 @@ async function jobReqs(req, res) {
 
     case 'PUT':
       // Update Job by ID
+      console.log(req.body)
       try {
         const job = await Job.findByIdAndUpdate(id, req.body)
 

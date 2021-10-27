@@ -61,6 +61,7 @@ function NewDRAForm(props) {
   // Stores to database
   const createAssessment = async () => {
     console.log(assessment)
+    setRequestBody()
     try {
       const res = await fetch(`${server}/api/jobs/${id}`, {
         // calling method type
@@ -69,7 +70,13 @@ function NewDRAForm(props) {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body)
+        // please just keep this
+        body: JSON.stringify({
+          // push adds element to array
+          $push: {
+            assessments: assessment
+          }
+        })
       })
       setVariant('success')
       setText('Success, you may now return home or make another assessment for this job')
@@ -90,7 +97,6 @@ function NewDRAForm(props) {
     e.preventDefault()
     setVariant('')
     setText('')
-
     createAssessment()
   }
 
@@ -107,7 +113,10 @@ function NewDRAForm(props) {
     const p = assessment[name]
     // assessment[name] = value
     setAssessment({ ...assessment, [name]: value })
+    setRequestBody()
+  }
 
+  const setRequestBody = () => {
     // setBody is here because OnSubmit it won't work unless buttom is pressed twice
     setBody({
       // push adds element to array
@@ -116,6 +125,7 @@ function NewDRAForm(props) {
       }
     })
   }
+
   return (
     <>
       <Container>
@@ -154,7 +164,7 @@ function NewDRAForm(props) {
                 </Row>
               </Col>
               <Col id="fpInline" className="mb-3 mt-3">
-                <FilePicker pickerCallback={pickerHandleCallback} />
+                <FilePicker pickerCallback={pickerHandleCallback} onChange={inputsHandler} name="URL" />
               </Col>
             </Container>
 
