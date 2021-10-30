@@ -51,6 +51,15 @@ function NewDRAForm(props) {
 
   // const [jobId, setJobId] = useState(id)
 
+  const setRequestBody = () => {
+    // setBody is here because OnSubmit it won't work unless buttom is pressed twice
+    setBody({
+      // push adds element to array
+      $push: {
+        assessments: assessment
+      }
+    })
+  }
   /**
    * Function to store to database
    * @async
@@ -114,16 +123,6 @@ function NewDRAForm(props) {
     // assessment[name] = value
     setAssessment({ ...assessment, [name]: value })
     setRequestBody()
-  }
-
-  const setRequestBody = () => {
-    // setBody is here because OnSubmit it won't work unless buttom is pressed twice
-    setBody({
-      // push adds element to array
-      $push: {
-        assessments: assessment
-      }
-    })
   }
 
   return (

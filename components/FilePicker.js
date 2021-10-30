@@ -11,12 +11,6 @@ import { server } from '../config/index'
  * Filepicker component.
  *
  * @component
- * @param {string} [displaymode=inline] - sets display mode for the filepicker.
- * @param {string} h - set height of file picker
- * @param {string} w - set width of file picker
- * @property {string} apikey - api key for filestack
- * @property {Object} client - client object
- * @property {Object} options - options for the filepicker
  * @returns {Component} Filestack FilePicker
  * @author Victor
  * @author Ellaira
@@ -25,6 +19,7 @@ function FilePicker(props) {
   const { pickerCallback } = props
   const [file, setFile] = useState({ name: '', fileURL: '' })
   const [loading, setLoading] = useState(false)
+  // need to update this
   const workflow = ['5d9ba7b9-2dbe-45ae-86bf-71dee785dcac']
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
   const filestackCDN = 'https://cdn.filestackcontent.com/'
