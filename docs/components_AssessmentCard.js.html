@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> components/FilePicker.js</title>
+  <title> components/AssessmentCard.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>components/FilePicker.js</h1>
+                    <h1>components/AssessmentCard.js</h1>
                 </header>
                 
 
@@ -85,128 +85,40 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import * as filestack from 'filestack-js'
-import React, { Component, useEffect, useState } from 'react'
-import { Button, Container, Spinner } from 'react-bootstrap'
-import { client } from 'filestack-react'
-import '../styles/Assessment.module.css'
-import Summary from './Summary'
-import vThumb from '../videothumb.png'
-import { server } from '../config/index'
+            <pre class="prettyprint source linenums"><code>import { Container, Row, Form, Col, Button, Alert, FloatingLabel, Card } from 'react-bootstrap'
+import Input from './Input'
 
 /**
- * Filepicker component.
- *
  * @component
- * @returns {Component} Filestack FilePicker
  * @author Victor
- * @author Ellaira
  */
-function FilePicker(props) {
-  const { pickerCallback } = props
-  const [file, setFile] = useState({ name: '', fileURL: '' })
-  const [loading, setLoading] = useState(false)
-  // need to update this
-  const workflow = ['5d9ba7b9-2dbe-45ae-86bf-71dee785dcac']
-  const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
-  const filestackCDN = 'https://cdn.filestackcontent.com/'
-  const clientOptions = {
-    security: {
-      policy: process.env.NEXT_PUBLIC_FS_POLICY,
-      signature: process.env.NEXT_PUBLIC_FS_SIGNATURE
-    }
-  }
+function AssessmentCard({ assessment }) {
+    return (
+        &lt;>
+            &lt;Container>
+                &lt;Card>
+                    &lt;Card.Header>{assessment.JobSite}&lt;/Card.Header>
+                    &lt;Card.Body>
 
-  const checkMIME = (type, url) => {
-    if (type.includes('video')) {
-      return vThumb.src
-    }
-    return `${url}?policy=${process.env.NEXT_PUBLIC_FS_POLICY}&amp;signature=${process.env.NEXT_PUBLIC_FS_SIGNATURE}`
-  }
-
-  const setThumbnail = (fname, type, url) => {
-    const thumbURL = checkMIME(type, url)
-    setFile({ ...file, name: fname, fileURL: thumbURL })
-  }
-
-  const parser = (res) => res.workflows[workflow].jobid
-
-  const getMetaData = async (res) => {
-    setLoading(true)
-    const job = parser(res)
-    let data
-    const webhook = await fetch(`${server}/api/files/webhook`, {
-      method: 'POST',
-      body: JSON.stringify({ jobid: job }),
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
-    })
-
-    const response = await webhook.json()
-
-    // set thumbnail, and pass url to parent
-    if (response) {
-      const {
-        results: {
-          store: {
-            data: { filename, handle, url, type }
-          }
-        }
-      } = response
-      pickerCallback(
-        `${filestackCDN}/security=p:${process.env.NEXT_PUBLIC_FS_POLICY},s:${process.env.NEXT_PUBLIC_FS_SIGNATURE}/cache=false/${handle}`
-      )
-      setThumbnail(filename, type, url)
-      setLoading(false)
-    }
-  }
-
-  const sanitizeFilename = (f) => {
-    const newName = f.filename.replace(/\s/g, '')
-    return { ...file, filename: newName }
-  }
-
-  const pickerOptions = {
-    storeTo: {
-      workflows: workflow
-    },
-    fromSources: ['local_file_system', 'video', 'webcam'],
-    disableTransformer: true,
-    uploadInBackground: true,
-    accept: ['image/*', 'video/*', 'audio/*'],
-    onFileSelected: (fn) => sanitizeFilename(fn),
-    onUploadDone: (res) => getMetaData(res.filesUploaded[0])
-  }
-
-  // initialise filestack client
-  const c = client.init(apikey, clientOptions)
-
-  const openPicker = () => {
-    c.picker(pickerOptions).open()
-  }
-
-  const LoadingSpinner = () => (
-    &lt;>
-      &lt;div className="d-block mb-3 mt-3">
-        &lt;Spinner animation="border" variant="warning" />
-        &lt;p className="text-muted lead d-inline m-2">
-          &lt;i>Please wait while we process your file.&lt;/i>
-        &lt;/p>
-      &lt;/div>
-    &lt;/>
-  )
-
-  return (
-    &lt;>
-      &lt;Button onClick={() => openPicker()} className="btn btn-primary">
-        Upload file
-      &lt;/Button>
-
-      {loading ? LoadingSpinner() : ''}
-      {file.fileURL ? &lt;Summary name={file.name} fileURL={file.fileURL} /> : ''}
-    &lt;/>
-  )
+                        &lt;h5>
+                            Time
+                        &lt;/h5>
+                        &lt;p>
+                            {assessment.time}
+                        &lt;/p>
+                        &lt;h5>
+                            Notes
+                        &lt;/h5>
+                        &lt;p>
+                            {assessment.Notes}
+                        &lt;/p>
+                    &lt;/Card.Body>
+                &lt;/Card>
+            &lt;/Container>
+        &lt;/>
+    )
 }
-export default FilePicker
+export default AssessmentCard
 </code></pre>
         </article>
     </section>

@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li><li><a href="global.html#getServerSideProps">getServerSideProps</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Register">Register</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="AssessmentCard.html">AssessmentCard</a></li><li><a href="FilePicker.html">FilePicker</a></li><li><a href="FullJobCard.html">FullJobCard</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="JobForm.html">JobForm</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li><li><a href="global.html#getServerSideProps">getServerSideProps</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Register">Register</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>pages</h2><h3>Global</h3><ul><li><a href="global.html#Assessment">Assessment</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#JobView">JobView</a></li><li><a href="global.html#ScheduleAssessment">ScheduleAssessment</a></li></ul></div>
                 
             </nav>
         </div>
@@ -85,9 +85,10 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Container from 'react-bootstrap/Container'
+            <pre class="prettyprint source linenums"><code>import { useState } from 'react'
+import Container from 'react-bootstrap/Container'
 import { Clock, Phone, Geo } from 'react-bootstrap-icons'
-import Row from 'react-bootstrap/Row'
+import { Row, Card, DropdownButton, Dropdown } from 'react-bootstrap'
 import Input from './Input'
 
 /**
@@ -98,32 +99,44 @@ import Input from './Input'
  * @author Victor
  */
 function JobCard({ job }) {
+  const [date, setDate] = useState(job.date)
+
+  function formatDate() {
+    return `${date.substring(8, 10)}/${date.substring(5, 7)}/${date.substring(0, 4)}`
+  }
+
   return (
     &lt;>
-      &lt;Container>
-        &lt;h1>
-          {job.site} | {job.siteType}
-        &lt;/h1>
-
-        &lt;p>
-          &lt;Geo size={20} />
-          &amp;nbsp;
-          {job.siteAddress}
-        &lt;/p>
-
-        &lt;p>
-          &lt;Phone size={20} />
-          &amp;nbsp;
-          {job.phone}
-        &lt;/p>
-
-        &lt;p>
-          {/* have to be view in dd-mm hh-mm format */}
-          &lt;Clock size={20} />
-          &amp;nbsp;
-          {job.date}
-        &lt;/p>
-      &lt;/Container>
+      &lt;Card style={{ width: '50rem' }} className="mb-3">
+        &lt;Container fluid>
+          &lt;p className="h2">
+            {job.site} | &lt;small className="text-muted">{job.siteType}&lt;/small>
+          &lt;/p>
+          &lt;p>
+            &lt;Geo size={20} />
+            &amp;nbsp;
+            {job.siteAddress}
+          &lt;/p>
+          &lt;p>
+            &lt;Phone size={20} />
+            &amp;nbsp;
+            {job.phone}
+          &lt;/p>
+          &lt;p>
+            {/* have to be view in dd-mm hh-mm format */}
+            &lt;Clock size={20} />
+            &amp;nbsp;
+            {formatDate()}
+            {/* {date} */}
+          &lt;/p>
+          {/* DropDown menu */}
+          &lt;hr className="m-0" />
+          &lt;DropdownButton variant="Secondary" title="Actions" drop="end">
+            &lt;Dropdown.Item href={`../createAssessment/${job._id}`}>Add assessment&lt;/Dropdown.Item>
+            &lt;Dropdown.Item href={`../viewJob/${job._id}`}>View Job&lt;/Dropdown.Item>
+          &lt;/DropdownButton>
+        &lt;/Container>
+      &lt;/Card>
     &lt;/>
   )
 }

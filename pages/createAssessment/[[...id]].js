@@ -3,6 +3,11 @@ import { useRouter } from 'next/router'
 import { useSession, getSession } from 'next-auth/react'
 import DRAForm from '../../components/newAssessmentForm'
 
+/**
+ * @category pages
+ * @param {Object} props - ID of scheduled job
+ * @returns {void}
+ */
 function Assessment(props) {
   const {
     query: { id }

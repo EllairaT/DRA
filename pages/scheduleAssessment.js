@@ -4,6 +4,10 @@ import Container from 'react-bootstrap/Container'
 import Form from '../components/JobForm'
 import { server } from '../config'
 
+/**
+ * @category pages
+ * @returns {void}
+ */
 function ScheduleAssessment() {
   const { data: session, status } = useSession()
   const [id, setId] = useState('')

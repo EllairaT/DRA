@@ -4,13 +4,14 @@ import AssessmentCard from './AssessmentCard'
 
 /**
  * @component
+ * @returns {Component} JobCard
  * @author Victor
  */
 function FullJobCard({ props }) {
     const [job, setJob] = useState(props)
     const [assessment, setAssessment] = useState(job.assessments)
 
-    console.log(assessment)
+
     return (
         <>
             <Container>
@@ -57,11 +58,11 @@ function FullJobCard({ props }) {
                         </p>
                         <Row>
                             <Col>
-                        <h1>Assessments</h1>
-                        </Col>
-                        <Col>
-                        <Button>New Assessment</Button>
-                        </Col>
+                                <h1>Assessments</h1>
+                            </Col>
+                            <Col>
+                                <Button>New Assessment</Button>
+                            </Col>
                         </Row>
                         {/* Show if assessment is not null */}
                         {assessment && (

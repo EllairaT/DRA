@@ -6,10 +6,9 @@ import indexCSS from '../styles/index.module.css'
 import { server } from '../config/index'
 
 /**
- * @category Pages
+ * @category pages
  * @name Home
- * @param {*} param0
- * @returns {void}
+ * @param {{object}} jobs - destructured prop for jobs
  * @author Ellaira
  * @author Victor
  * @author StJohn

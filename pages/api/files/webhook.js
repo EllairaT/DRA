@@ -1,5 +1,6 @@
 // https://cdn.filestackcontent.com/<FILESTACK_API_KEY>/security=p:<POLICY>,s:<SIGNATURE>/workflow_status=job_id:<WORKFLOW_JOB_ID>
 
+// recieve webhook from filestack 
 async function getFSWebhook(req, res) {
   const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
   const policy = process.env.NEXT_PUBLIC_FS_POLICY

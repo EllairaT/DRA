@@ -4,6 +4,11 @@ import Container from 'react-bootstrap/Container'
 import Card from '../../components/FullJobCard'
 import { server } from '../../config/index'
 
+/**
+ * @category pages
+ * @param {{prop}} jobs - job objects
+ * @returns 
+ */
 function JobView({ jobs }) {
   const { data: session, status } = useSession()
   // gets the id from the url string

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> components/FilePicker.js</title>
+  <title> components/FullJobCard.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>components/FilePicker.js</h1>
+                    <h1>components/FullJobCard.js</h1>
                 </header>
                 
 
@@ -85,129 +85,95 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import * as filestack from 'filestack-js'
-import React, { Component, useEffect, useState } from 'react'
-import { Button, Container, Spinner } from 'react-bootstrap'
-import { client } from 'filestack-react'
-import '../styles/Assessment.module.css'
-import Summary from './Summary'
-import vThumb from '../videothumb.png'
-import { server } from '../config/index'
+            <pre class="prettyprint source linenums"><code>import { Container, Row, Col, Button, Card } from 'react-bootstrap'
+import React, { Component, useState } from 'react'
+import AssessmentCard from './AssessmentCard'
 
 /**
- * Filepicker component.
- *
  * @component
- * @returns {Component} Filestack FilePicker
+ * @returns {Component} JobCard
  * @author Victor
- * @author Ellaira
  */
-function FilePicker(props) {
-  const { pickerCallback } = props
-  const [file, setFile] = useState({ name: '', fileURL: '' })
-  const [loading, setLoading] = useState(false)
-  // need to update this
-  const workflow = ['5d9ba7b9-2dbe-45ae-86bf-71dee785dcac']
-  const apikey = process.env.NEXT_PUBLIC_FS_API_KEY
-  const filestackCDN = 'https://cdn.filestackcontent.com/'
-  const clientOptions = {
-    security: {
-      policy: process.env.NEXT_PUBLIC_FS_POLICY,
-      signature: process.env.NEXT_PUBLIC_FS_SIGNATURE
-    }
-  }
+function FullJobCard({ props }) {
+    const [job, setJob] = useState(props)
+    const [assessment, setAssessment] = useState(job.assessments)
 
-  const checkMIME = (type, url) => {
-    if (type.includes('video')) {
-      return vThumb.src
-    }
-    return `${url}?policy=${process.env.NEXT_PUBLIC_FS_POLICY}&amp;signature=${process.env.NEXT_PUBLIC_FS_SIGNATURE}`
-  }
 
-  const setThumbnail = (fname, type, url) => {
-    const thumbURL = checkMIME(type, url)
-    setFile({ ...file, name: fname, fileURL: thumbURL })
-  }
+    return (
+        &lt;>
+            &lt;Container>
+                &lt;Card>
+                    &lt;Card.Body>
+                        &lt;h1>{job.site}&lt;/h1>
+                        &lt;p>{job.siteType}&lt;/p>
+                        &lt;h3>
+                            Address
+                        &lt;/h3>
+                        &lt;p>
+                            {job.siteAddress}
+                        &lt;/p>
+                        &lt;Row>
+                            &lt;Col>
+                                &lt;h3>
+                                    Date
+                                &lt;/h3>
+                                &lt;p>
+                                    {job.date}
+                                &lt;/p>
+                            &lt;/Col>
+                            &lt;Col>
+                                &lt;h3>
+                                    Phone
+                                &lt;/h3>
+                                &lt;p>
+                                    {job.phone}
+                                &lt;/p>
+                            &lt;/Col>&lt;Col>
+                                &lt;h3>
+                                    Created At
+                                &lt;/h3>
+                                &lt;p>
+                                    {job.createdAt}
+                                &lt;/p>
+                            &lt;/Col>
+                        &lt;/Row>
+                        &lt;h3>
+                            Notes
+                        &lt;/h3>
+                        &lt;p>
+                            {job.notes}
+                        &lt;/p>
+                        &lt;Row>
+                            &lt;Col>
+                                &lt;h1>Assessments&lt;/h1>
+                            &lt;/Col>
+                            &lt;Col>
+                                &lt;Button>New Assessment&lt;/Button>
+                            &lt;/Col>
+                        &lt;/Row>
+                        {/* Show if assessment is not null */}
+                        {assessment &amp;&amp; (
+                            &lt;>
+                                {assessment.map((assessmentData, i) => (
+                                    &lt;AssessmentCard assessment={assessmentData} key={assessmentData.i} />
+                                ))}
+                            &lt;/>
+                        )}
+                        {assessment.length === 0 &amp;&amp; (
+                            &lt;>
+                                &lt;Card>&lt;h1>No Assessments&lt;/h1>&lt;/Card>
+                            &lt;/>
+                        )}
 
-  const parser = (res) => res.workflows[workflow].jobid
-
-  const getMetaData = async (res) => {
-    setLoading(true)
-    const job = parser(res)
-    let data
-    const webhook = await fetch(`${server}/api/files/webhook`, {
-      method: 'POST',
-      body: JSON.stringify({ jobid: job }),
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
-    })
-
-    const response = await webhook.json()
-
-    // set thumbnail, and pass url to parent
-    if (response) {
-      const {
-        results: {
-          store: {
-            data: { filename, handle, url, type }
-          }
-        }
-      } = response
-      pickerCallback(
-        `${filestackCDN}/security=p:${process.env.NEXT_PUBLIC_FS_POLICY},s:${process.env.NEXT_PUBLIC_FS_SIGNATURE}/cache=false/${handle}`
-      )
-      setThumbnail(filename, type, url)
-      setLoading(false)
-    }
-  }
-
-  const sanitizeFilename = (f) => {
-    const newName = f.filename.replace(/\s/g, '')
-    return { ...file, filename: newName }
-  }
-
-  const pickerOptions = {
-    storeTo: {
-      workflows: workflow
-    },
-    fromSources: ['local_file_system', 'video', 'webcam'],
-    disableTransformer: true,
-    uploadInBackground: true,
-    accept: ['image/*', 'video/*', 'audio/*'],
-    onFileSelected: (fn) => sanitizeFilename(fn),
-    onUploadDone: (res) => getMetaData(res.filesUploaded[0])
-  }
-
-  // initialise filestack client
-  const c = client.init(apikey, clientOptions)
-
-  const openPicker = () => {
-    c.picker(pickerOptions).open()
-  }
-
-  const LoadingSpinner = () => (
-    &lt;>
-      &lt;div className="d-block mb-3 mt-3">
-        &lt;Spinner animation="border" variant="warning" />
-        &lt;p className="text-muted lead d-inline m-2">
-          &lt;i>Please wait while we process your file.&lt;/i>
-        &lt;/p>
-      &lt;/div>
-    &lt;/>
-  )
-
-  return (
-    &lt;>
-      &lt;Button onClick={() => openPicker()} className="btn btn-primary">
-        Upload file
-      &lt;/Button>
-
-      {loading ? LoadingSpinner() : ''}
-      {file.fileURL ? &lt;Summary name={file.name} fileURL={file.fileURL} /> : ''}
-    &lt;/>
-  )
+                    &lt;/Card.Body>
+                &lt;/Card>
+            &lt;/Container>
+        &lt;/>
+    )
 }
-export default FilePicker
-</code></pre>
+
+
+export default FullJobCard</code></pre>
         </article>
     </section>
 

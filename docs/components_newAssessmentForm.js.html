@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="FilePicker.html">FilePicker</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li><li><a href="global.html#getServerSideProps">getServerSideProps</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Register">Register</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Assessment.html">Assessment</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="AssessmentCard.html">AssessmentCard</a></li><li><a href="FilePicker.html">FilePicker</a></li><li><a href="FullJobCard.html">FullJobCard</a></li><li><a href="Input.html">Input</a></li><li><a href="JobCard.html">JobCard</a></li><li><a href="JobForm.html">JobForm</a></li><li><a href="Navi.html">Navi</a></li><li><a href="NewDRAForm.html">NewDRAForm</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Prompt.html">Prompt</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CustomApp">CustomApp</a></li><li><a href="global.html#getServerSideProps">getServerSideProps</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Register">Register</a></li></ul></div><div class="category"><h2>Models</h2><h3>Modules</h3><ul><li><a href="module-Job.html">Job</a></li><li><a href="module-Users.html">Users</a></li></ul></div><div class="category"><h2>pages</h2><h3>Global</h3><ul><li><a href="global.html#Assessment">Assessment</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#JobView">JobView</a></li><li><a href="global.html#ScheduleAssessment">ScheduleAssessment</a></li></ul></div>
                 
             </nav>
         </div>
@@ -85,15 +85,16 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Container, Row, Form, Col, Button, Alert } from 'react-bootstrap'
-import React, { Component, useState, useMemo } from 'react'
+            <pre class="prettyprint source linenums"><code>import { Container, Row, Form, Col, Button, Alert, FloatingLabel } from 'react-bootstrap'
+import React, { Component, useState } from 'react'
 import Image from 'next/image'
+import { react } from '@babel/types'
+import cx from 'classnames'
 import Input from './Input'
 import logoimg from '../saveImage.jpg'
 import Prompt from './Prompt'
 import AssessmentCSS from '../styles/Assessment.module.css'
 import { server } from '../config'
-
 import FilePicker from './FilePicker'
 
 /**
@@ -116,6 +117,7 @@ import FilePicker from './FilePicker'
  * @author Victor
  */
 function NewDRAForm(props) {
+  const { id } = props
   const [assessment, setAssessment] = useState({
     JobSite: '',
     Notes: '',
@@ -123,6 +125,10 @@ function NewDRAForm(props) {
     time: `${Date()}`
   })
 
+  const pickerHandleCallback = (data) => {
+    console.log(data)
+    setAssessment({ ...assessment, URL: data })
+  }
   // help with the API body
   const [body, setBody] = useState('')
 
@@ -130,13 +136,17 @@ function NewDRAForm(props) {
   const [variant, setVariant] = useState('')
   const [text, setText] = useState('')
 
-  const [id, setId] = useState(`${props}`)
+  // const [jobId, setJobId] = useState(id)
 
-  const Picker = React.memo((props) => {
-    console.log(props)
-    return &lt;FilePicker displaymode="inline" container="fpInline" height="100px" width="100px" />
-  })
-
+  const setRequestBody = () => {
+    // setBody is here because OnSubmit it won't work unless buttom is pressed twice
+    setBody({
+      // push adds element to array
+      $push: {
+        assessments: assessment
+      }
+    })
+  }
   /**
    * Function to store to database
    * @async
@@ -146,6 +156,8 @@ function NewDRAForm(props) {
    */
   // Stores to database
   const createAssessment = async () => {
+    console.log(assessment)
+    setRequestBody()
     try {
       const res = await fetch(`${server}/api/jobs/${id}`, {
         // calling method type
@@ -154,14 +166,19 @@ function NewDRAForm(props) {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body)
+        // please just keep this
+        body: JSON.stringify({
+          // push adds element to array
+          $push: {
+            assessments: assessment
+          }
+        })
       })
       setVariant('success')
       setText('Success, you may now return home or make another assessment for this job')
     } catch (error) {
       setVariant('danger')
       setText('Failed please try again')
-      console.log(error)
     }
   }
 
@@ -189,20 +206,10 @@ function NewDRAForm(props) {
   const inputsHandler = (e) => {
     const { name } = e.target
     const { value } = e.target
-    assessment[name] = value
-    setAssessment(assessment)
-
-    // setBody is here because OnSubmit it won't work unless buttom is pressed twice
-    setBody({
-      // push adds element to array
-      $push: {
-        assessments: assessment
-      }
-    })
-  }
-
-  const uploadHandler = (e) => {
-    // function to get metadata after file is uploaded
+    const p = assessment[name]
+    // assessment[name] = value
+    setAssessment({ ...assessment, [name]: value })
+    setRequestBody()
   }
 
   return (
@@ -210,12 +217,18 @@ function NewDRAForm(props) {
       &lt;Container>
         &lt;Row className={AssessmentCSS.header}>
           &lt;h2>Create new Assessment&lt;/h2>
-          &lt;h1>{id}&lt;/h1>
         &lt;/Row>
         &lt;Form className={AssessmentCSS.form}>
           &lt;Form.Group className="mb-3" controlId="formSiteDetails">
-            &lt;Row>
+            &lt;Container fluid>
               &lt;Col>
+                &lt;Row className={AssessmentCSS.row}>
+                  &lt;FloatingLabel name="id" label="Select Job to Add Assessment">
+                    &lt;Form.Select>
+                      &lt;option>Pick a Job&lt;/option>
+                    &lt;/Form.Select>
+                  &lt;/FloatingLabel>
+                &lt;/Row>
                 &lt;Row className={AssessmentCSS.row}>
                   &lt;Input
                     type="text"
@@ -225,22 +238,29 @@ function NewDRAForm(props) {
                     onChange={inputsHandler}
                   />
                 &lt;/Row>
-                &lt;Row className={AssessmentCSS.textArea}>
+                &lt;Row className={cx(AssessmentCSS.textArea, 'mb-3 mt-3')}>
                   &lt;Input
-                    type="notes"
+                    as="textarea"
                     label="Notes"
                     placeholder="What have you noticed..."
                     name="Notes"
                     onChange={inputsHandler}
+                    htmlSize={100}
                   />
                 &lt;/Row>
               &lt;/Col>
-              &lt;Col id="fpInline">
-                &lt;Picker id="fp" />
+              &lt;Col id="fpInline" className="mb-3 mt-3">
+                &lt;FilePicker pickerCallback={pickerHandleCallback} onChange={inputsHandler} name="URL" />
               &lt;/Col>
-            &lt;/Row>
-            {/* filepicker goes here later */}
-            &lt;Button as="input" type="submit" value="Submit" className={AssessmentCSS.button} onClick={onSubmit} />
+            &lt;/Container>
+
+            &lt;Button
+              as="input"
+              type="submit"
+              value="Submit"
+              className={cx(AssessmentCSS.button, 'float-end btn-success')}
+              onClick={onSubmit}
+            />
             &lt;Prompt />
           &lt;/Form.Group>
 
@@ -267,6 +287,7 @@ function NewDRAForm(props) {
     &lt;/>
   )
 }
+
 export default NewDRAForm
 </code></pre>
         </article>
